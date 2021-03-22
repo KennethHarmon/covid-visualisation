@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.List;
 
 List<MyData> myCompleteDataList;
@@ -8,7 +9,12 @@ void settings() {
 }
 
 void setup() {
-  myCompleteDataList = MyData.loadData(loadStrings("cases-1M.csv"));
+  try {
+    myCompleteDataList = LoadData.loadData();
+  } 
+  catch (IOException e) {
+    e.printStackTrace();
+  }
   // For testing
   searchData = FilterData.filterByDate(myCompleteDataList.get(3).date, myCompleteDataList);
   for (final MyData myData : searchData) {
