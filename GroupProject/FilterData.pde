@@ -1,9 +1,10 @@
+// Miguel Arrieta, Added FilterData class that includes methods for filtering data , 5pm, 22/3/2021
 import java.util.Date;
 import java.util.List;
 
-public static final class SearchData {
+public static final class FilterData {
 
-  public static List<MyData> searchByDate(final Date searchDates, final List<MyData> myDataList) {
+  public static List<MyData> filterByDate(final Date searchDates, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
       if (matchCheck.date.equals(searchDates)) {
@@ -13,7 +14,7 @@ public static final class SearchData {
     return searchedData;
   }
 
-  public static List<MyData> searchByAdminArea(final String searchAdminArea, final List<MyData> myDataList) {
+  public static List<MyData> filterByAdminArea(final String searchAdminArea, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
       if (matchCheck.administrativeArea.equals(searchAdminArea)) {
@@ -23,7 +24,7 @@ public static final class SearchData {
     return searchedData;
   }
 
-  public static List<MyData> searchByCounty(final String searchCounties, final List<MyData> myDataList) {
+  public static List<MyData> filterByCounty(final String searchCounties, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
       if (matchCheck.county.equals(searchCounties)) {
@@ -33,7 +34,7 @@ public static final class SearchData {
     return searchedData;
   }
 
-  public static List<MyData> searchByGeoIdentifier(final String searchGeoIDS, final List<MyData> myDataList) {
+  public static List<MyData> filterByGeoIdentifier(final String searchGeoIDS, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
       if (matchCheck.geoIdentifier.equals(searchGeoIDS)) {
@@ -43,7 +44,7 @@ public static final class SearchData {
     return searchedData;
   }
 
-  public static List<MyData> searchByCases(final int searchCases, final List<MyData> myDataList) {
+  public static List<MyData> filterByCases(final int searchCases, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
       if (matchCheck.cases == searchCases) {
@@ -53,7 +54,7 @@ public static final class SearchData {
     return searchedData;
   }
 
-  public static List<MyData> searchByCountry(final String searchCountries, final List<MyData> myDataList) {
+  public static List<MyData> filterByCountry(final String searchCountries, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
       if (matchCheck.country.equals(searchCountries)) {

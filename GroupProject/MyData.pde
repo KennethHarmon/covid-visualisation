@@ -1,3 +1,4 @@
+// Miguel Arrieta, Added Data class for storing the data, 5pm, 22/3/2021
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
