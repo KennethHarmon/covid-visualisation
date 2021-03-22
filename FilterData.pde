@@ -1,4 +1,4 @@
-// Miguel Arrieta, Added FilterData class that includes methods for filtering data , 5pm, 22/3/2021
+// Miguel Arrieta, Added FilterData class that includes methods for filtering data, 5pm, 22/3/2021
 import java.util.Date;
 import java.util.List;
 
