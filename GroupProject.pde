@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.util.List;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 List<MyData> myCompleteDataList;
 List<MyData> searchData;  // For testing
@@ -16,7 +19,7 @@ void setup() {
     e.printStackTrace();
   }
   // For testing
-  searchData = FilterData.filterByDate(myCompleteDataList.get(3).date, myCompleteDataList);
+  searchData = FilterData.sampleByDate(myCompleteDataList,10);
   for (final MyData myData : searchData) {
     println(myData.toString());
   }
