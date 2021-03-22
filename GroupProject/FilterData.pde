@@ -1,4 +1,5 @@
 // Miguel Arrieta, Added FilterData class that includes methods for filtering data, 5pm, 22/3/2021
+// Kenneth Harmon, added sampling classes to extract a specified number of entries for each query, sorted by most recent. 22/03/2021
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,16 @@ public static final class FilterData {
     }
     return searchedData;
   }
+  
+   public static List<MyData> sampleByDate(final List<MyData> myDataList, int amount) {
+    final List<MyData> searchedData = new ArrayList(); 
+    if (myDataList.size() > 0) {
+      for (int i = myDataList.size()-1; i > myDataList.size() - amount; i--) {
+        searchedData.add(myDataList.get(i));
+      }
+    }
+    return searchedData;
+  }
 
   public static List<MyData> filterByAdminArea(final String searchAdminArea, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
@@ -21,6 +32,11 @@ public static final class FilterData {
         searchedData.add(matchCheck);
       }
     }
+    return searchedData;
+  }
+  
+  public static List<MyData> sampleByAdminArea(final String searchAdminArea, final List<MyData> myDataList, int amount) {
+    final List<MyData> searchedData = sampleByDate(filterByAdminArea(searchAdminArea, myDataList), amount);
     return searchedData;
   }
 
@@ -33,6 +49,11 @@ public static final class FilterData {
     }
     return searchedData;
   }
+  
+  public static List<MyData> sampleByCounty(final String searchCounty, final List<MyData> myDataList, int amount) {
+    final List<MyData> searchedData = sampleByDate(filterByCounty(searchCounty, myDataList), amount);
+    return searchedData;
+  }
 
   public static List<MyData> filterByGeoIdentifier(final String searchGeoIDS, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
@@ -41,6 +62,11 @@ public static final class FilterData {
         searchedData.add(matchCheck);
       }
     }
+    return searchedData;
+  }
+  
+  public static List<MyData> sampleByGeoIdentifier(final String searchGeoID, final List<MyData> myDataList, int amount) {
+    final List<MyData> searchedData = sampleByDate(filterByGeoIdentifier(searchGeoID, myDataList), amount);
     return searchedData;
   }
 
@@ -53,6 +79,11 @@ public static final class FilterData {
     }
     return searchedData;
   }
+  
+  public static List<MyData> sampleByCases(final int searchCases, final List<MyData> myDataList, int amount) {
+    final List<MyData> searchedData = sampleByDate(filterByCases(searchCases, myDataList), amount);
+    return searchedData;
+  }
 
   public static List<MyData> filterByCountry(final String searchCountries, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
@@ -61,6 +92,11 @@ public static final class FilterData {
         searchedData.add(matchCheck);
       }
     }
+    return searchedData;
+  }
+  
+   public static List<MyData> sampleByCountry(final String searchCountry, final List<MyData> myDataList, int amount) {
+    final List<MyData> searchedData = sampleByDate(filterByCountry(searchCountry, myDataList), amount);
     return searchedData;
   }
 }
