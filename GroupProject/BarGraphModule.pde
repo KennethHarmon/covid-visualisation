@@ -20,8 +20,10 @@ class HistogramModule extends Module {
     fill(0);
     translate(super.xOrigin, super.yOrigin);
     for (int i = 0; i < data.length; i++) {
+      stroke(NAVY);
       fill(NAVY);
       rect(map(i, 0, data.length, 0, width), height, barWidth, map(data[i], 0, maxDataValue, 0, -height));
+      stroke(0);
     }
   }
 }
