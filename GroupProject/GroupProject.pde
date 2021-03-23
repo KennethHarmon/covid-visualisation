@@ -20,9 +20,9 @@ void settings() {
 }
 
 void setup() {
-  topLeft = new TopLeftModule(MODULE_PADDING, MODULE_PADDING, (width - 3 * MODULE_PADDING) / 3, (height - 3 * MODULE_PADDING) / 7);
   try {
-    myCompleteDataList = LoadData.loadData();
+    String dataPath = dataPath("cases-1M.csv");
+    myCompleteDataList = LoadData.loadData(dataPath);
   } 
   catch (IOException e) {
     e.printStackTrace();
@@ -39,7 +39,7 @@ void setup() {
     //for (final MyData myData : myCompleteDataList) {
     //  cases += myData.cases;
     //}
-  topLeft = new TopLeftModule(modulePadding,modulePadding,(width-3*modulePadding)/3,(height-3*modulePadding)/7,cases);
+  topLeft = new TopLeftModule(MODULE_PADDING, MODULE_PADDING, (width - 3 * MODULE_PADDING) / 3, (height - 3 * MODULE_PADDING) / 7,cases);
 }
 
 void draw() {

@@ -13,10 +13,9 @@ public static final class LoadData {
       data[3], Integer.parseInt(data[4]), data[5]);
   }
 
-  public static List<MyData> loadData() throws IOException {
+  public static List<MyData> loadData(String dataPath) throws IOException {
     // Make sure to include the full file directory
-    final BufferedReader bufferedReader = new BufferedReader(new FileReader(
-      "C:\\Users\\migue\\Documents\\Processing\\Projects\\GroupProject\\data\\cases-1M.csv"));
+    final BufferedReader bufferedReader = new BufferedReader(new FileReader(dataPath));
     //K.H Intialised the capactiy of the list with an adequate level.
     final List<MyData> myDataList = new ArrayList<MyData>(1124916);
     String row;
