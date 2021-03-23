@@ -10,7 +10,7 @@ class Module {
   }
   
   void draw() {
-    fill(moduleColor);
+    fill(MODULE_COLOR);
     rect(xOrigin,yOrigin,width,height);
   }
 }
