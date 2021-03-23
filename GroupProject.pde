@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+
+TopLeftModule topLeft;
 List<MyData> myCompleteDataList;
 List<MyData> searchData;  // For testing
 
@@ -12,6 +14,7 @@ void settings() {
 }
 
 void setup() {
+  topLeft = new TopLeftModule(modulePadding,modulePadding,(width-3*modulePadding)/3,(height-3*modulePadding)/7);
   try {
     myCompleteDataList = LoadData.loadData();
   } 
