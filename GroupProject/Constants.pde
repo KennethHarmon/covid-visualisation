@@ -1,1 +1,1 @@
-final int modulePadding = 10;
+public final int MODULE_PADDING = 10;

@@ -21,26 +21,6 @@ public static class MyData {
     this.cases = cases;
     this.country = country;
   }
-
-  public static List<MyData> loadData(final String[] rows) {
-    final List<MyData> myDataList = new ArrayList(rows.length);
-    for (final String row : rows) {
-      try {
-        myDataList.add(parseData(row));
-      } catch (ParseException e) {
-        e.printStackTrace(); // Will throw an exception at the start for the titles
-      } catch (RuntimeException e) {
-        e.printStackTrace();
-      }
-    }
-    return myDataList;
-  }
-
-  private static MyData parseData(final String row) throws ParseException {
-    final String[] data = trim(row.split(",")); // Trim to deal with unnecessary spaces
-    return new MyData(DATE_FORMAT.parse(data[0]), data[1], data[2], 
-      data[3], Integer.parseInt(data[4]), data[5]);
-  }
   
   @Override
     public String toString() {
