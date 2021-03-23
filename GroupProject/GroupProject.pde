@@ -29,8 +29,6 @@ void setup() {
 }
 
 void draw() {
-  // Simply for testing
-  background(0);
-  fill(255, 0, 0);
-  rect(100, 100, 100, 100);
+  background(globalBackground);
+  topLeft.draw();
 }
