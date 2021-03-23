@@ -54,5 +54,5 @@ void draw() {
   text(currentText, width / 2, height / 2);
   i++;
   topLeft.draw();
-  barGraph.draw();
+  histogram.draw();
 }
