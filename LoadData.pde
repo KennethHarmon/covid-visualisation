@@ -16,7 +16,7 @@ public static final class LoadData {
   public static List<MyData> loadData() throws IOException {
     // Make sure to include the full file directory
     final BufferedReader bufferedReader = new BufferedReader(new FileReader("D:\\Kenneth.Files\\.TCD\\Year1Semester2\\ProgrammingProject\\ProjectRepo\\GroupProject\\data\\cases-1M.csv"));
-    final List<MyData> myDataList = new ArrayList();
+    final List<MyData> myDataList = new ArrayList<MyData>(1000000);
     String row;
     while ((row = bufferedReader.readLine()) != null) {
       try {
