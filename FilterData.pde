@@ -1,5 +1,6 @@
 // Miguel Arrieta, Added FilterData class that includes methods for filtering data, 5pm, 22/3/2021
 // Kenneth Harmon, added sampling classes to extract a specified number of entries for each query, sorted by most recent. 22/03/2021
+// William Walsh-Dowd, added filters for min/max cases along with functions to get the min/max cases of a data set and the data point with the min/max cases. 23/3/2021
 import java.util.Date;
 import java.util.List;
 
