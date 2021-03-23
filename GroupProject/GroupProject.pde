@@ -16,7 +16,7 @@ int i = 0;
 String currentText;
 
 void settings() {
-  size(800, 800);
+  size(960, 540);
 }
 
 void setup() {
@@ -28,13 +28,18 @@ void setup() {
     e.printStackTrace();
   }
   // For testing
-  searchData = FilterData.sampleByDate(myCompleteDataList, 50);
+  int cases = 0;
+  searchData = FilterData.sampleByDate(myCompleteDataList,10000);
   for (final MyData myData : searchData) {
-    println(myData.toString());
+    cases += myData.cases;
   }
   font = createFont("Monospaced.bold", 20);
   iterator = searchData.iterator();
   textAlign(CENTER);
+    //for (final MyData myData : myCompleteDataList) {
+    //  cases += myData.cases;
+    //}
+  topLeft = new TopLeftModule(modulePadding,modulePadding,(width-3*modulePadding)/3,(height-3*modulePadding)/7,cases);
 }
 
 void draw() {
