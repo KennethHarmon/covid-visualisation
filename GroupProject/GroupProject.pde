@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 
 
 TopLeftModule topLeft;
-BarGraphModule barGraph;
+HistogramModule histogram;
 List<MyData> myCompleteDataList;
 List<MyData> searchData;  // For testing
 
@@ -21,7 +21,7 @@ void settings() {
 }
 
 void setup() {
-  surface.setResizable(true);
+  surface.setResizable(true); // enables the window to resize when its edges are dragged.
   try {
     String dataPath = dataPath("cases-1M.csv");
     myCompleteDataList = LoadData.loadData(dataPath);
@@ -42,7 +42,7 @@ void setup() {
   //  cases += myData.cases;
   //}
   topLeft = new TopLeftModule(MODULE_PADDING, MODULE_PADDING, (width - 3 * MODULE_PADDING) / 3, (height - 3 * MODULE_PADDING) / 7, cases);
-  barGraph = new BarGraphModule(width/2 + MODULE_PADDING, MODULE_PADDING, (height - 3 * MODULE_PADDING) / 2, (height - 3 * MODULE_PADDING) / 3, searchData);
+  histogram = new HistogramModule(width/2 + MODULE_PADDING, MODULE_PADDING, (height - 3 * MODULE_PADDING) / 2, (height - 3 * MODULE_PADDING) / 3, searchData);
 }
 
 void draw() {
