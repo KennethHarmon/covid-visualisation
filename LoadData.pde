@@ -17,7 +17,7 @@ public static final class LoadData {
     // Make sure to include the full file directory
     final BufferedReader bufferedReader = new BufferedReader(new FileReader(
       "C:\\Users\\migue\\Documents\\Processing\\Projects\\GroupProject\\data\\cases-1M.csv"));
-    //K.H Intialised the capactiy of the list with and adequate level.
+    //K.H Intialised the capactiy of the list with an adequate level.
     final List<MyData> myDataList = new ArrayList<MyData>(1124916);
     String row;
     while ((row = bufferedReader.readLine()) != null) {
