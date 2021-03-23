@@ -14,8 +14,8 @@ public static final class FilterData {
     }
     return searchedData;
   }
-  
-   public static List<MyData> sampleByDate(final List<MyData> myDataList, int amount) {
+
+  public static List<MyData> sampleByDate(final List<MyData> myDataList, int amount) {
     final List<MyData> searchedData = new ArrayList(); 
     if (myDataList.size() > 0) {
       for (int i = myDataList.size()-1; i > myDataList.size() - amount; i--) {
@@ -34,7 +34,7 @@ public static final class FilterData {
     }
     return searchedData;
   }
-  
+
   public static List<MyData> sampleByAdminArea(final String searchAdminArea, final List<MyData> myDataList, int amount) {
     final List<MyData> searchedData = sampleByDate(filterByAdminArea(searchAdminArea, myDataList), amount);
     return searchedData;
@@ -49,7 +49,7 @@ public static final class FilterData {
     }
     return searchedData;
   }
-  
+
   public static List<MyData> sampleByCounty(final String searchCounty, final List<MyData> myDataList, int amount) {
     final List<MyData> searchedData = sampleByDate(filterByCounty(searchCounty, myDataList), amount);
     return searchedData;
@@ -64,7 +64,7 @@ public static final class FilterData {
     }
     return searchedData;
   }
-  
+
   public static List<MyData> sampleByGeoIdentifier(final String searchGeoID, final List<MyData> myDataList, int amount) {
     final List<MyData> searchedData = sampleByDate(filterByGeoIdentifier(searchGeoID, myDataList), amount);
     return searchedData;
@@ -79,7 +79,7 @@ public static final class FilterData {
     }
     return searchedData;
   }
-  
+
   public static List<MyData> sampleByCases(final int searchCases, final List<MyData> myDataList, int amount) {
     final List<MyData> searchedData = sampleByDate(filterByCases(searchCases, myDataList), amount);
     return searchedData;
@@ -94,9 +94,73 @@ public static final class FilterData {
     }
     return searchedData;
   }
-  
-   public static List<MyData> sampleByCountry(final String searchCountry, final List<MyData> myDataList, int amount) {
+
+  public static List<MyData> sampleByCountry(final String searchCountry, final List<MyData> myDataList, int amount) {
     final List<MyData> searchedData = sampleByDate(filterByCountry(searchCountry, myDataList), amount);
     return searchedData;
+  }
+
+  public static List<MyData> filterByMinCases(final List<MyData> myDataList, int minCases) {
+    final List<MyData> newData = new ArrayList(); 
+    if (myDataList.size() > 0) {
+      for (final MyData currentData : myDataList) {
+        if (currentData.cases >= minCases) { 
+          newData.add(currentData);
+        }
+      }
+    }
+    return newData;
+  }
+
+  public static List<MyData> filterByMaxCases(final List<MyData> myDataList, int maxCases) {
+    final List<MyData> newData = new ArrayList(); 
+    if (myDataList.size() > 0) {
+      for (final MyData currentData : myDataList) {
+        if (currentData.cases <= maxCases) { 
+          newData.add(currentData);
+        }
+      }
+    }
+    return newData;
+  }
+
+  public static int findHighestCaseCount(final List<MyData> myDataList) {
+    int highestCases = 0;
+    for (final MyData currentData : myDataList) {
+      if (currentData.cases > highestCases) {
+        highestCases = currentData.cases;
+      }
+    }
+    return highestCases;
+  }
+
+  public static MyData findHighestCase(final List<MyData> myDataList) {
+    MyData highestCase = myDataList.get(0);
+    for (final MyData currentData : myDataList) {
+      if (currentData.cases > highestCase.cases) {
+        highestCase = currentData;
+      }
+    }
+    return highestCase;
+  }
+  
+  public static int findLowestCaseCount(final List<MyData> myDataList) {
+    int highestCases = 0;
+    for (final MyData currentData : myDataList) {
+      if (currentData.cases < highestCases) {
+        highestCases = currentData.cases;
+      }
+    }
+    return highestCases;
+  }
+
+  public static MyData findLowestCase(final List<MyData> myDataList) {
+    MyData highestCase = myDataList.get(0);
+    for (final MyData currentData : myDataList) {
+      if (currentData.cases < highestCase.cases) {
+        highestCase = currentData;
+      }
+    }
+    return highestCase;
   }
 }
