@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 
 
 TopLeftModule topLeft;
+BarGraphModule barGraph;
 List<MyData> myCompleteDataList;
 List<MyData> searchData;  // For testing
 
@@ -20,6 +21,7 @@ void settings() {
 }
 
 void setup() {
+  surface.setResizable(true);
   try {
     String dataPath = dataPath("cases-1M.csv");
     myCompleteDataList = LoadData.loadData(dataPath);
@@ -29,17 +31,18 @@ void setup() {
   }
   // For testing
   int cases = 0;
-  searchData = FilterData.sampleByDate(myCompleteDataList,10000);
+  searchData = FilterData.sampleByDate(myCompleteDataList, 1000);
   for (final MyData myData : searchData) {
     cases += myData.cases;
   }
   font = createFont("Monospaced.bold", 20);
   iterator = searchData.iterator();
   textAlign(CENTER);
-    //for (final MyData myData : myCompleteDataList) {
-    //  cases += myData.cases;
-    //}
-  topLeft = new TopLeftModule(MODULE_PADDING, MODULE_PADDING, (width - 3 * MODULE_PADDING) / 3, (height - 3 * MODULE_PADDING) / 7,cases);
+  //for (final MyData myData : myCompleteDataList) {
+  //  cases += myData.cases;
+  //}
+  topLeft = new TopLeftModule(MODULE_PADDING, MODULE_PADDING, (width - 3 * MODULE_PADDING) / 3, (height - 3 * MODULE_PADDING) / 7, cases);
+  barGraph = new BarGraphModule(width/2 + MODULE_PADDING, MODULE_PADDING, (height - 3 * MODULE_PADDING) / 2, (height - 3 * MODULE_PADDING) / 3, searchData);
 }
 
 void draw() {
@@ -51,4 +54,5 @@ void draw() {
   text(currentText, width / 2, height / 2);
   i++;
   topLeft.draw();
+  barGraph.draw();
 }
