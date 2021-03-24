@@ -14,11 +14,11 @@ public static final class LoadData {
   }
 
   public static List<MyData> loadData(String dataPath) throws IOException {
-    // Make sure to include the full file directory
     final BufferedReader bufferedReader = new BufferedReader(new FileReader(dataPath));
     //K.H Intialised the capactiy of the list with an adequate level.
     final List<MyData> myDataList = new ArrayList<MyData>(1124916);
     String row;
+    bufferedReader.readLine(); // Skips the column titles
     while ((row = bufferedReader.readLine()) != null) {
       try {
         myDataList.add(parseData(row));
