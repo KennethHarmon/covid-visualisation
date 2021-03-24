@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 
-TopLeftModule topLeft;
+CaseModule casesModule;
+NewCasesModule newCases;
 HistogramModule histogram;
 List<MyData> myCompleteDataList;
 PrintList printList;
 List<MyData> searchData;  // For testing
+int searchData1;
 
 PFont font;
 String currentText;
@@ -30,20 +32,23 @@ void setup() {
   }
   // For testing
   int cases = 0;
-  searchData = FilterData.sampleByDate(myCompleteDataList, 1000);
+  searchData = FilterData.sampleByDate(myCompleteDataList, 100);
+  searchData1 = FilterData.findNewCases(myCompleteDataList, "Cook",7);
   for (final MyData myData : searchData) {
     cases += myData.cases;
   }
   font = createFont("Monospaced.bold", 22);
-  printList = new PrintList(myCompleteDataList, 15);
-  topLeft = new TopLeftModule(MODULE_PADDING, MODULE_PADDING, (width - 3 * MODULE_PADDING) / 3, (height - 3 * MODULE_PADDING) / 7, cases);
-  histogram = new HistogramModule(width/2 + MODULE_PADDING, MODULE_PADDING, (height - 3 * MODULE_PADDING) / 2, (height - 3 * MODULE_PADDING) / 3, searchData, 5);
+  printList = new PrintList(MODULE_PADDING, height/2 + MODULE_PADDING, width - 2 * MODULE_PADDING, height/2 - 2 * MODULE_PADDING, myCompleteDataList, 15);
+  newCases = new NewCasesModule(width/2-(width - 4 * MODULE_PADDING) / 6, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, searchData1);
+  casesModule = new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, cases);
+  histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, searchData, 5);
 }
 
 void draw() {
   background(GLOBAL_BACKGROUND);
   printList.draw();
-  
-  topLeft.draw();
+  casesModule.draw();
+  newCases.draw();
   histogram.draw();
+  printList.printToConsole();
 }
