@@ -64,13 +64,13 @@ class HistogramModule extends Module {
     if (data.length-1 % averageRange != 0) {
       int averageOfLastElements = 0;
       for (int j = 0; j < (data.length-1 - newArray.size()*averageRange); j++) {
-        averageOfLastElements += data[i+j];
+        averageOfLastElements += data[newArray.size()*averageRange+j];
       }
       newArray.add(int(averageOfLastElements));
     }
     return toIntArray(newArray);
   }
-
+  
   public int[] toIntArray(List<Integer> ints) {
     int[] newArray = new int[ints.size()];
     for (int i=0; i < newArray.length; i++) {
