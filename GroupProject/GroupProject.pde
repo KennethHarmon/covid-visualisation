@@ -9,11 +9,10 @@ import java.io.FileNotFoundException;
 TopLeftModule topLeft;
 HistogramModule histogram;
 List<MyData> myCompleteDataList;
+PrintList printList;
 List<MyData> searchData;  // For testing
 
 PFont font;
-Iterator iterator;
-int i = 0;
 String currentText;
 
 void settings() {
@@ -35,24 +34,16 @@ void setup() {
   for (final MyData myData : searchData) {
     cases += myData.cases;
   }
-  font = createFont("Monospaced.bold", 20);
-  iterator = searchData.iterator();
-  textAlign(CENTER);
-  //for (final MyData myData : myCompleteDataList) {
-  //  cases += myData.cases;
-  //}
+  font = createFont("Monospaced.bold", 22);
+  printList = new PrintList(myCompleteDataList, 15);
   topLeft = new TopLeftModule(MODULE_PADDING, MODULE_PADDING, (width - 3 * MODULE_PADDING) / 3, (height - 3 * MODULE_PADDING) / 7, cases);
   histogram = new HistogramModule(width/2 + MODULE_PADDING, MODULE_PADDING, (height - 3 * MODULE_PADDING) / 2, (height - 3 * MODULE_PADDING) / 3, searchData);
 }
 
 void draw() {
   background(GLOBAL_BACKGROUND);
-  if (iterator.hasNext() && i % 70 == 0) {
-    currentText = iterator.next().toString();
-  }
-  fill(NAVY);
-  text(currentText, width / 2, height / 2);
-  i++;
+  printList.draw();
+  
   topLeft.draw();
   histogram.draw();
 }
