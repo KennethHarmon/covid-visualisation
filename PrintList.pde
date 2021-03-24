@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Iterator;
 
 // Miguel Arrieta, Added a PrintList class to print a list, 4pm, 24/03/2021
+// Miguel Arrieta, fixed potential NullPointer, IndexOutOfBounds exceptions
+// and error where it wouldn't delete the first Text in the list if the size was 1, 6pm, 24/03/2021
 class PrintList {
   private int yLimit = height / 2;
   private int spacing = 15;
@@ -37,26 +39,32 @@ class PrintList {
   private void removeAndAddFromList() {
     if (listToBePrinted.get(0).getAlphaValue() <= 0) {
       listToBePrinted.remove(0);
-      listToBePrinted.add(new Text(printIterator.next().toString(), listToBePrinted.get(listToBePrinted.size() - 1).getY() + spacing, true));
+      if (printIterator.hasNext()) {
+        listToBePrinted.add(new Text(printIterator.next().toString(), listToBePrinted.get(listToBePrinted.size() - 1).getY() + spacing, true));
+      }
     }
   }
-  
+
   private void fadeIn() {
-    Text lastText = listToBePrinted.get(listToBePrinted.size() - 1);
-    if (lastText.getAlphaValue() < 255) {
-      lastText.fadeIn();
+    if (listToBePrinted.size() > 1) {
+      Text lastText = listToBePrinted.get(listToBePrinted.size() - 1);
+      if (lastText.getAlphaValue() < 255) {
+        lastText.fadeIn();
+      }
     }
   }
 
   void draw() {
-    for (Text t : listToBePrinted) {
-      t.draw();
-      t.scrollText();
+    if (listToBePrinted.size() != 0) {
+      for (Text t : listToBePrinted) {
+        t.draw();
+        t.scrollText();
+      }
+      if (reachedLimit()) {
+        listToBePrinted.get(0).fadeOut();
+      }
+      this.fadeIn();
+      removeAndAddFromList();
     }
-    if (reachedLimit()) {
-      listToBePrinted.get(0).fadeOut();
-    }
-    this.fadeIn();
-    removeAndAddFromList();
   }
 }
