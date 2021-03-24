@@ -1,5 +1,8 @@
 // Miguel Arrieta, Added a Text class to make it easier to print a list to the screen, 4pm, 24/03/2021
 public class Text {
+  // Miguel Arrieta, Linked the fade offset to the scroll speed, 5pm,24/03/21
+  private static final float SCROLL_SPEED = 0.2;
+  private static final int FADE_OFFSET = (int) (SCROLL_SPEED * 50);
   private int alphaValue;
   private String string;
   private int x;
@@ -11,13 +14,13 @@ public class Text {
     this.y = y;
     this.alphaValue = (isTransparent) ? 0 : 255;
   }
-  
+
   Text(final String string, final float y, final boolean isTransparent) {
     this(string, width / 2, y, isTransparent);
   }
-  
+
   public void scrollText() {
-    this.y -= 0.2;
+    this.y -= SCROLL_SPEED;
   }
 
   public String getMyString() {
@@ -49,19 +52,19 @@ public class Text {
     setX(x);
     setY(y);
   }
-  
+
   public int getAlphaValue() {
     return alphaValue;
   }
-  
+
   public void fadeIn() {
-    alphaValue += 10;
+    alphaValue += FADE_OFFSET;
   }
-  
+
   public void fadeOut() {
-    alphaValue -= 10;
+    alphaValue -= FADE_OFFSET;
   }
-  
+
   void draw() {
     textAlign(CENTER);
     fill(NAVY, alphaValue);
