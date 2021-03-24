@@ -38,6 +38,7 @@ class HistogramModule extends Module {
       stroke(NAVY);
       fill(NAVY);
       rect(map(i, 0, data.length, 0, width) + 1, height, barWidth-2, map(data[i], 0, maxDataValue, 0, -height));
+      strokeWeight(1);
       stroke(0);
     }
     bestFitLine(lineData);
