@@ -3,7 +3,7 @@
 // it also has another constructor alowing you to create a histogram with a best fit line and a variable of how many data points that line will average then draw itself between.
 class HistogramModule extends Module { 
   int[] data;
-  int[] lineData;
+  int[] lineData = new int[0];
   private float barWidth;
   private float maxDataValue;
   private int averageRange = 1;
@@ -17,7 +17,7 @@ class HistogramModule extends Module {
       this.data[i] = data.get(i).cases;
     }
     this.averageRange = averageRange;
-    lineData = saveBestFitLine(this.data);
+    lineData = saveBestFitLineAlt(this.data);
   }
 
   HistogramModule(int x, int y, int width, int height, List<MyData> data) { 
@@ -51,7 +51,7 @@ class HistogramModule extends Module {
     }
   }
 
-  int[] saveBestFitLine(int[] data) {
+  int[] saveBestFitLine(int[] data) {    // this method averages the data of the given range and saves it as a single data point
     ArrayList newArray = new ArrayList();
     for (int i = 0; i < data.length-averageRange; i += averageRange) {
       int averageOfLastElements = 0;
@@ -70,7 +70,20 @@ class HistogramModule extends Module {
     }
     return toIntArray(newArray);
   }
-  
+
+  int[] saveBestFitLineAlt(int[] data) {    // this method averages out the data around each point and saves each one, thus there is the same amount of points as the original data
+    ArrayList newArray = new ArrayList();
+    for (int i = averageRange; i < data.length-averageRange; i++) {
+      int averageOfElements = 0;
+      for (int j =  -averageRange; j < averageRange; j++) {
+        averageOfElements += data[i+j];
+      }
+      averageOfElements = averageOfElements/((averageRange*2)+1);
+      newArray.add(int(averageOfElements));
+    }
+    return toIntArray(newArray);
+  }
+
   public int[] toIntArray(List<Integer> ints) {
     int[] newArray = new int[ints.size()];
     for (int i=0; i < newArray.length; i++) {
