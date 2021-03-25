@@ -24,8 +24,8 @@ void settings() {
 
 void setup() {
   surface.setResizable(true); // enables the window to resize when its edges are dragged.
-  geoMap = new GeoMap(0,0, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8,this);  
-  geoMap.readFile("world");   
+  geoMap = new GeoMap(0,0, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3 / 8,this);  
+  geoMap.readFile("States_shapefile");
   try {
     String dataPath = dataPath("cases-1M.csv");
     myCompleteDataList = LoadData.loadData(dataPath);
