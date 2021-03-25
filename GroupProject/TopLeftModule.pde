@@ -12,6 +12,7 @@ class CaseModule extends Module {
     fill(0);
     translate(super.xOrigin,super.yOrigin);
     textAlign(CENTER,CENTER);
-    text("Cases:" + cases, super.xOrigin+width/2,super.yOrigin+height/2);
+    text("Cases:" + cases, width/2,height/2);
+    translate(-super.xOrigin,-super.yOrigin);
   }
 }
