@@ -16,12 +16,12 @@ class PrintList extends Module {
   PrintList(int x, int y, int width, int height, final List<MyData> fullList, final int desiredListLength) {
     super(x, y, width, height);
     this.fullList = new ArrayList(fullList);
-    this.yLimit = y+MODULE_PADDING * 2;
+    this.yLimit = MODULE_PADDING*2;
     this.listToBePrinted = new LinkedList();
     printIterator = this.fullList.iterator();
     if (fullList.size() >= desiredListLength) {
       for (int i = 0; i < desiredListLength && printIterator.hasNext(); i++) {
-        this.listToBePrinted.add(new Text(printIterator.next().toString(), super.xOrigin+width/2, yLimit + (i + 1) * spacing, false));
+        this.listToBePrinted.add(new Text(printIterator.next().toString(), width/2, yLimit + (i + 1) * spacing, false));
       }
     } else {
       println("PrintList initialisation unsuccessful");
@@ -43,7 +43,7 @@ class PrintList extends Module {
     if (listToBePrinted.get(0).getAlphaValue() <= 0) {
       listToBePrinted.remove(0);
       if (printIterator.hasNext()) {
-        listToBePrinted.add(new Text(printIterator.next().toString(), super.xOrigin+width/2, listToBePrinted.get(listToBePrinted.size() - 1).getY() + spacing, true));
+        listToBePrinted.add(new Text(printIterator.next().toString(), width/2, listToBePrinted.get(listToBePrinted.size() - 1).getY() + spacing, true));
       }
     }
   }
@@ -59,6 +59,7 @@ class PrintList extends Module {
 
   void draw() {
     super.draw();
+    translate(super.xOrigin,super.yOrigin);
     if (listToBePrinted.size() != 0) {
       for (Text t : listToBePrinted) {
         t.draw();
@@ -70,5 +71,6 @@ class PrintList extends Module {
       this.fadeIn();
       removeAndAddFromList();
     }
+    translate(-super.xOrigin,-super.yOrigin);
   }
 }

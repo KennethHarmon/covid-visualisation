@@ -4,16 +4,17 @@ import java.util.Iterator;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import org.gicentre.geomap.*;
 
-
+GeoMap geoMap;
 CaseModule casesModule;
 NewCasesModule newCases;
 HistogramModule histogram;
+MapModule mapModule;
 List<MyData> myCompleteDataList;
 PrintList printList;
 List<MyData> searchData;  // For testing
 int searchData1;
-
 PFont font;
 String currentText;
 
@@ -23,6 +24,8 @@ void settings() {
 
 void setup() {
   surface.setResizable(true); // enables the window to resize when its edges are dragged.
+  geoMap = new GeoMap(0,0, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8,this);  
+  geoMap.readFile("world");   
   try {
     String dataPath = dataPath("cases-1M.csv");
     myCompleteDataList = LoadData.loadData(dataPath);
@@ -42,6 +45,7 @@ void setup() {
   newCases = new NewCasesModule(width/2-(width - 4 * MODULE_PADDING) / 6, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, searchData1);
   casesModule = new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, cases);
   histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, searchData, 5);
+  mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, geoMap);
 }
 
 void draw() {
@@ -50,5 +54,6 @@ void draw() {
   casesModule.draw();
   newCases.draw();
   histogram.draw();
+  mapModule.draw();
   printList.printToConsole();
 }
