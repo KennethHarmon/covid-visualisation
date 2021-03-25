@@ -2,17 +2,14 @@
 class NewCasesModule extends Module { 
   int cases;
   
-  NewCasesModule(int x, int y, int width, int height, int cases) { 
-    super(x, y, width, height);
+  NewCasesModule(float x, float y, float wide, float tall, int cases) { 
+    super(x, y, wide, tall);
     this.cases = cases;
   }
 
-  void draw() {
-    super.draw();
+  void subClassDraw() {
     fill(0);
-    translate(super.xOrigin,super.yOrigin);
     textAlign(CENTER,CENTER);
-    text("New cases:" + cases, width/2,height/2);
-    translate(-super.xOrigin,-super.yOrigin);
+    text("New cases:" + cases, wide/2,tall/2);
   }
 }
