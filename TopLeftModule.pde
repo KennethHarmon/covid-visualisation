@@ -9,8 +9,8 @@ class CaseModule extends Module {
 
   void draw() {
     super.draw();
-    fill(0);
     translate(super.xOrigin,super.yOrigin);
+    fill(0);
     textAlign(CENTER,CENTER);
     text("Cases:" + cases, width/2,height/2);
     translate(-super.xOrigin,-super.yOrigin);

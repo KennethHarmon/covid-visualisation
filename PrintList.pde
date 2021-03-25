@@ -43,7 +43,7 @@ class PrintList extends Module {
     if (listToBePrinted.get(0).getAlphaValue() <= 0) {
       listToBePrinted.remove(0);
       if (printIterator.hasNext()) {
-        listToBePrinted.add(new Text(printIterator.next().toString(),width/2, listToBePrinted.get(listToBePrinted.size() - 1).getY() + spacing, true));
+        listToBePrinted.add(new Text(printIterator.next().toString(), super.xOrigin+width/2, listToBePrinted.get(listToBePrinted.size() - 1).getY() + spacing, true));
       }
     }
   }
@@ -59,7 +59,6 @@ class PrintList extends Module {
 
   void draw() {
     super.draw();
-    translate(super.xOrigin,super.yOrigin);
     if (listToBePrinted.size() != 0) {
       for (Text t : listToBePrinted) {
         t.draw();
@@ -71,6 +70,5 @@ class PrintList extends Module {
       this.fadeIn();
       removeAndAddFromList();
     }
-    translate(-super.xOrigin,-super.yOrigin);
   }
 }
