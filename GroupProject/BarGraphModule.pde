@@ -1,16 +1,16 @@
 // made by William Walsh-Dowd on 23rd of March. a class that extends module and creates a simple histogram of the cases of the inputed MyFata List.
-// it visualy scales with its width and height based on the size of the given data set and that sets' maximum value.
+// it visualy scales with its wide and tall based on the size of the given data set and that sets' maximum value.
 // it also has another constructor alowing you to create a histogram with a best fit line and a variable of how many data points that line will average then draw itself between.
 class HistogramModule extends Module { 
   int[] data;
   int[] lineData = new int[0];
-  private float barWidth;
+  private float barwide;
   private float maxDataValue;
   private int averageRange = 1;
 
-  HistogramModule(int x, int y, int width, int height, List<MyData> data, int averageRange) { 
-    super(x, y, width, height);
-    barWidth = width/data.size();
+  HistogramModule(int x, int y, int wide, int tall, List<MyData> data, int averageRange) { 
+    super(x, y, wide, tall);
+    barwide = wide/data.size();
     maxDataValue = FilterData.findHighestCaseCount(data);
     this.data = new int[data.size()];
     for (int i = 0; i < data.size(); i++) {
@@ -20,9 +20,9 @@ class HistogramModule extends Module {
     lineData = saveBestFitLineAlt(this.data);
   }
 
-  HistogramModule(int x, int y, int width, int height, List<MyData> data) { 
-    super(x, y, width, height);
-    barWidth = width/data.size();
+  HistogramModule(int x, int y, int wide, int tall, List<MyData> data) { 
+    super(x, y, wide, tall);
+    barwide = wide/data.size();
     maxDataValue = FilterData.findHighestCaseCount(data);
     this.data = new int[data.size()];
     for (int i = 0; i < data.size(); i++) {
@@ -30,14 +30,12 @@ class HistogramModule extends Module {
     }
   }
 
-  void draw() {
-    super.draw();
+  void subClassDraw() {
     fill(0);
-    translate(super.xOrigin, super.yOrigin);
     for (int i = 0; i < data.length; i++) {
       stroke(NAVY);
       fill(NAVY);
-      rect(map(i, 0, data.length, 0, width) + 1, height, barWidth-2, map(data[i], 0, maxDataValue, 0, -height));
+      rect(map(i, 0, data.length, 0, wide) + 1, tall, barwide-2, map(data[i], 0, maxDataValue, 0, -tall));
       strokeWeight(1);
       stroke(0);
     }
@@ -47,7 +45,7 @@ class HistogramModule extends Module {
   void bestFitLine(int[] dataToMap) {
     for (int i = 0; i < dataToMap.length-1; i++) {
       stroke(255, 0, 0);
-      line(map(i + .5, 0, dataToMap.length, 0, width), height - map(dataToMap[i], 0, maxDataValue, 0, height), map(i+1 + .5, 0, dataToMap.length, 0, width), height - map(dataToMap[i+1], 0, maxDataValue, 0, height));
+      line(map(i + .5, 0, dataToMap.length, 0, wide), tall - map(dataToMap[i], 0, maxDataValue, 0, tall), map(i+1 + .5, 0, dataToMap.length, 0, wide), tall - map(dataToMap[i+1], 0, maxDataValue, 0, tall));
       stroke(0);
     }
   }
