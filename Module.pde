@@ -30,8 +30,6 @@ class Module {
     popMatrix();
 
     positionAndSizeUpdater();
-    println(originalXPosRatio);
-    println(originalYPosRatio);
   }
 
   void subClassDraw() {
