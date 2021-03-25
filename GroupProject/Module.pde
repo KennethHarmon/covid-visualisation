@@ -1,18 +1,56 @@
 class Module {
-  int xOrigin, yOrigin, width, height;
+  float xOrigin, yOrigin, wide, tall;
   color moduleBackground;
-  
-  Module(int x, int y, int width, int height) {
+  float originalWidthRatio, originalHeightRatio, originalXPosRatio, originalYPosRatio;
+  int originalWidth, originalHeight;
+
+
+  Module(float x, float y, float wide, float tall) {
     this.xOrigin = x;
     this.yOrigin = y;
-    this.width = width;
-    this.height = height;
+    this.wide = wide;
+    this.tall = tall;
+
+    originalWidthRatio = wide/width;
+    originalHeightRatio = tall/height;
+
+    originalXPosRatio = x/width;
+    originalYPosRatio = y/height;
   }
-  
+
   void draw() {
     fill(MODULE_COLOR);
     strokeWeight(3);
     stroke(230);
-    rect(xOrigin,yOrigin,width,height);
+
+    pushMatrix();
+    translate(xOrigin, yOrigin);
+    rect(0, 0, wide, tall);
+    subClassDraw();
+    popMatrix();
+
+    positionAndSizeUpdater();
+    println(originalXPosRatio);
+    println(originalYPosRatio);
+  }
+
+  void subClassDraw() {
+  }
+
+  void OnSizeUpdateEvent() {
+  }
+
+  void positionAndSizeUpdater() {
+    if (originalWidth != width || originalHeight != height) {
+      originalWidth = width;
+      originalHeight = height;
+
+      xOrigin = int(width * originalXPosRatio);
+      yOrigin = int(height * originalYPosRatio);
+
+      wide = int(width * originalWidthRatio);
+      tall = int(height * originalHeightRatio);
+      OnSizeUpdateEvent();
+    }
   }
 }
