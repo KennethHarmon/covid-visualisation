@@ -59,6 +59,7 @@ class PrintList extends Module {
 
   void draw() {
     super.draw();
+    translate(super.xOrigin,super.yOrigin);
     if (listToBePrinted.size() != 0) {
       for (Text t : listToBePrinted) {
         t.draw();

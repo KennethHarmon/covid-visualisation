@@ -10,6 +10,7 @@ class CaseModule extends Module {
   void draw() {
     super.draw();
     fill(0);
+    translate(super.xOrigin,super.yOrigin);
     textAlign(CENTER,CENTER);
     text("Cases:" + cases, super.xOrigin+width/2,super.yOrigin+height/2);
   }
