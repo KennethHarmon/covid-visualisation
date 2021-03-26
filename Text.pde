@@ -66,8 +66,12 @@ public class Text {
   }
 
   void draw() {
-    textAlign(CENTER);
+    textAlign(CENTER, CENTER);
+    if (x != width / 2) {
+      x = width / 2;
+    }
     fill(NAVY, alphaValue);
     text(string, x, y);
+     //textSize(11); // The text size for "Monospaced.bold", 22 (more or less)
   }
 }
