@@ -14,6 +14,7 @@ MapModule mapModule;
 List<MyData> myCompleteDataList;
 PrintList printList;
 List<MyData> searchData;  // For testing
+List<MyData> mapData;  // For testing
 int searchData1;
 PFont font;
 String currentText;
@@ -37,6 +38,14 @@ void setup() {
   int cases = 0;
   searchData = FilterData.sampleByDate(myCompleteDataList, 100);
   searchData1 = FilterData.findNewCases(myCompleteDataList, "Cook",7);
+  mapData = FilterData.filterByDate(searchData.get(0).date, myCompleteDataList);
+  
+  
+  
+  int mapMax = 0;
+  for (MyData data : mapData) {
+    mapMax = max(mapMax, data.cases);
+  }
   for (final MyData myData : searchData) {
     cases += myData.cases;
   }
@@ -46,6 +55,7 @@ void setup() {
   casesModule = new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, cases);
   histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, searchData, 5);
   mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, geoMap);
+  geoMap.writeAttributesAsTable(5);
 }
 
 void draw() {
@@ -55,5 +65,5 @@ void draw() {
   newCases.draw();
   histogram.draw();
   mapModule.draw();
-  printList.printToConsole();
+  //printList.printToConsole();
 }

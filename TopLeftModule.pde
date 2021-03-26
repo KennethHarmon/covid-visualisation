@@ -2,17 +2,14 @@
 class CaseModule extends Module { 
   int cases;
   
-  CaseModule(int x, int y, int width, int height, int cases) { 
-    super(x, y, width, height);
+  CaseModule(int x, int y, int wide, int tall, int cases) { 
+    super(x, y, wide, tall);
     this.cases = cases;
   }
-
-  void draw() {
-    super.draw();
-    translate(super.xOrigin,super.yOrigin);
+  
+  void subClassDraw() {
     fill(0);
     textAlign(CENTER,CENTER);
-    text("Cases:" + cases, width/2,height/2);
-    translate(-super.xOrigin,-super.yOrigin);
+    text("Cases:" + cases, wide/2,tall/2);
   }
 }
