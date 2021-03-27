@@ -7,6 +7,7 @@ class CaseModule extends Module {
     this.cases = cases;
   }
 
+  //K.H changed to subclass draw
   void subClassDraw() {
     fill(0);
     textAlign(CENTER, CENTER);

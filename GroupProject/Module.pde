@@ -2,7 +2,7 @@ class Module {
   float xOrigin, yOrigin, wide, tall;
   color moduleBackground;
   float originalWidthRatio, originalHeightRatio, originalXPosRatio, originalYPosRatio;
-  int originalWidth, originalHeight;
+  int originalWidth, originalHeight, moduleID;
 
 
   Module(float x, float y, float wide, float tall) {
@@ -36,6 +36,13 @@ class Module {
   }
 
   void OnSizeUpdateEvent() {
+  }
+  
+  boolean isClicked(){
+     if (mouseX > xOrigin && mouseX < xOrigin + wide && mouseY > yOrigin && mouseY < yOrigin+tall) {
+       return true;
+     }
+     return false;
   }
 
   void positionAndSizeUpdater() {
