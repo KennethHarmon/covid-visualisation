@@ -1,3 +1,5 @@
+//K.H Created MapModule from geomap library 25/03/2021
+//K.H converted to subclass draw 26/03/2021
 import org.gicentre.geomap.*;
 
 class MapModule extends Module {
@@ -9,10 +11,7 @@ class MapModule extends Module {
     this.geoMap = geoMap;
   }
   
-  void draw() {
-    super.draw();
-    translate(super.xOrigin,super.yOrigin);
+  void subClassDraw() {
     geoMap.draw();
-    translate(-super.xOrigin,-super.yOrigin);
   }
 }
