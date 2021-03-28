@@ -10,7 +10,7 @@ class PrintList extends Module {
   private int spacing = 15;
   private int yUpperLimit = spacing;
   private List<MyData> fullList;
-  private List<Text> listToBePrinted;
+  private LinkedList<Text> listToBePrinted;
   private Iterator printIterator;
 
   PrintList(int x, int y, int wide, int tall, final List<MyData> fullList, final int desiredListLength) {
@@ -35,12 +35,12 @@ class PrintList extends Module {
   }
 
   private boolean reachedLimit() {
-    return listToBePrinted.get(0).getY() <= yUpperLimit;
+    return listToBePrinted.getFirst().getY() <= yUpperLimit;
   }
 
   private void removeAndAddFromList() {
-    if (listToBePrinted.get(0).getAlphaValue() <= 0) {
-      listToBePrinted.remove(0);
+    if (listToBePrinted.getFirst().getAlphaValue() <= 0) {
+      listToBePrinted.removeFirst();
       if (printIterator.hasNext()) {
         listToBePrinted.add(new Text(printIterator.next().toString(), (int) wide/2, listToBePrinted.get(listToBePrinted.size() - 1).getY() + spacing, true));
       }
@@ -49,7 +49,7 @@ class PrintList extends Module {
 
   private void fadeIn() {
     if (listToBePrinted.size() > 1) {
-      Text lastText = listToBePrinted.get(listToBePrinted.size() - 1);
+      Text lastText = listToBePrinted.getLast();
       if (lastText.getAlphaValue() < 255) {
         lastText.fadeIn();
       }
@@ -63,7 +63,7 @@ class PrintList extends Module {
         t.scrollText();
       }
       if (reachedLimit()) {
-        listToBePrinted.get(0).fadeOut();
+        listToBePrinted.getFirst().fadeOut();
       }
       this.fadeIn();
       removeAndAddFromList();
