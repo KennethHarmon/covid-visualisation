@@ -174,7 +174,7 @@ public static final class FilterData {
 
   public static void FindCurrentStateCases(List<MyData> myCompleteDataList) {
     HashMap<String, Integer> stateCaseNumbers = new HashMap<String, Integer>();
-    for (State state : States) {
+    for (String state : States) {
       List<MyData> stateCasesData = FilterData.filterByCounty(state, myCompleteDataList);
       int stateCases = 0;
       ArrayList<String> AdminAreas = new ArrayList<String>();
