@@ -1,5 +1,6 @@
 //K.H Created MapModule from geomap library 25/03/2021
 //K.H converted to subclass draw 26/03/2021
+// M.A made the map scalable 
 import org.gicentre.geomap.*;
 
 class MapModule extends Module {
@@ -9,9 +10,8 @@ class MapModule extends Module {
   int mapMax;
   boolean hasDrawn;
   
-  MapModule(int x, int y, int width, int height, GeoMap geoMap, HashMap<String, Integer> stateCaseNumbers) { 
+  MapModule(int x, int y, int width, int height, HashMap<String, Integer> stateCaseNumbers) { 
     super(x, y, width, height);
-    this.geoMap = geoMap;
     this.stateCaseNumbers = stateCaseNumbers;
     mapMax = 0;
     for (int mapCases : stateCaseNumbers.values()) {
@@ -19,8 +19,14 @@ class MapModule extends Module {
     }
     hasDrawn = false;
   }
+  
+  private void scaleGeoMap() {
+    this.geoMap = new GeoMap(MODULE_PADDING, MODULE_PADDING, wide - MODULE_PADDING * 2, tall - MODULE_PADDING * 2, GroupProject.this);
+    geoMap.readFile("usContinental");
+  }
 
   void subClassDraw() {
+    scaleGeoMap();
     stroke(0, 40);
     if (! hasDrawn) {
       for (int id : geoMap.getFeatures().keySet()) {
@@ -30,7 +36,7 @@ class MapModule extends Module {
           stateCases = stateCaseNumbers.get(state);
         }
         catch (NullPointerException e) {
-          print(e.getMessage());
+          //print(e.getMessage());
           stateCases = -1;
         }
         
