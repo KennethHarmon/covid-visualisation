@@ -56,20 +56,18 @@ void setup() {
     }
     stateCaseNumbers.put(state,stateCases);
   }
- println(stateCaseNumbers);
   
   //Initialisation
   font = createFont("Monospaced.bold", 22);
-  printList = new PrintList(MODULE_PADDING, height/2 + MODULE_PADDING, width - 2 * MODULE_PADDING, height/2 - 2 * MODULE_PADDING, myCompleteDataList, 15); //ID:0
   newCases = new NewCasesModule(width/2-(width - 4 * MODULE_PADDING) / 6, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, searchData1); //ID:1
   casesModule = new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, cases); //ID:2
-  histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, searchData, 5); //ID:3
-  mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, stateCaseNumbers); //ID:4
+  histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, searchData, 5); //ID:3
+  mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, stateCaseNumbers); //ID:4
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;
   
-  mainScreen.addModules(printList,newCases,casesModule,histogram,mapModule);
+  mainScreen.addModules(newCases,casesModule,histogram,mapModule);
 }
 
 void draw() {
@@ -77,8 +75,6 @@ void draw() {
   currentScreen.draw();
   //printList.printToConsole();
 }
-
-
 
 void mousePressed() {
   if (mouseButton == RIGHT) {
