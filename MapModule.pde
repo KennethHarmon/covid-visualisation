@@ -18,6 +18,7 @@ class MapModule extends Module {
       mapMax = max(mapMax, mapCases);
     }
     hasDrawn = false;
+    scaleGeoMap();
   }
   
   private void scaleGeoMap() {
@@ -26,7 +27,6 @@ class MapModule extends Module {
   }
 
   void subClassDraw() {
-    scaleGeoMap();
     stroke(0, 40);
     if (! hasDrawn) {
       for (int id : geoMap.getFeatures().keySet()) {
@@ -70,4 +70,7 @@ class MapModule extends Module {
     }
   }
   
+    void OnSizeUpdateEvent() {
+    scaleGeoMap();
+  }
 }
