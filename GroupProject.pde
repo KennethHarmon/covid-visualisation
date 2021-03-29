@@ -31,10 +31,6 @@ void settings() {
 void setup() {
   surface.setResizable(true); // enables the window to resize when its edges are dragged.
   
-  //Map
-  geoMap = new GeoMap(MODULE_PADDING, MODULE_PADDING, ((width - 3 * MODULE_PADDING) / 2) - MODULE_PADDING * 2, ((height - 4 * MODULE_PADDING) * 3 / 8) - MODULE_PADDING * 2, this);  ///K.H added in map to test
-  geoMap.readFile("usContinental");
-  
   //Data retrieval
   try {
     String dataPath = dataPath("cases-1M.csv");
@@ -68,7 +64,7 @@ void setup() {
   newCases = new NewCasesModule(width/2-(width - 4 * MODULE_PADDING) / 6, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, searchData1); //ID:1
   casesModule = new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, cases); //ID:2
   histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, searchData, 5); //ID:3
-  mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, geoMap, stateCaseNumbers); //ID:4
+  mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, stateCaseNumbers); //ID:4
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;
