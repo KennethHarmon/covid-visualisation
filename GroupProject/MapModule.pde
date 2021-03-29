@@ -1,6 +1,6 @@
 //K.H Created MapModule from geomap library 25/03/2021
 //K.H converted to subclass draw 26/03/2021
-// M.A made the map scalable 
+// M.A made the map scalable and started to set up a system for queries
 import org.gicentre.geomap.*;
 
 class MapModule extends Module {
@@ -59,12 +59,14 @@ class MapModule extends Module {
       geoMap.draw(id);
       String name = geoMap.getAttributeTable().findRow(str(id), 0).getString("Name");
       fill(GOLD);
+      textSize(wide * tall / 8000); // 8000 seems to be the right ratio
       if (relativeMouseX > textWidth(name)) {
         textAlign(RIGHT);
       } else {
         textAlign(LEFT);
       }
       text(name, relativeMouseX + 5, relativeMouseY - 5);
+      textSize(13);
     }
   }
   
