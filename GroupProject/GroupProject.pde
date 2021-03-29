@@ -45,17 +45,7 @@ void setup() {
   searchData = FilterData.sampleByDate(myCompleteDataList, 100);
   
   //Map HashMap
-  stateCaseNumbers = new HashMap<String, Integer>();
-  for (String state : STATES) {
-    int stateCases = 0;
-    List<MyData> stateCasesData = FilterData.filterByCounty(state,myCompleteDataList);
-    if (stateCasesData != null) {
-      for (MyData dataPoint : stateCasesData) {
-        stateCases += dataPoint.cases;
-      }
-    }
-    stateCaseNumbers.put(state,stateCases);
-  }
+  HashMap<String, Integer> stateCaseNumbers = FilterData.findCurrentStateCases(myCompleteDataList);
   
   //Initialisation
   font = createFont("Monospaced.bold", 22);
