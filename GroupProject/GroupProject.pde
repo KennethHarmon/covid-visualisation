@@ -31,7 +31,7 @@ void setup() {
   
   //Map
   geoMap = new GeoMap(MODULE_PADDING, MODULE_PADDING, ((width - 3 * MODULE_PADDING) / 2) - MODULE_PADDING * 2, ((height - 4 * MODULE_PADDING) * 3 / 8) - MODULE_PADDING * 2, this);  ///K.H added in map to test
-  geoMap.readFile("usContinental");
+  geoMap.readFile("States_shapefile");
   
   //Data retrieval
   try {
