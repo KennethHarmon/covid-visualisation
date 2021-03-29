@@ -35,7 +35,11 @@ class HistogramModule extends Module {
     for (int i = 0; i < data.length; i++) {
       stroke(NAVY);
       fill(NAVY);
-      rect(map(i, 0, data.length, 0, wide) + 1, tall, barwide-2, map(data[i], 0, maxDataValue, 0, -tall));
+      if (i == 0) {
+        rect(map(i, 0, data.length, 0, wide) + 3, tall - 1, barwide-4, map(data[i], 0, maxDataValue, 0, -tall));
+      } else {
+        rect(map(i, 0, data.length, 0, wide) + 2, tall, barwide-2, map(data[i], 0, maxDataValue, 0, -tall));
+      }
       strokeWeight(1);
       stroke(0);
     }
