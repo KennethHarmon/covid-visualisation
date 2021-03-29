@@ -46,7 +46,7 @@ void setup() {
   
   //Map HashMap
   stateCaseNumbers = new HashMap<String, Integer>();
-  for (String state : States) {
+  for (String state : STATES) {
     int stateCases = 0;
     List<MyData> stateCasesData = FilterData.filterByCounty(state,myCompleteDataList);
     if (stateCasesData != null) {
