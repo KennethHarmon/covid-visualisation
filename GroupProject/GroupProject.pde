@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.List;
 import java.util.Iterator;
+import java.util.HashMap;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -15,6 +16,7 @@ List<MyData> myCompleteDataList;
 PrintList printList;
 List<MyData> searchData;  // For testing
 List<MyData> mapData;  // For testing
+HashMap<String, Integer> stateCaseNumbers;
 int searchData1;
 PFont font;
 String currentText;
@@ -31,7 +33,7 @@ void setup() {
   
   //Map
   geoMap = new GeoMap(MODULE_PADDING, MODULE_PADDING, ((width - 3 * MODULE_PADDING) / 2) - MODULE_PADDING * 2, ((height - 4 * MODULE_PADDING) * 3 / 8) - MODULE_PADDING * 2, this);  ///K.H added in map to test
-  geoMap.readFile("States_shapefile");
+  geoMap.readFile("usContinental");
   
   //Data retrieval
   try {
@@ -45,17 +47,20 @@ void setup() {
   //Querying
   int cases = 0;
   searchData = FilterData.sampleByDate(myCompleteDataList, 100);
-  searchData1 = FilterData.findNewCases(myCompleteDataList, "Cook",7);
-  mapData = FilterData.filterByDate(searchData.get(0).date, myCompleteDataList);
   
-  //Data calculations
-  int mapMax = 0;
-  for (MyData data : mapData) {
-    mapMax = max(mapMax, data.cases);
+  //Map HashMap
+  stateCaseNumbers = new HashMap<String, Integer>();
+  for (String state : States) {
+    int stateCases = 0;
+    List<MyData> stateCasesData = FilterData.filterByCounty(state,myCompleteDataList);
+    if (stateCasesData != null) {
+      for (MyData dataPoint : stateCasesData) {
+        stateCases += dataPoint.cases;
+      }
+    }
+    stateCaseNumbers.put(state,stateCases);
   }
-  for (final MyData myData : searchData) {
-    cases += myData.cases;
-  }
+ println(stateCaseNumbers);
   
   //Initialisation
   font = createFont("Monospaced.bold", 22);
@@ -63,13 +68,12 @@ void setup() {
   newCases = new NewCasesModule(width/2-(width - 4 * MODULE_PADDING) / 6, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, searchData1); //ID:1
   casesModule = new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, cases); //ID:2
   histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, searchData, 5); //ID:3
-  mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, geoMap); //ID:4
+  mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 3/8, geoMap, stateCaseNumbers); //ID:4
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;
   
   mainScreen.addModules(printList,newCases,casesModule,histogram,mapModule);
-  geoMap.writeAttributesAsTable(5);
 }
 
 void draw() {
@@ -77,6 +81,8 @@ void draw() {
   currentScreen.draw();
   //printList.printToConsole();
 }
+
+
 
 void mousePressed() {
   if (mouseButton == RIGHT) {
