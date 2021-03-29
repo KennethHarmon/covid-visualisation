@@ -145,7 +145,7 @@ public static final class FilterData {
     }
     return highestCase;
   }
-  
+
   public static int findLowestCaseCount(final List<MyData> myDataList) {
     int highestCases = 0;
     for (final MyData currentData : myDataList) {
@@ -165,10 +165,41 @@ public static final class FilterData {
     }
     return highestCase;
   }
-  
-  public static int findNewCases(final List<MyData> myDataList, String area, int amount){
+
+  public static int findNewCases(final List<MyData> myDataList, String area, int amount) {
     List<MyData> newData = sampleByAdminArea(area, myDataList, amount);
     int newCases = newData.get(newData.size()-1).cases - newData.get(0).cases;
     return newCases;
+  }
+
+  public static void FindCurrentStateCases(List<MyData> myCompleteDataList) {
+    HashMap<String, Integer> stateCaseNumbers = new HashMap<String, Integer>();
+    for (State state : States) {
+      List<MyData> stateCasesData = FilterData.filterByCounty(state, myCompleteDataList);
+      int stateCases = 0;
+      ArrayList<String> AdminAreas = new ArrayList<String>();
+      for (MyData data : stateCasesData) {
+        if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
+          AdminAreas.add(data.administrativeArea);
+        }
+      }
+      for (String adminArea : AdminAreas) {
+        List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
+        if (stateAdminAreaCasesData != null) {
+          stateCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases;
+          stateCaseNumbers.put("New York", stateCases);
+        }
+      }
+      println(stateCaseNumbers);
+    }
+  }
+
+  public static boolean isNameAlreadySaved(ArrayList<String> data, String string) {
+    for (int i = 0; i < data.size(); i++) {
+      if (data.get(i).equals(string)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
