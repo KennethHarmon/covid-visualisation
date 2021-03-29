@@ -10,8 +10,8 @@ class MapModule extends Module {
   int mapMax;
   boolean hasDrawn;
 
-  MapModule(int x, int y, int width, int height, HashMap<String, Integer> stateCaseNumbers) { 
-    super(x, y, width, height);
+  MapModule(int x, int y, int wide, int tall, HashMap<String, Integer> stateCaseNumbers) { 
+    super(x, y, wide, tall);
     this.stateCaseNumbers = stateCaseNumbers;
     mapMax = 0;
     for (int mapCases : stateCaseNumbers.values()) {
@@ -22,13 +22,13 @@ class MapModule extends Module {
   }
 
   private void scaleGeoMap() {
-    this.geoMap = new GeoMap(MODULE_PADDING, MODULE_PADDING, wide - MODULE_PADDING * 2, tall - MODULE_PADDING * 2, GroupProject.this);
+    this.geoMap = new GeoMap(MODULE_PADDING*2, MODULE_PADDING*2, wide - MODULE_PADDING * 4, tall - MODULE_PADDING * 4, GroupProject.this);
     geoMap.readFile("usContinental");
   }
 
   void subClassDraw() {
     stroke(0, 40);
-    if (! hasDrawn) {
+    //Initial calculation
       for (int id : geoMap.getFeatures().keySet()) {
         String state = geoMap.getAttributeTable().findRow(str(id), 0).getString("Name");
         int stateCases = 0;
@@ -48,8 +48,8 @@ class MapModule extends Module {
         }
         geoMap.draw(id);
       }
-    }
 
+    //Highlighting
     final float relativeMouseX = map(mouseX, super.xOrigin, super.xOrigin + wide, 0, wide);
     final float relativeMouseY = map(mouseY, super.yOrigin, super.yOrigin + tall, 0, tall);
     int id = geoMap.getID(relativeMouseX, relativeMouseY);
@@ -74,9 +74,47 @@ class MapModule extends Module {
       text(name, textXPos, textYPos);
       textSize(13);
     }
+    
+    //Text
+    fill(0);
+    textSize(12);
+    textAlign(CENTER);
+    text("Total Covid Cases Per State", wide / 2, MODULE_PADDING + 12);
+    
+    //Scale
+    textSize(8);
+    text("0" + "\n |", MODULE_PADDING, (int)tall - (3 * MODULE_PADDING));
+    text(mapMax / 2 + "\n |", MODULE_PADDING + (wide / 8), (int)tall - (3 * MODULE_PADDING));
+    text(mapMax + "\n |", wide / 4, (int)tall - (3 * MODULE_PADDING));
+    stroke(0);
+    strokeWeight(1);
+    rect(MODULE_PADDING - 1, ((int)tall - (2 * MODULE_PADDING)) - 1, (wide / 4)+2, (tall / 18)+2);
+    setGradient(MODULE_PADDING, (int)tall - (2 * MODULE_PADDING), wide / 4, tall / 18, minMapColour, maxMapColour, X_AXIS);
   }
 
   void OnSizeUpdateEvent() {
     scaleGeoMap();
   }
+  
+  //Taken from Processing docs
+  void setGradient(int x, int y, float w, float h, color c1, color c2, int axis) {
+  noFill();
+  if (axis == Y_AXIS) {  // Top to bottom gradient
+    for (int i = y; i <= y+h; i++) {
+      float inter = map(i, y, y+h, 0, 1);
+      color c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(x, i, x+w, i);
+    }
+  }  
+  else if (axis == X_AXIS) {  // Left to right gradient
+    for (int i = x; i <= x+w; i++) {
+      float inter = map(i, x, x+w, 0, 1);
+      color c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(i, y, i, y+h);
+    }
+  }
+  }
+  
 }
