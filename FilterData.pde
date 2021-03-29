@@ -172,7 +172,7 @@ public static final class FilterData {
     return newCases;
   }
 
-  public static void FindCurrentStateCases(List<MyData> myCompleteDataList) {
+  public static HashMap<String, Integer> findCurrentStateCases(List<MyData> myCompleteDataList) {
     HashMap<String, Integer> stateCaseNumbers = new HashMap<String, Integer>();
     for (String state : STATES) {
       List<MyData> stateCasesData = FilterData.filterByCounty(state, myCompleteDataList);
@@ -187,11 +187,12 @@ public static final class FilterData {
         List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
         if (stateAdminAreaCasesData != null) {
           stateCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases;
-          stateCaseNumbers.put("New York", stateCases);
+          stateCaseNumbers.put(state, stateCases);
         }
       }
-      println(stateCaseNumbers);
+      println(state + " : " + stateCases);
     }
+    return stateCaseNumbers;
   }
 
   public static boolean isNameAlreadySaved(ArrayList<String> data, String string) {
