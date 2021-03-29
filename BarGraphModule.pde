@@ -7,6 +7,7 @@ class HistogramModule extends Module {
   private float barwide;
   private float maxDataValue;
   private int averageRange = 1;
+  private float boarderSize = 2;
 
   HistogramModule(int x, int y, int wide, int tall, List<MyData> data, int averageRange) { 
     super(x, y, wide, tall);
@@ -36,9 +37,9 @@ class HistogramModule extends Module {
       stroke(NAVY);
       fill(NAVY);
       if (i == 0) {
-        rect(map(i, 0, data.length, 0, wide) + 3, tall - 1, barwide-4, map(data[i], 0, maxDataValue, 0, -tall));
+        rect(map(i, 0, data.length, boarderSize, wide - boarderSize) + 3, tall - boarderSize - 1, barwide-4, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
       } else {
-        rect(map(i, 0, data.length, 0, wide) + 2, tall, barwide-2, map(data[i], 0, maxDataValue, 0, -tall));
+        rect(map(i, 0, data.length, boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
       }
       strokeWeight(1);
       stroke(0);
