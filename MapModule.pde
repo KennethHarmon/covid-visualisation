@@ -98,16 +98,15 @@ class MapModule extends Module {
     text("0", x1, lineYEndPos - 1);
     
     // Second line
-    int lineXPos = x1 + (int) x2 / 2;
+    int lineXPos = x1 + (int) (x2  + 2) / 2;
     drawVerticalLine(lineXPos - 1, y1, lineYEndPos);
     text(formatText("#,###,###", mapMax / 2), lineXPos, textYPos);
     
     // Third line
-    lineXPos = x1 + (int) x2;
+    lineXPos = x1 + (int) x2 + 2;
     drawVerticalLine(lineXPos - 1, y1, lineYEndPos);
     text(formatText("#,###,###", mapMax), lineXPos, textYPos);
     
-    stroke(0);
     strokeWeight(1);
     rect(x1 - 1, y1 - 1, x2 + 2, (tall / 18) + 2);
     setGradient(x1, y1, x2, tall / 18, minMapColour, maxMapColour, X_AXIS);
