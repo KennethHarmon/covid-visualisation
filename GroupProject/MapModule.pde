@@ -73,19 +73,13 @@ class MapModule extends Module {
     }
 
     // Top Text
-    float topTextSize = wide * tall / 9000;
-    int textLimitter = 27;
-    if (topTextSize > textLimitter) { // Setting the text size limit to 22
-      textSize(textLimitter);
-    } else {
-      textSize(topTextSize);
-    }
     textAlign(CENTER, TOP);
+    fittedText("Total Covid Cases Per State", wide / 2, tall / 2, 5);
     outlineText("Total Covid Cases Per State", wide / 2, 2, 0, MODULE_COLOR);
 
     //Scale
-    topTextSize = wide * tall / 12000;
-    textLimitter = 8;
+    float topTextSize = wide * tall / 12000;
+    int textLimitter = 8;
     if (topTextSize > textLimitter) { // Setting the text size limit to 22
       textSize(textLimitter);
     } else {
