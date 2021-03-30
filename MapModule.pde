@@ -89,7 +89,7 @@ class MapModule extends Module {
     textAlign(CENTER, BOTTOM);
     fill(0);
     int x1 = MODULE_PADDING;
-    int y1 = (int) tall - (2 * MODULE_PADDING);
+    int y1 = (int) (tall - ((tall / 18) + MODULE_PADDING));
     float x2 = wide / 4;
     //line(x1, y1, );
     text("0" + "\n |", MODULE_PADDING, y1);
