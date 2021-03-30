@@ -180,7 +180,7 @@ public static final class FilterData {
     }
     for (String adminArea : AdminAreas) {
       List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
-      if (stateAdminAreaCasesData != null) {
+      if (stateAdminAreaCasesData != null && stateAdminAreaCasesData.size() > 2) {
         newCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases - stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-2).cases;
       }
     }
