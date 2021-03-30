@@ -2,6 +2,7 @@
 // Kenneth Harmon, added sampling classes to extract a specified number of entries for each query, sorted by most recent. 22/03/2021
 // William Walsh-Dowd, added filters for min/max cases along with functions to get the min/max cases of a data set and the data point with the min/max cases. 23/3/2021
 // Yi Ren, added a function to get the number of new cases in a certain area over a period of time. 24/3/2021
+// William Walsh-Dowd, 30th of march added findNewCasesForCounty() method
 import java.util.Date;
 import java.util.List;
 import java.util.HashSet;
@@ -167,6 +168,26 @@ public static final class FilterData {
     return highestCase;
   }
 
+  public static int findNewCasesForCounty(final List<MyData> myDataList, String county) {
+    List<MyData> newData = filterByCounty(county, myDataList);
+    int newCases = 0;
+    List<MyData> stateCasesData = FilterData.filterByCounty(county, newData);
+    HashSet<String> AdminAreas = new HashSet<String>();
+    for (MyData data : stateCasesData) {
+      if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
+        AdminAreas.add(data.administrativeArea);
+      }
+    }
+    for (String adminArea : AdminAreas) {
+      List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
+      if (stateAdminAreaCasesData != null) {
+        newCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases - stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-2).cases;
+      }
+    }
+
+    return newCases;
+  }
+
   public static int findNewCases(final List<MyData> myDataList, String area, int amount) {
     List<MyData> newData = sampleByAdminArea(area, myDataList, amount);
     int newCases = newData.get(newData.size()-1).cases - newData.get(0).cases;
@@ -178,7 +199,7 @@ public static final class FilterData {
     HashMap<String, List> stateCaseNumbers = new HashMap<String, List>(); 
     for (String state : STATES) {
       List<MyData> stateCasesData = FilterData.filterByCounty(state, myCompleteDataList);
-      stateCaseNumbers.put(state,stateCasesData);
+      stateCaseNumbers.put(state, stateCasesData);
       int stateCases = 0;
       HashSet<String> AdminAreas = new HashSet<String>();
       for (MyData data : stateCasesData) {
