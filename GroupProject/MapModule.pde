@@ -29,7 +29,8 @@ class MapModule extends Module {
 
   @Override
   void subClassDraw() {
-    stroke(0, 40);
+    stroke(0);
+    strokeWeight(0.5);
     //Initial calculation
     for (int id : geoMap.getFeatures().keySet()) {
       String state = geoMap.getAttributeTable().findRow(str(id), 0).getString("Name");
