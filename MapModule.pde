@@ -68,8 +68,8 @@ class MapModule extends Module {
     }
 
     // Top Text
-    final float topTextSize = wide * tall / 9000;
-    final int textLimitter = 27;
+    float topTextSize = wide * tall / 9000;
+    int textLimitter = 27;
     if (topTextSize > textLimitter) { // Setting the text size limit to 22
       textSize(textLimitter);
     } else {
@@ -79,15 +79,26 @@ class MapModule extends Module {
     outlineText("Total Covid Cases Per State", wide / 2, 2, 0, MODULE_COLOR);
 
     //Scale
-    textSize(8);
+    topTextSize = wide * tall / 12000;
+    textLimitter = 8;
+    if (topTextSize > textLimitter) { // Setting the text size limit to 22
+      textSize(textLimitter);
+    } else {
+      textSize(topTextSize);
+    }
+    textAlign(CENTER, BOTTOM);
     fill(0);
-    text("0" + "\n |", MODULE_PADDING, (int)tall - (3 * MODULE_PADDING));
-    text(mapMax / 2 + "\n |", MODULE_PADDING + (wide / 8), (int)tall - (3 * MODULE_PADDING));
-    text(mapMax + "\n |", wide / 4, (int)tall - (3 * MODULE_PADDING));
+    int x1 = MODULE_PADDING;
+    int y1 = (int) tall - (2 * MODULE_PADDING);
+    float x2 = wide / 4;
+    //line(x1, y1, );
+    text("0" + "\n |", MODULE_PADDING, y1);
+    text(mapMax / 2 + "\n |", MODULE_PADDING + (wide / 8), y1);
+    text(mapMax + "\n |", x2, y1);
     stroke(0);
     strokeWeight(1);
-    rect(MODULE_PADDING - 1, ((int) tall - (2 * MODULE_PADDING)) - 1, (wide / 4) + 2, (tall / 18) + 2);
-    setGradient(MODULE_PADDING, (int) tall - (2 * MODULE_PADDING), wide / 4, tall / 18, minMapColour, maxMapColour, X_AXIS);
+    rect(x1 - 1, y1 - 1, x2 + 2, (tall / 18) + 2);
+    setGradient(x1, y1, x2, tall / 18, minMapColour, maxMapColour, X_AXIS);
     textSize(13);
   }
 
