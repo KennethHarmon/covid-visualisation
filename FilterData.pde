@@ -4,6 +4,7 @@
 // Yi Ren, added a function to get the number of new cases in a certain area over a period of time. 24/3/2021
 import java.util.Date;
 import java.util.List;
+import java.util.HashSet;
 
 public static final class FilterData {
 
@@ -172,12 +173,14 @@ public static final class FilterData {
     return newCases;
   }
 
-  public static HashMap<String, Integer> findCurrentStateCases(List<MyData> myCompleteDataList) {
-    HashMap<String, Integer> stateCaseNumbers = new HashMap<String, Integer>();
+  public static HashMap[] findCurrentStateCases(List<MyData> myCompleteDataList) {
+    HashMap<String, Integer> stateCaseTotals = new HashMap<String, Integer>();
+    HashMap<String, List> stateCaseNumbers = new HashMap<String, List>(); 
     for (String state : STATES) {
       List<MyData> stateCasesData = FilterData.filterByCounty(state, myCompleteDataList);
+      stateCaseNumbers.put(state,stateCasesData);
       int stateCases = 0;
-      ArrayList<String> AdminAreas = new ArrayList<String>();
+      HashSet<String> AdminAreas = new HashSet<String>();
       for (MyData data : stateCasesData) {
         if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
           AdminAreas.add(data.administrativeArea);
@@ -187,20 +190,16 @@ public static final class FilterData {
         List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
         if (stateAdminAreaCasesData != null) {
           stateCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases;
-          stateCaseNumbers.put(state, stateCases);
+          stateCaseTotals.put(state, stateCases);
         }
       }
       println(state + " : " + stateCases);
     }
-    return stateCaseNumbers;
+    HashMap[] mapArray = {stateCaseTotals, stateCaseNumbers};
+    return mapArray;
   }
 
-  public static boolean isNameAlreadySaved(ArrayList<String> data, String string) {
-    for (int i = 0; i < data.size(); i++) {
-      if (data.get(i).equals(string)) {
-        return true;
-      }
-    }
-    return false;
+  public static boolean isNameAlreadySaved(HashSet<String> data, String string) {
+    return data.contains(string);
   }
 }

@@ -15,7 +15,8 @@ List<MyData> myCompleteDataList;
 PrintList printList;
 List<MyData> searchData;  // For testing
 List<MyData> mapData;  // For testing
-HashMap<String, Integer> stateCaseNumbers;
+HashMap<String, Integer> stateCaseTotals;
+HashMap<String, List> stateCaseNumbers;
 int searchData1;
 PFont font;
 String currentText;
@@ -44,7 +45,9 @@ void setup() {
   searchData = FilterData.sampleByDate(myCompleteDataList, 100);
   
   //Map HashMap
-  HashMap<String, Integer> stateCaseNumbers = FilterData.findCurrentStateCases(myCompleteDataList);
+  HashMap[] stateCaseInformation = FilterData.findCurrentStateCases(myCompleteDataList);
+  stateCaseTotals = stateCaseInformation[0];
+  stateCaseNumbers = stateCaseInformation[1];
   
   //Initialisation
   font = createFont("Monospaced.bold", 22);
@@ -52,7 +55,7 @@ void setup() {
   newCases = new NewCasesModule(width/2-(width - 4 * MODULE_PADDING) / 6, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, searchData1); //ID:1
   casesModule = new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, cases); //ID:2
   histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, searchData, 5); //ID:3
-  mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, stateCaseNumbers); //ID:4
+  mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, stateCaseTotals); //ID:4
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;
