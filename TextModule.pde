@@ -10,6 +10,7 @@ class TextModule extends Module {
   void subClassDraw() {
     textAlign(CENTER, CENTER);
     textSize(wide * tall / 1000);
+    fittedText(text, wide / 2, tall / 2, MODULE_COLOR);
     outlineText(text, wide / 2, tall / 2, 0, MODULE_COLOR);
   }
 }
