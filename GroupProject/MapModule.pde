@@ -93,16 +93,19 @@ class MapModule extends Module {
     int y1 = (int) (tall - ((tall / 18) + MODULE_PADDING));
     float x2 = wide / 4;
     int lineYEndPos = y1 - 8;
+    int textYPos = lineYEndPos - 1;
     drawVerticalLine(x1 - 1, y1, lineYEndPos);
     text("0", x1, lineYEndPos - 1);
     
     // Second line
-    text(formatText("#,###,###", mapMax / 2) + "\n |", MODULE_PADDING + (wide / 8), y1);
+    int lineXPos = x1 + (int) x2 / 2;
+    drawVerticalLine(lineXPos - 1, y1, lineYEndPos);
+    text(formatText("#,###,###", mapMax / 2), lineXPos, textYPos);
     
     // Third line
-    int lineXPos = x1 + (int) x2;
+    lineXPos = x1 + (int) x2;
     drawVerticalLine(lineXPos - 1, y1, lineYEndPos);
-    text(formatText("#,###,###", mapMax) + "\n |", x2, y1);
+    text(formatText("#,###,###", mapMax), lineXPos, textYPos);
     
     stroke(0);
     strokeWeight(1);
