@@ -87,16 +87,23 @@ class MapModule extends Module {
     }
     textAlign(CENTER, BOTTOM);
     fill(0);
-    stroke(126);
+    stroke(0);
+    // First line
     int x1 = MODULE_PADDING;
     int y1 = (int) (tall - ((tall / 18) + MODULE_PADDING));
     float x2 = wide / 4;
-    int y2 = y1 - 8;
-    line(x1 - 1, y1, x1 - 1, y2);
-    text("0", x1, y2 - 1);
+    int lineYEndPos = y1 - 8;
+    drawVerticalLine(x1 - 1, y1, lineYEndPos);
+    text("0", x1, lineYEndPos - 1);
     
+    // Second line
     text(formatText("#,###,###", mapMax / 2) + "\n |", MODULE_PADDING + (wide / 8), y1);
+    
+    // Third line
+    int lineXPos = x1 + (int) x2;
+    drawVerticalLine(lineXPos - 1, y1, lineYEndPos);
     text(formatText("#,###,###", mapMax) + "\n |", x2, y1);
+    
     stroke(0);
     strokeWeight(1);
     rect(x1 - 1, y1 - 1, x2 + 2, (tall / 18) + 2);
@@ -106,6 +113,10 @@ class MapModule extends Module {
 
   void OnSizeUpdateEvent() {
     scaleGeoMap();
+  }
+  
+  private void drawVerticalLine(int x1, int y1, int y2) {
+   line(x1, y1, x1, y2);
   }
 
   //Taken from Processing docs
