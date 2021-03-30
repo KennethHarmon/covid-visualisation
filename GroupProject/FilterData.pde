@@ -4,7 +4,9 @@
 // Yi Ren, added a function to get the number of new cases in a certain area over a period of time. 24/3/2021
 // William Walsh-Dowd, 30th of march added findNewCasesForCounty() method
 import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public static final class FilterData {
@@ -185,6 +187,47 @@ public static final class FilterData {
       }
     }
     return newCases;
+  }
+
+  public static int[] createStateCasesPerTime(String state, HashMap<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {
+    ArrayList<Integer> casesPerTime = new ArrayList<Integer>();
+
+    List<MyData> allStateEntriees = stateCaseNumbers.get(state);
+
+    HashSet<String> AdminAreas = new HashSet<String>();
+    for (MyData data : allStateEntriees) {
+      if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
+        AdminAreas.add(data.administrativeArea);
+      }
+    }
+
+    int casesForThisDay = 0;
+    Date date = myCompleteDataList.get(myCompleteDataList.size() - 1).date;
+    Date lastestDate = new Date(120, 0, 0);
+
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(date);
+    int daysToDecrement = -1;
+
+    for (String adminArea : AdminAreas) {
+      while (!date.equals(lastestDate)) {
+        List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, allStateEntriees);
+        if (stateAdminAreaCasesData != null && filterByDate(date, stateAdminAreaCasesData).size() > 0) {
+          println(casesPerTime.size());
+          casesForThisDay += filterByDate(date, stateAdminAreaCasesData).get(0).cases;
+        }
+        casesPerTime.add(casesForThisDay);
+        println(date + " " + casesForThisDay + " in " + state + " of " + lastestDate);
+        cal.add(Calendar.DATE, daysToDecrement);
+        date = cal.getTime();
+      }
+    }
+
+    int[] cases = new int[casesPerTime.size()];
+    for (int i = 0; i < casesPerTime.size(); i++) {
+      cases[i] = casesPerTime.get(i);
+    }
+    return cases;
   }
 
   public static int findNewCases(final List<MyData> myDataList, String area, int amount) {
