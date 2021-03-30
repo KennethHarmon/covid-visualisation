@@ -92,8 +92,8 @@ class MapModule extends Module {
     float x2 = wide / 4;
     //line(x1, y1, );
     text("0" + "\n |", MODULE_PADDING, y1);
-    text(mapMax / 2 + "\n |", MODULE_PADDING + (wide / 8), y1);
-    text(mapMax + "\n |", x2, y1);
+    text(formatText("#,###,###", mapMax / 2) + "\n |", MODULE_PADDING + (wide / 8), y1);
+    text(formatText("#,###,###", mapMax) + "\n |", x2, y1);
     stroke(0);
     strokeWeight(1);
     rect(x1 - 1, y1 - 1, x2 + 2, (tall / 18) + 2);

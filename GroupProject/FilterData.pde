@@ -184,7 +184,6 @@ public static final class FilterData {
         newCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases - stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-2).cases;
       }
     }
-
     return newCases;
   }
 
