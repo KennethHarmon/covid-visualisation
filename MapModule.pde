@@ -27,6 +27,7 @@ class MapModule extends Module {
     geoMap.readFile("usContinental");
   }
 
+  @Override
   void subClassDraw() {
     stroke(0, 40);
     //Initial calculation
