@@ -51,7 +51,6 @@ class MapModule extends Module {
     }
 
     //Highlighting
-    //final float relativeMouseX = map(mouseX, super.xOrigin, super.xOrigin + wide, 0, wide);
     final int relativeMouseX = mouseX - (int) super.xOrigin;
     final int relativeMouseY = mouseY - (int) super.yOrigin;
     int id = geoMap.getID(relativeMouseX, relativeMouseY);
@@ -59,42 +58,25 @@ class MapModule extends Module {
       fill(NAVY);
       geoMap.draw(id);
       String name = geoMap.getAttributeTable().findRow(str(id), 0).getString("Name");
-      fill(0);
       textSize(wide * tall / 8000); // 8000 seems to be the right ratio
       if (relativeMouseX > textWidth(name)) {
         textAlign(RIGHT);
       } else {
         textAlign(LEFT);
       }
-      final float textXPos = relativeMouseX + 5;
-      final float textYPos = relativeMouseY - 5;
-      for (int x = -1; x < 2; x++) {        // This creates an outline for the text
-        text(name, textXPos + x, textYPos);
-        text(name, textXPos, textYPos + x);
-      }
-      fill(GLOBAL_BACKGROUND);
-      text(name, textXPos, textYPos);
-      textSize(13);
+      outlineText(name, relativeMouseX + 5, relativeMouseY - 5, 0, GLOBAL_BACKGROUND);
     }
 
-    //Text
-    fill(0);
+    // Top Text
     final int topTextSize = (int) (wide * tall / 9000);
-    if (topTextSize > 22) { // Setting the text size limit to 22
-      textSize(22);
+    final int textLimitter = 27;
+    if (topTextSize > textLimitter) { // Setting the text size limit to 22
+      textSize(textLimitter);
     } else {
       textSize(topTextSize);
     }
-    final float textXPos = wide / 2;
-    final float textYPos = 2;
-    final String topText = "Total Covid Cases Per State";
     textAlign(CENTER, TOP);
-    for (int x = -1; x < 2; x++) {        // This creates an outline for the text
-      text(topText, textXPos + x, textYPos);
-      text(topText, textXPos, textYPos + x);
-    }
-    fill(MODULE_COLOR);
-    text(topText, textXPos, textYPos);
+    outlineText("Total Covid Cases Per State", wide / 2, 2, 0, MODULE_COLOR);
 
     //Scale
     textSize(8);

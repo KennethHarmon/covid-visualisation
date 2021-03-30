@@ -8,8 +8,8 @@ class NewCasesModule extends Module {
   }
 
   void subClassDraw() {
-    fill(0);
-    textAlign(CENTER,CENTER);
-    text("New cases:" + cases, wide/2,tall/2);
+    textAlign(CENTER, CENTER);
+    textSize(wide * tall / 1000);
+    outlineText("New cases:" + cases, wide / 2, tall / 2, 0, MODULE_COLOR);
   }
 }
