@@ -31,6 +31,7 @@ class HistogramModule extends Module {
     }
   }
 
+  @Override
   void subClassDraw() {
     fill(0);
     for (int i = 0; i < data.length; i++) {

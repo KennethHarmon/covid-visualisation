@@ -7,6 +7,7 @@ class NewCasesModule extends Module {
     this.cases = cases;
   }
 
+  @Override
   void subClassDraw() {
     textAlign(CENTER, CENTER);
     textSize(wide * tall / 1000);

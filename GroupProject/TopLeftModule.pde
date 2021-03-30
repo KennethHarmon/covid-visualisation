@@ -8,6 +8,7 @@ class CaseModule extends Module {
   }
 
   //K.H changed to subclass draw
+  @Override
   void subClassDraw() {
     textAlign(CENTER, CENTER);
     textSize(wide * tall / 1000);
