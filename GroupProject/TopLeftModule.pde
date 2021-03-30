@@ -11,8 +11,9 @@ class CaseModule extends Module {
   @Override
   void subClassDraw() {
     textAlign(CENTER, CENTER);
-    fittedText("Total Cases: " + formatText("##,###,###", cases), wide, tall, MODULE_PADDING);
-    outlineText("Total Cases: " + formatText("##,###,###", cases), wide / 2, tall / 2, 0, MODULE_COLOR);
+    final String text = "Total Cases: " + formatText("##,###,###", cases);
+    fittedText(text, wide, tall, MODULE_PADDING);
+    outlineText(text, wide / 2, tall / 2, 0, MODULE_COLOR);
   }
   
 }
