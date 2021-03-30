@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 class Module {
   float xOrigin, yOrigin, wide, tall;
   color moduleBackground;
@@ -36,6 +38,12 @@ class Module {
   }
 
   void OnSizeUpdateEvent() {
+  }
+  
+  String formatText(String pattern, int value) {
+    DecimalFormat formatter = new DecimalFormat(pattern);
+    String output = formatter.format(value);
+    return output;
   }
   
   boolean isClicked(){
