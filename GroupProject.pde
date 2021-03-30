@@ -28,7 +28,7 @@ void settings() {
 
 void setup() {
   surface.setResizable(true); // enables the window to resize when its edges are dragged.
-  
+
   //Data retrieval
   try {
     String dataPath = dataPath("cases-1M.csv");
@@ -41,17 +41,17 @@ void setup() {
   //Querying
   int totalCases = 0;
   searchData = FilterData.sampleByDate(myCompleteDataList, 100);
-  
+
   //Map HashMap
   HashMap[] stateCaseInformation = FilterData.findCurrentStateCases(myCompleteDataList);
   stateCaseTotals = stateCaseInformation[0];
   stateCaseNumbers = stateCaseInformation[1];
-  
+
   //Total Cases
   for (int caseTotals : stateCaseTotals.values()) {
     totalCases += caseTotals;
   }
-  
+
   //Initialisation
   font = createFont("Monospaced.bold", 22);
   textSize(14);
@@ -62,8 +62,8 @@ void setup() {
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;
-  
-  mainScreen.addModules(newCases,casesModule,histogram,mapModule);
+
+  mainScreen.addModules(newCases, casesModule, histogram, mapModule);
 }
 
 void draw() {
@@ -75,8 +75,7 @@ void draw() {
 void mousePressed() {
   if (mouseButton == RIGHT) {
     currentScreen = mainScreen;
-  }
-  else if (mouseButton == LEFT) {
+  } else if (mouseButton == LEFT) {
     int event = currentScreen.getEvent();
     switch (event) {
     case 2:
@@ -84,4 +83,10 @@ void mousePressed() {
       break;
     }
   }
+}
+
+// M.A made a method to fit the text to a boundary 30/03/2021
+public void fittedText(String str, float xDimension, float yDimension, int padding) {
+  textSize(12);
+  textSize(min(12 * (xDimension - padding)/ textWidth(str), 12 / (textDescent() + textAscent()) * (yDimension - padding)));
 }
