@@ -87,11 +87,14 @@ class MapModule extends Module {
     }
     textAlign(CENTER, BOTTOM);
     fill(0);
+    stroke(126);
     int x1 = MODULE_PADDING;
     int y1 = (int) (tall - ((tall / 18) + MODULE_PADDING));
     float x2 = wide / 4;
-    //line(x1, y1, );
-    text("0" + "\n |", MODULE_PADDING, y1);
+    int y2 = y1 - 8;
+    line(x1 - 1, y1, x1 - 1, y2);
+    text("0", x1, y2 - 1);
+    
     text(formatText("#,###,###", mapMax / 2) + "\n |", MODULE_PADDING + (wide / 8), y1);
     text(formatText("#,###,###", mapMax) + "\n |", x2, y1);
     stroke(0);
