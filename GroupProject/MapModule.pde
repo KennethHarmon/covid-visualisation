@@ -68,7 +68,7 @@ class MapModule extends Module {
     }
 
     // Top Text
-    final int topTextSize = (int) (wide * tall / 9000);
+    final float topTextSize = wide * tall / 9000;
     final int textLimitter = 27;
     if (topTextSize > textLimitter) { // Setting the text size limit to 22
       textSize(textLimitter);
