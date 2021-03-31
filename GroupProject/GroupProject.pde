@@ -11,6 +11,7 @@ CaseModule casesModule;
 NewCasesModule newCases;
 HistogramModule histogram;
 MapModule mapModule;
+BiggestIncreasesModule biggestIncreasesModule;
 List<MyData> myCompleteDataList;
 PrintList printList;
 List<MyData> searchData;  // For testing
@@ -59,11 +60,12 @@ void setup() {
   casesModule = new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, totalCases); //ID:2
   histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, searchData, 5); //ID:3
   mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, stateCaseTotals); //ID:4
+  biggestIncreasesModule = new  BiggestIncreasesModule(MODULE_PADDING,  3 * MODULE_PADDING + ( 5 * (height - 4 * MODULE_PADDING) / 8),((width - 3 * MODULE_PADDING) / 3 ) * 2, (height - 4 * MODULE_PADDING) * 3/8, stateCaseNumbers);
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;
 
-  mainScreen.addModules(newCases, casesModule, histogram, mapModule);
+  mainScreen.addModules(newCases, casesModule, histogram, mapModule, biggestIncreasesModule);
 }
 
 void draw() {
