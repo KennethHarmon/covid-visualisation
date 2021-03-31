@@ -1,7 +1,7 @@
 //K.H Created MapModule from geomap library 25/03/2021
 //K.H converted to subclass draw 26/03/2021
 // M.A made the map scalable and started to set up a system for queries and made an outline for the text 29/03/2021
-// M.A fixed top text scaling for map
+// M.A fixed top text scaling for map and overall scaling 30/03/2021
 import org.gicentre.geomap.*;
 
 class MapModule extends Module {
