@@ -13,7 +13,7 @@ RadioButtonsModule radioButtons;
     super.addModules(
       new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, stateCaseTotals.get(stateName)), 
       new TextModule((width - 4 * MODULE_PADDING) / 3 + 2 * MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, stateName), 
-      new HistogramModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, FilterData.filterHashMapByDate(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList)), 5), 
+      new HistogramModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, FilterData.LinkedHashMapToIntArray(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList)), 5), 
       newCases2,
       radioButtons
       );
