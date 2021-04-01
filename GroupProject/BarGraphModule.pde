@@ -22,20 +22,20 @@ class HistogramModule extends Module {
     this.averageRange = averageRange;
     lineData = saveBestFitLineAlt(this.data);
   }
-  
-    HistogramModule(int x, int y, int wide, int tall, int[] data, int averageRange) {
+
+  HistogramModule(int x, int y, int wide, int tall, int[] data, int averageRange) {
     super(x, y, wide, tall);
     barwide = wide/data.length;
-    
-    
+
+
     int[] dataCopy = new int[data.length];
-    for(int i = 0; i < data.length ; i++) {
+    for (int i = 0; i < data.length; i++) {
       dataCopy[i] = data[i];
     }
     Arrays.sort(data);
     maxDataValue = data[data.length-1] * 1.05;
     data = dataCopy;
-    
+
     this.data = new int[data.length];
     for (int i = 0; i < data.length; i++) {
       this.data[i] = data[i];
@@ -55,7 +55,7 @@ class HistogramModule extends Module {
   }
 
   @Override
-  void subClassDraw() {
+    void subClassDraw() {
     fill(0);
     for (int i = 0; i < data.length; i++) {
       stroke(NAVY);
@@ -83,12 +83,22 @@ class HistogramModule extends Module {
     ArrayList newArray = new ArrayList();
     for (int i = 0; i < data.length; i++) {
       int averageOfElements = 0;
+      boolean scaleAverage = false;
+      int overflow = 0;
       for (int j = -averageRange; j < averageRange; j++) {
         if (i+j >= 0 && i+j < data.length) {
           averageOfElements += data[i+j];
+        } else if (i+j >= data.length) {
+          scaleAverage = true;
+          overflow = averageRange + j;
+          break;
         }
       }
-      averageOfElements = averageOfElements/((averageRange*2));
+      if (!scaleAverage) {
+        averageOfElements = averageOfElements/(averageRange*2);
+      } else {
+        averageOfElements = averageOfElements/(overflow);
+      }
       newArray.add(int(averageOfElements));
     }
     return toIntArray(newArray);
