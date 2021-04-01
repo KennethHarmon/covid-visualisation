@@ -190,47 +190,40 @@ public static final class FilterData {
   }
 
   public static HashMap<Date, Integer> createStateCasesPerTime(String state, HashMap<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {
-    // ArrayList<Integer> casesPerTime = new ArrayList<Integer>();
     HashMap<Date, Integer> casesPerTime = new HashMap<Date, Integer>();
     List<MyData> allStateEntriees = stateCaseNumbers.get(state);
-    HashSet<String> AdminAreas = new HashSet<String>();
-    for (MyData data : allStateEntriees) {
-      if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
-        AdminAreas.add(data.administrativeArea);
-      }
-    }
     int casesForThisDay = 0;
     Date date = myCompleteDataList.get(myCompleteDataList.size() - 1).date;
     Date lastestDate = new Date(120, 0, 0);
     Calendar cal = Calendar.getInstance();
     cal.setTime(date);
     int daysToDecrement = -1;
-    for (String adminArea : AdminAreas) {
-      while (!date.equals(lastestDate)) {
-        List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, allStateEntriees);
-        if (stateAdminAreaCasesData != null && filterByDate(date, stateAdminAreaCasesData).size() > 0) {
-          println(casesPerTime.size());
-          casesForThisDay += filterByDate(date, stateAdminAreaCasesData).get(0).cases;
+    while (!date.equals(lastestDate)) {
+      casesForThisDay = 0;
+      if (allStateEntriees != null && filterByDate(date, allStateEntriees).size() > 0) {
+        println(casesPerTime.size());
+        for (MyData data : filterByDate(date, allStateEntriees)) {
+          casesForThisDay += data.cases;
         }
-        casesPerTime.put(date, casesForThisDay);
-        println(date + " " + casesForThisDay + " in " + state + " of " + lastestDate);
-        cal.add(Calendar.DATE, daysToDecrement);
-        date = cal.getTime();
       }
+      casesPerTime.put(date, casesForThisDay);
+      println(date + " " + casesForThisDay + " in " + state + " --|--|-- " + myCompleteDataList.get(myCompleteDataList.size() - 1).date);
+      cal.add(Calendar.DATE, daysToDecrement);
+      date = cal.getTime();
     }
     return casesPerTime;
   }
 
-  public static int[] filterHashMapByDate(HashMap<Date, Integer> stateCasesPerTime, Date thisDateForward) {
+  public static int[] filterHashMapByDate(HashMap<Date, Integer> stateCasesPerTime) {
     int[] newIntArray = new int[stateCasesPerTime.size()];
+
     int i = 0;
     for (Date date : stateCasesPerTime.keySet()) {
-      if (date.after(thisDateForward)) {
-        newIntArray[i] = stateCasesPerTime.get(date);
-        println(date);
-      }
+      newIntArray[i] = stateCasesPerTime.get(date);
+      println(date + " : " + stateCasesPerTime.get(date));
       i++;
     }
+
     return newIntArray;
   }
 
