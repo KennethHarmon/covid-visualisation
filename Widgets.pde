@@ -5,12 +5,16 @@ class Widget{
   color widgetColor1, widgetColor2;
   boolean clicked;
 
-  Widget(float x, float y, float wide, float tall, int day, color unclickedColor, color clickedColor){
-    this.x = x; this.y = y;
-    this.wide = wide; this.tall = tall;
+  Widget(int day, color unclickedColor, color clickedColor){
     this.widgetColor1 = unclickedColor; this.widgetColor2 = clickedColor;
     this.event = day;
     clicked = false;
+  }
+  
+    
+  void resize(float x, float y, float wide, float tall){
+    this.x = x; this.y = y;
+    this.wide = wide; this.tall = tall;
   }
   
   void draw() {

@@ -5,13 +5,15 @@ int current, event, day;
 List<MyData> dataList;
 String area;
 int initial;
+int[] days;
   
   RadioButtonsModule(float x, float y, float wide, float tall, final List<MyData> myDataList, String area, int initial, int ...days) {
     super(x, y, wide, tall);
     radio = new ArrayList<Widget>();
     for(int i = 0; i < days.length; i++){
-      radio.add(new Widget(wide/3 + wide*2/3/days.length*i, MODULE_PADDING, (wide*2/3 - 2*MODULE_PADDING)/days.length, tall-2*MODULE_PADDING, days[i], GREY, NAVY));
+      radio.add(new Widget(days[i], GREY, NAVY));
     }
+    this.days = days;
     this.initial = initial;
     current = initial;
     radio.get(current).clicked = true;
@@ -36,6 +38,7 @@ int initial;
           radio.get(i).clicked = true;
         }
       }
+      radio.get(i).resize(wide/3 + wide*2/3/days.length*i, MODULE_PADDING, (wide*2/3 - 2*MODULE_PADDING)/days.length, tall-2*MODULE_PADDING);
       radio.get(i).draw();
     }
   }
