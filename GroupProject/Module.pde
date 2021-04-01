@@ -23,7 +23,7 @@ class Module {
   void draw() {
     fill(MODULE_COLOR);
     strokeWeight(3);
-    stroke(230);
+    stroke(GLOBAL_MODULE_STROKE);
 
     pushMatrix();
     translate(xOrigin, yOrigin);
