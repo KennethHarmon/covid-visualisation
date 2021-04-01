@@ -1,4 +1,5 @@
 // M.A made a search bar module for taking queries, 31/03/2021
+// M.A made slight improvements to the search bar, including not adding spaces when the length of the sb is 0, trimming the return String in sendText() and adjusting the size of the text, 01, 04, 2021
 public class SearchBarModule extends Module {
   private StringBuilder text = new StringBuilder();
   private String textAsString;
@@ -11,9 +12,8 @@ public class SearchBarModule extends Module {
   }
 
   public String sendText() {
-    String s = text.toString();
     text.setLength(0);
-    return s;
+    return textAsString.trim();
   }
 
   private void setTextAsString() {
@@ -34,7 +34,6 @@ public class SearchBarModule extends Module {
 
     fill(GLOBAL_BACKGROUND);
     textAlign(LEFT, CENTER);
-    textSize(wide * tall / 2000);
     setTextAsString(); // Converting to String 
     outlineText(textAsString + ((frameCount >> 5 & 1) == 0 ? "_" : ""), leftLimit, tall / 2, 0, GLOBAL_BACKGROUND); // Drawing the text to the screen with a blinking underscore
     popMatrix();
@@ -45,6 +44,7 @@ public class SearchBarModule extends Module {
   private void adjustLimits() {
     this.leftLimit = wide / 12;
     this.rightLimit = 6.5 * wide / 8;
+    fittedText(STATES[8], rightLimit - leftLimit, tall, 0); // Sets text size
   }
 
   @Override
@@ -55,7 +55,7 @@ public class SearchBarModule extends Module {
   public boolean isKeyPressed() { // Boolean method so that I can use this with sendText()
     if (keyCode == (int) BACKSPACE) {
       this.backspace();
-    } else if (keyCode == 32) { // Space character
+    } else if (keyCode == 32 && text.length() > 0) { // Space character
       this.addText(' ');
     } else if (keyCode == (int) ENTER) {
       return true;
