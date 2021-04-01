@@ -170,7 +170,7 @@ public static final class FilterData {
     return highestCase;
   }
 
-  public static int findNewCasesForCounty(final List<MyData> myDataList, String county) {
+  public static int findNewCasesForCounty(final List<MyData> myDataList, String county, int amount) {
     List<MyData> newData = filterByCounty(county, myDataList);
     int newCases = 0;
     List<MyData> stateCasesData = FilterData.filterByCounty(county, newData);
@@ -182,8 +182,8 @@ public static final class FilterData {
     }
     for (String adminArea : AdminAreas) {
       List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
-      if (stateAdminAreaCasesData != null && stateAdminAreaCasesData.size() > 2) {
-        newCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases - stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-2).cases;
+      if (stateAdminAreaCasesData != null && stateAdminAreaCasesData.size() >= amount+1) {
+        newCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases - stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1-amount).cases;
       }
     }
     return newCases;
