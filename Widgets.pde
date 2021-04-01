@@ -1,4 +1,4 @@
-// made by Yi Ren on 31st of March. a class that extends module and shows the number of new cases in a certain area over a period of time.
+// made by Yi Ren on 31st of March. Added a widget class to create radio buttons.
 class Widget{
   int event;
   float x, y, wide, tall;
