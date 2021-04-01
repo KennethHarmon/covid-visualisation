@@ -61,11 +61,7 @@ class HistogramModule extends Module {
       fill(NAVY);
       strokeWeight(1);
       stroke(NAVY);
-      if (i == 0) {
-        rect(map(i, 0, data.length, boarderSize, wide - boarderSize) + 3, tall - boarderSize - 1, barwide-4, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
-      } else {
-        rect(map(i, 0, data.length, boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
-      }
+      rect(map(i, 0, data.length, boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
     }
     bestFitLine(lineData);
   }
