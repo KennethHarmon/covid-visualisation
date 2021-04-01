@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 public static final class FilterData {
 
@@ -189,8 +190,8 @@ public static final class FilterData {
     return newCases;
   }
 
-  public static HashMap<Date, Integer> createStateCasesPerTime(String state, HashMap<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {
-    HashMap<Date, Integer> casesPerTime = new HashMap<Date, Integer>();
+  public static LinkedHashMap<Date, Integer> createStateCasesPerTime(String state, HashMap<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {
+    LinkedHashMap<Date, Integer> casesPerTime = new LinkedHashMap<Date, Integer>();
     List<MyData> allStateEntriees = stateCaseNumbers.get(state);
     int casesForThisDay = 0;
     Date date = myCompleteDataList.get(myCompleteDataList.size() - 1).date;
@@ -201,30 +202,36 @@ public static final class FilterData {
     while (!date.equals(lastestDate)) {
       casesForThisDay = 0;
       if (allStateEntriees != null && filterByDate(date, allStateEntriees).size() > 0) {
-        println(casesPerTime.size());
         for (MyData data : filterByDate(date, allStateEntriees)) {
           casesForThisDay += data.cases;
         }
+        casesPerTime.put(date, casesForThisDay);
       }
-      casesPerTime.put(date, casesForThisDay);
-      println(date + " " + casesForThisDay + " in " + state + " --|--|-- " + myCompleteDataList.get(myCompleteDataList.size() - 1).date);
       cal.add(Calendar.DATE, daysToDecrement);
       date = cal.getTime();
     }
     return casesPerTime;
   }
 
-  public static int[] filterHashMapByDate(HashMap<Date, Integer> stateCasesPerTime) {
+  public static int[] LinkedHashMapToIntArray(LinkedHashMap<Date, Integer> stateCasesPerTime) {
     int[] newIntArray = new int[stateCasesPerTime.size()];
-
     int i = 0;
     for (Date date : stateCasesPerTime.keySet()) {
-      newIntArray[i] = stateCasesPerTime.get(date);
-      println(date + " : " + stateCasesPerTime.get(date));
+      newIntArray[newIntArray.length - i -1] = stateCasesPerTime.get(date);
       i++;
     }
-
     return newIntArray;
+  }
+
+  public static LinkedHashMap<Date, Integer> filterLinkedHashMapByDate(LinkedHashMap<Date, Integer> stateCasesPerTime, Date afterThisDate) {
+    LinkedHashMap<Date, Integer> newArray = new LinkedHashMap<Date, Integer>();
+    for (Date date : stateCasesPerTime.keySet()) {
+      if (date.after(afterThisDate)) {
+        newArray.put(date, stateCasesPerTime.get(date));
+        println(date + " : " + stateCasesPerTime.get(date));
+      }
+    }
+    return newArray;
   }
 
   public static int findNewCases(final List<MyData> myDataList, String area, int amount) {
