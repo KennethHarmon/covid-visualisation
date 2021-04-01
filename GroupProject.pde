@@ -90,7 +90,9 @@ void mousePressed() {
 }
 
 void keyPressed() {
-  searchBar.isKeyPressed();
+  if (currentScreen.equals(mainScreen)) {
+    searchBar.isKeyPressed();
+  }
 }
 
 // M.A made a method to fit the text to a boundary 30/03/2021
