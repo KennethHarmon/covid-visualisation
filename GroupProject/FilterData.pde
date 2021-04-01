@@ -189,26 +189,22 @@ public static final class FilterData {
     return newCases;
   }
 
-  public static int[] createStateCasesPerTime(String state, HashMap<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {
-    ArrayList<Integer> casesPerTime = new ArrayList<Integer>();
-
+  public static HashMap<Date, Integer> createStateCasesPerTime(String state, HashMap<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {
+    // ArrayList<Integer> casesPerTime = new ArrayList<Integer>();
+    HashMap<Date, Integer> casesPerTime = new HashMap<Date, Integer>();
     List<MyData> allStateEntriees = stateCaseNumbers.get(state);
-
     HashSet<String> AdminAreas = new HashSet<String>();
     for (MyData data : allStateEntriees) {
       if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
         AdminAreas.add(data.administrativeArea);
       }
     }
-
     int casesForThisDay = 0;
     Date date = myCompleteDataList.get(myCompleteDataList.size() - 1).date;
     Date lastestDate = new Date(120, 0, 0);
-
     Calendar cal = Calendar.getInstance();
     cal.setTime(date);
     int daysToDecrement = -1;
-
     for (String adminArea : AdminAreas) {
       while (!date.equals(lastestDate)) {
         List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, allStateEntriees);
@@ -216,18 +212,26 @@ public static final class FilterData {
           println(casesPerTime.size());
           casesForThisDay += filterByDate(date, stateAdminAreaCasesData).get(0).cases;
         }
-        casesPerTime.add(casesForThisDay);
+        casesPerTime.put(date, casesForThisDay);
         println(date + " " + casesForThisDay + " in " + state + " of " + lastestDate);
         cal.add(Calendar.DATE, daysToDecrement);
         date = cal.getTime();
       }
     }
+    return casesPerTime;
+  }
 
-    int[] cases = new int[casesPerTime.size()];
-    for (int i = 0; i < casesPerTime.size(); i++) {
-      cases[i] = casesPerTime.get(i);
+  public static int[] filterHashMapByDate(HashMap<Date, Integer> stateCasesPerTime, Date thisDateForward) {
+    int[] newIntArray = new int[stateCasesPerTime.size()];
+    int i = 0;
+    for (Date date : stateCasesPerTime.keySet()) {
+      if (date.after(thisDateForward)) {
+        newIntArray[i] = stateCasesPerTime.get(date);
+        println(date);
+      }
+      i++;
     }
-    return cases;
+    return newIntArray;
   }
 
   public static int findNewCases(final List<MyData> myDataList, String area, int amount) {
