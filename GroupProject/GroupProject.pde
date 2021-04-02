@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import processing.sound.*;
 import org.gicentre.geomap.*;
 
 GeoMap geoMap;
@@ -19,6 +20,7 @@ List<MyData> searchData;  // For testing
 HashMap<String, Integer> stateCaseTotals;
 HashMap<String, List> stateCaseNumbers;
 PFont font;
+SoundFile lobbyMusic;
 String currentText;
 Screen currentScreen;
 Screen mainScreen;
@@ -66,6 +68,11 @@ void setup() {
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;
+  
+  // M.A added some lobby music, 02/04/2021
+  // Credit to https://youtu.be/L6d7dH6tNAs
+  lobbyMusic = new SoundFile(this, "Lounge-Music.mp3");
+  lobbyMusic.loop(1, 0.01);
 
   mainScreen.addModules(newCases, casesModule, histogram, mapModule, biggestIncreasesModule, searchBar);
 }
