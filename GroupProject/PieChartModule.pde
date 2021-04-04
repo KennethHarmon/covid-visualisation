@@ -1,4 +1,5 @@
 // M.A made a pie chart module to get top 10 areas affected by covid in a state, 03/04/2021
+// M.A improved upon pie chart with error handling, mousing over to give more information and more, 04/04/2021
 public class PieChartModule extends Module {
   private final String state;
   private final String stateCasesLabel;
@@ -18,7 +19,7 @@ public class PieChartModule extends Module {
     void subClassDraw() {
     textAlign(CENTER, CENTER);
     if (topAdminAreasList.size() > 1) {
-      fittedText(stateCasesLabel, wide / 2, tall / 3, MODULE_PADDING); // Change to take wide if it's going to be a square module
+      fittedText(stateCasesLabel, wide / 1.2, tall / 3, MODULE_PADDING); // Change to take wide if it's going to be a square module
       outlineText(stateCasesLabel, wide / 2, tall / 12, 0, MODULE_COLOR);
       this.pieChart();
     } else {
@@ -57,7 +58,7 @@ public class PieChartModule extends Module {
         fill(BLACK, 63); // 25% opacity
         int xPos = relativeMouseX + 5;
         int yPos = relativeMouseY - 5;
-        float xDimension = wide / 4;
+        float xDimension = wide / 3;
         float yDimension = tall / 3;
 
         rectMode(CORNERS);

@@ -1,4 +1,5 @@
 // William Walsh-Dowd created on 30th march, creates a screen with data from a spacific state.
+// M.A implemented the pieChartModule within this Screen, 04/04/2021
 class StateDataScreen extends Screen {
 List<MyData> allStateEntriees;
 String stateName;
@@ -13,7 +14,8 @@ RadioButtonsModule radioButtons;
     super.addModules(
       new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, stateCaseTotals.get(stateName)), 
       new TextModule((width - 4 * MODULE_PADDING) / 3 + 2 * MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, stateName), 
-      new HistogramModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, FilterData.LinkedHashMapToIntArray(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList)), 5), 
+      new HistogramModule(MODULE_PADDING * 2 + width / 3 - 2 * MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 * 2 - MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, FilterData.LinkedHashMapToIntArray(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList)), 5),
+      new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName),
       newCases2,
       radioButtons
       );
