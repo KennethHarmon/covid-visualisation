@@ -37,6 +37,7 @@ public class SearchBarModule extends Module {
 
     textAlign(LEFT, CENTER);
     setTextAsString(); // Converting to String 
+    this.adjustLimits();
     outlineText(textAsString + ((frameCount >> 5 & 1) == 0 && !error ? "_" : ""), leftLimit, tall / 2, 0, (error) ? RED : GLOBAL_BACKGROUND); // Drawing the text to the screen with a blinking underscore
     popMatrix();
 
@@ -47,11 +48,6 @@ public class SearchBarModule extends Module {
     this.leftLimit = wide / 12;
     this.rightLimit = 6.5 * wide / 8;
     fittedText(STATES[8], rightLimit - leftLimit, tall, 0); // Sets text size
-  }
-
-  @Override
-    void OnSizeUpdateEvent() {
-    this.adjustLimits();
   }
 
   public void isKeyPressed() { // Boolean method so that I can use this with sendText()
