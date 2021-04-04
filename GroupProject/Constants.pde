@@ -3,3 +3,4 @@ public static final String[] STATES = new String[] {"Alaska", "Alabama", "Arkans
 public static final int Y_AXIS = 1;
 public static final int X_AXIS = 2;
 public static final int EVENT_NULL = -2;
+public static final DecimalFormat twoDecimalPlacesFormat = new DecimalFormat("#,###,##0.00");
