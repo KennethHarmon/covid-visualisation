@@ -73,6 +73,8 @@ class HistogramModule extends Module {
       stroke(0);
     }
   }
+  
+  void 
 
   int[] saveBestFitLineAlt(int[] data) {    // this method averages out the data around each point and saves each one, thus there is the same amount of points as the original data
     ArrayList newArray = new ArrayList();
