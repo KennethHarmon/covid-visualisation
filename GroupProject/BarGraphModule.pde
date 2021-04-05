@@ -85,7 +85,7 @@ class HistogramModule extends Module {
     for (int i = 1; i < data.length/10; i++) {
       textSize(tall/25);
       fill(NAVY);
-      text("" + int((10-i) * (maxDataValue/10)), wide/15, (i-1) * (tall/10) + tall/13);
+      text("" + formatText("##,###,###", int((10-i) * (maxDataValue/10))), wide/15, (i-1) * (tall/10) + tall/13);
       line(0, i * (tall/10), wide, i * (tall/10));
     }
   }
