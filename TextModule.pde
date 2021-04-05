@@ -3,6 +3,7 @@
 class TextModule extends Module { 
   String text;
   
+  
   TextModule(float x, float y, float wide, float tall, String text) { 
     super(x, y, wide, tall);
     this.text = text;
@@ -12,5 +13,14 @@ class TextModule extends Module {
     textAlign(CENTER, CENTER);
     fittedText(text, wide, tall, MODULE_COLOR);
     outlineText(text, wide / 2, tall / 2, 0, MODULE_COLOR);
+  }
+  
+  void setText(String text) {
+    this.text = text;
+  }
+  
+  void setPosition(float x, float y) {
+    this.xOrigin = x;
+    this.yOrigin = y;
   }
 }
