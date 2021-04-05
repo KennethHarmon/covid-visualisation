@@ -260,7 +260,7 @@ public static final class FilterData {
           stateCaseTotals.put(state, stateCases);
         }
       }
-      println(state + " : " + stateCases);
+      //println(state + " : " + stateCases);
     }
     HashMap[] mapArray = {stateCaseTotals, stateCaseNumbers};
     return mapArray;
