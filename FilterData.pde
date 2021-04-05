@@ -213,7 +213,7 @@ public static final class FilterData {
     return casesPerTime;
   }
 
-  public static int[] linkedHashMapToIntArray(LinkedHashMap<Date, Integer> stateCasesPerTime) {
+  public static int[] LinkedHashMapToIntArray(LinkedHashMap<Date, Integer> stateCasesPerTime) {
     int[] newIntArray = new int[stateCasesPerTime.size()];
     int i = 0;
     for (Date date : stateCasesPerTime.keySet()) {
