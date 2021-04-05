@@ -10,7 +10,7 @@ class HistogramModule extends Module {
   private float maxDataValue;
   private int averageRange = 1;
   private float boarderSize = 2;
-  TextModule textBox = new TextModule(0, 0, wide/5, tall/10, "");
+  TextModule textBox = new TextModule(0, 0, wide/5, tall/10, "", 230);
 
   HistogramModule(int x, int y, int wide, int tall, List<MyData> data, int averageRange) { 
     super(x, y, wide, tall);
