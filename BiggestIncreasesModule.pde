@@ -73,8 +73,7 @@ class BiggestIncreasesModule extends Module {
     public List<Map.Entry<String, Integer>> sortByValue(HashMap<String, Integer> hm)
     {
         // Create a list from elements of HashMap
-        List<Map.Entry<String, Integer> > list =
-               new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
+        List<Map.Entry<String, Integer> > list = new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
   
         // Sort the list
         Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
