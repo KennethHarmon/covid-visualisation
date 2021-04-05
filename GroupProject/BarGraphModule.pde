@@ -10,6 +10,7 @@ class HistogramModule extends Module {
   private float maxDataValue;
   private int averageRange = 1;
   private float boarderSize = 2;
+  TextModule textBox = new TextModule(0, 0, wide/5, tall/10, "");
 
   HistogramModule(int x, int y, int wide, int tall, List<MyData> data, int averageRange) { 
     super(x, y, wide, tall);
@@ -56,6 +57,13 @@ class HistogramModule extends Module {
 
   @Override
     void subClassDraw() {
+    drawBars();
+    bestFitLine(lineData);
+    scaleLines(data);
+    selectBar();
+  }
+
+  public void drawBars() {
     fill(0);
     for (int i = 0; i < data.length; i++) {
       fill(NAVY);
@@ -63,10 +71,9 @@ class HistogramModule extends Module {
       stroke(NAVY);
       rect(map(i, 0, data.length, boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
     }
-    bestFitLine(lineData);
   }
 
-  void bestFitLine(int[] dataToMap) {
+  private void bestFitLine(int[] dataToMap) {
     for (int i = 0; i < dataToMap.length-1; i++) {
       stroke(255, 0, 0);
       line(map(i + .5, 0, dataToMap.length, 0, wide), tall - map(dataToMap[i], 0, maxDataValue, 0, tall), map(i+1 + .5, 0, dataToMap.length, 0, wide), tall - map(dataToMap[i+1], 0, maxDataValue, 0, tall));
@@ -74,7 +81,30 @@ class HistogramModule extends Module {
     }
   }
 
-  int[] saveBestFitLineAlt(int[] data) {    // this method averages out the data around each point and saves each one, thus there is the same amount of points as the original data
+  private void scaleLines(int[] data) {
+    for (int i = 1; i < data.length/10; i++) {
+      textSize(tall/25);
+      fill(NAVY);
+      text("" + int((10-i) * (maxDataValue/10)), wide/15, (i-1) * (tall/10) + tall/13);
+      line(0, i * (tall/10), wide, i * (tall/10));
+    }
+  }
+
+  private void selectBar() {
+    if (mouseX > 0 + super.xOrigin && mouseX < wide + super.xOrigin && mouseY > 0 + super.yOrigin && mouseY < tall + super.yOrigin) {
+      textBox.draw();
+      for (int i = 0; i < data.length; i++) {
+        if (mouseX >= (map(i, 0, data.length, boarderSize, wide - boarderSize) + 2) + super.xOrigin && mouseX < (map(i + 1, 0, data.length, boarderSize, wide - boarderSize) + 2) + super.xOrigin) {
+          textBox.setText("Cases: " + formatText("##,###,###", data[i]));
+          strokeWeight(barwide/1.10);
+          line((map(i, 0, data.length, boarderSize, wide - boarderSize) + 3), 0, (map(i, 0, data.length, boarderSize, wide - boarderSize) + 3), tall);
+          break;
+        }
+      }
+    }
+  }
+
+  private int[] saveBestFitLineAlt(int[] data) {    // this method averages out the data around each point and saves each one, thus there is the same amount of points as the original data
     ArrayList newArray = new ArrayList();
     for (int i = 0; i < data.length; i++) {
       int averageOfElements = 0;
@@ -99,7 +129,7 @@ class HistogramModule extends Module {
     return toIntArray(newArray);
   }
 
-  public int[] toIntArray(List<Integer> ints) {
+  private int[] toIntArray(List<Integer> ints) {
     int[] newArray = new int[ints.size()];
     for (int i=0; i < newArray.length; i++) {
       newArray[i] = ints.get(i).intValue();
