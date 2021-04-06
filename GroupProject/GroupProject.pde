@@ -14,8 +14,8 @@ List<MyData> myCompleteDataList;
 SearchBarModule searchBar;
 PrintList printList;
 List<MyData> searchData;  // For testing
-HashMap<String, Integer> stateCaseTotals;
-HashMap<String, List> stateCaseNumbers;
+Map<String, Integer> stateCaseTotals;
+Map<String, List> stateCaseNumbers;
 PFont font;
 SoundFile lobbyMusic;
 String currentText;
@@ -44,7 +44,7 @@ void setup() {
   searchData = FilterData.sampleByDate(myCompleteDataList, 100);
 
   //Map HashMap
-  HashMap[] stateCaseInformation = FilterData.findCurrentStateCases(myCompleteDataList);
+  Map[] stateCaseInformation = FilterData.findCurrentStateCases(myCompleteDataList);
   stateCaseTotals = stateCaseInformation[0];
   stateCaseNumbers = stateCaseInformation[1];
 
