@@ -13,7 +13,7 @@ BiggestIncreasesModule biggestIncreasesModule;
 List<MyData> myCompleteDataList;
 SearchBarModule searchBar;
 PrintList printList;
-List<MyData> searchData;  // For testing
+List<MyData> searchData;
 Map<String, Integer> stateCaseTotals;
 Map<String, List> stateCaseNumbers;
 PFont font;
@@ -43,7 +43,7 @@ void setup() {
   int totalCases = 0;
   searchData = FilterData.sampleByDate(myCompleteDataList, 100);
 
-  //Map HashMap
+  //Map interface
   Map[] stateCaseInformation = FilterData.findCurrentStateCases(myCompleteDataList);
   stateCaseTotals = stateCaseInformation[0];
   stateCaseNumbers = stateCaseInformation[1];
@@ -77,7 +77,6 @@ void setup() {
 void draw() {
   background(GLOBAL_BACKGROUND);
   currentScreen.draw();
-  //printList.printToConsole();
 }
 
 void mousePressed() {

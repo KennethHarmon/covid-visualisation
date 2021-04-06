@@ -1,9 +1,8 @@
 // Miguel Arrieta, Added LoadData class that includes methods for loading in data, 7pm, 22/3/2021
 // This is faster than loadStrings()
+// M.A optimised imports, 06/04/2021
 import java.io.FileReader;
-import java.io.IOException;
 import java.text.ParseException;
-import java.util.List;
 
 public static final class LoadData {
 
