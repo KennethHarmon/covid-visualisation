@@ -116,7 +116,7 @@ public class PieChartModule extends Module {
     }
   }
 
-  private List<AdminArea> initialiseTopTenList(HashMap<String, Integer> casesByAdminArea, String state) {
+  private List<AdminArea> initialiseTopTenList(Map<String, Integer> casesByAdminArea, String state) {
     List<AdminArea> fullList = new ArrayList(casesByAdminArea.size());
     for (Map.Entry<String, Integer> entry : casesByAdminArea.entrySet()) {
       fullList.add(new AdminArea(entry.getKey(), entry.getValue(), (float) entry.getValue() / stateCaseTotals.get(state) * 100));
@@ -125,8 +125,8 @@ public class PieChartModule extends Module {
     return fullList.subList(0, Math.min(10, fullList.size()));
   }
 
-  private HashMap<String, Integer> initialiseCasesByAdminArea(final List<MyData> myDataList) { 
-    HashMap<String, Integer> result = new HashMap();
+  private Map<String, Integer> initialiseCasesByAdminArea(final List<MyData> myDataList) { 
+    Map<String, Integer> result = new HashMap();
     for (MyData myData : myDataList) {
       result.put(myData.administrativeArea, myData.cases);
     }
