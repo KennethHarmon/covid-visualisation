@@ -3,11 +3,11 @@ import java.time.ZoneId;
 
 class BiggestIncreasesModule extends Module {
   
-  HashMap<String, List> stateCaseNumbers;
-  HashMap<String, Integer> topFiveStateIncreases;
+  Map<String, List> stateCaseNumbers;
+  Map<String, Integer> topFiveStateIncreases;
   float maxIncrease;
   
-  BiggestIncreasesModule(int x, int y, int wide, int tall, HashMap<String, List> stateData) {
+  BiggestIncreasesModule(int x, int y, int wide, int tall, Map<String, List> stateData) {
     super(x,y,wide,tall);
     stateCaseNumbers = stateData;
     topFiveStateIncreases = calculateChart();

@@ -7,11 +7,11 @@ import org.gicentre.geomap.*;
 class MapModule extends Module {
 
   GeoMap geoMap;
-  HashMap<String, Integer> stateCaseNumbers;
+  Map<String, Integer> stateCaseNumbers;
   int mapMax;
   boolean hasDrawn;
 
-  MapModule(int x, int y, int wide, int tall, HashMap<String, Integer> stateCaseNumbers) { 
+  MapModule(int x, int y, int wide, int tall, Map<String, Integer> stateCaseNumbers) { 
     super(x, y, wide, tall);
     this.stateCaseNumbers = stateCaseNumbers;
     mapMax = 0;

@@ -190,7 +190,7 @@ public static final class FilterData {
     return newCases;
   }
 
-  public static LinkedHashMap<Date, Integer> createStateCasesPerTime(String state, HashMap<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {
+  public static LinkedHashMap<Date, Integer> createStateCasesPerTime(String state, Map<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {
     LinkedHashMap<Date, Integer> casesPerTime = new LinkedHashMap<Date, Integer>();
     List<MyData> allStateEntriees = stateCaseNumbers.get(state);
     int casesForThisDay = 0;
@@ -240,9 +240,9 @@ public static final class FilterData {
     return newCases;
   }
 
-  public static HashMap[] findCurrentStateCases(List<MyData> myCompleteDataList) {
-    HashMap<String, Integer> stateCaseTotals = new HashMap<String, Integer>();
-    HashMap<String, List> stateCaseNumbers = new HashMap<String, List>(); 
+  public static Map[] findCurrentStateCases(List<MyData> myCompleteDataList) {
+    Map<String, Integer> stateCaseTotals = new HashMap<String, Integer>();
+    Map<String, List> stateCaseNumbers = new HashMap<String, List>(); 
     for (String state : STATES) {
       List<MyData> stateCasesData = FilterData.filterByCounty(state, myCompleteDataList);
       stateCaseNumbers.put(state, stateCasesData);
@@ -262,7 +262,7 @@ public static final class FilterData {
       }
       //println(state + " : " + stateCases);
     }
-    HashMap[] mapArray = {stateCaseTotals, stateCaseNumbers};
+    Map[] mapArray = {stateCaseTotals, stateCaseNumbers};
     return mapArray;
   }
 
