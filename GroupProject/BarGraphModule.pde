@@ -69,14 +69,14 @@ class HistogramModule extends Module {
       fill(NAVY);
       strokeWeight(1);
       stroke(NAVY);
-      rect(map(i, 0, data.length, boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
+      rect(map(i, 0, data.length, wide/10+boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
     }
   }
 
   private void bestFitLine(int[] dataToMap) {
     for (int i = 0; i < dataToMap.length-1; i++) {
       stroke(255, 0, 0);
-      line(map(i + .5, 0, dataToMap.length, 0, wide), tall - map(dataToMap[i], 0, maxDataValue, 0, tall), map(i+1 + .5, 0, dataToMap.length, 0, wide), tall - map(dataToMap[i+1], 0, maxDataValue, 0, tall));
+      line(map(i + .5, 0, dataToMap.length, wide/10, wide), tall - map(dataToMap[i], 0, maxDataValue, 0, tall), map(i+1 + .5, 0, dataToMap.length, wide/10, wide), tall - map(dataToMap[i+1], 0, maxDataValue, 0, tall));
       stroke(0);
     }
   }
@@ -85,7 +85,7 @@ class HistogramModule extends Module {
     for (int i = 1; i < data.length/10; i++) {
       textSize(tall/25);
       fill(NAVY);
-      text("" + formatText("##,###,###", int((10-i) * (maxDataValue/10))), wide/15, (i-1) * (tall/10) + tall/13);
+      text("" + formatText("##,###,###", int((10-i) * (maxDataValue/10))), wide/20, (i-1) * (tall/10) + tall/13);
       line(0, i * (tall/10), wide, i * (tall/10));
     }
   }
