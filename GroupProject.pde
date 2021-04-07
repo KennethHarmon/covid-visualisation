@@ -12,6 +12,7 @@ MapModule mapModule;
 BiggestIncreasesModule biggestIncreasesModule;
 List<MyData> myCompleteDataList;
 SearchBarModule searchBar;
+RadioButtonsModule radioButtons;
 PrintList printList;
 List<MyData> searchData;
 Map<String, Integer> stateCaseTotals;
