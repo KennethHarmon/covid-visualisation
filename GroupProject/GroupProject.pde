@@ -85,9 +85,9 @@ void mousePressed() {
   } else if (mouseButton == LEFT) {
     int event = currentScreen.getEvent();
     switch (event) {
-    case 2:
-      currentScreen = casesScreen;
-      break;
+    //case 2:
+    //  currentScreen = casesScreen;
+    //  break;
     }
   }
 }
