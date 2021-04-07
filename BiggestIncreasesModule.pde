@@ -5,7 +5,13 @@ class BiggestIncreasesModule extends Module {
   
   Map<String, List> stateCaseNumbers;
   Map<String, Integer> topFiveStateIncreases;
-  float maxIncrease;
+  List<String> topFiveStateNames;
+  private float maxIncrease;
+  private float padding;
+  private float chartYStart;
+  private float chartTextX;
+  private float chartHeight;
+  private float chartXStart;
   
   BiggestIncreasesModule(int x, int y, int wide, int tall, Map<String, List> stateData) {
     super(x,y,wide,tall);
@@ -50,22 +56,69 @@ class BiggestIncreasesModule extends Module {
      }
      println(topFiveStates);
      maxIncrease = maxValue;
+     topFiveStateNames = new ArrayList<String>(topFiveStates.keySet());
      return topFiveStates;
   }
   
   void drawChart() {
     int offset = 0;
-    float padding = tall/6;
-    float chartYStart = tall/7;
+    padding = tall/6;
+    chartYStart = tall/7;
+    chartTextX = MODULE_PADDING;
+    chartHeight = tall / 7;
+    chartXStart = wide / 4;
+    
+    
+    ArrayList<Float> chartWidths = new ArrayList<Float>();
     for (String state : topFiveStateIncreases.keySet()) {
+      //Chart size variables
       float chartWidth = (float)(wide - ((MODULE_PADDING) + wide / 4)) * ((float)topFiveStateIncreases.get(state) / (float)maxIncrease);
+      
+      //Text
       fill(0);
       textAlign(LEFT, TOP);
-      fittedText("//////////////////", wide / 5, tall / 6, 0);
-      text(state + " (" + topFiveStateIncreases.get(state) + "): ", MODULE_PADDING ,(chartYStart + (padding*offset)));
+      String text = state + ": ";
+      fittedText("##########", wide / 5, tall / 6, 0);
+      outlineText(text, chartTextX, (chartYStart + (padding*offset)), 0, MODULE_COLOR);
+      text(text, chartTextX ,(chartYStart + (padding*offset)));
+      
+      //Bar
       fill(TURQUIOSE);
-      rect(wide / 4, chartYStart+(padding*offset), chartWidth, tall / 7);
+      rect(chartXStart, chartYStart + (padding*offset), chartWidth, chartHeight);
       offset++;
+      
+      chartWidths.add(chartWidth);
+    }
+    
+    checkMouseHover(chartWidths);
+  }
+  
+  void checkMouseHover(ArrayList<Float> chartWidths) {
+    for (int offset = 0; offset < chartWidths.size(); offset++) {
+     // Mousing over the bar chart K.H Adapted from Miguel's hovering for pie chart.
+      final int relativeMouseX = mouseX - (int) super.xOrigin;
+      final int relativeMouseY = mouseY - (int) super.yOrigin;
+  
+      if ((relativeMouseX >= chartXStart) && (relativeMouseX <= chartXStart + chartWidths.get(offset)) && (relativeMouseY >= chartYStart + (padding*offset)) && (relativeMouseY <= (chartYStart + (padding*offset)) + chartHeight)) {
+          textAlign(LEFT, CENTER);
+          fill(BLACK, 63); // 25% opacity
+          int xPos = relativeMouseX + 5;
+          int yPos = relativeMouseY - 5;
+          float xDimension = wide / 3;
+          float yDimension = tall / 5;
+  
+          rectMode(CORNERS);
+          rect(xPos, yPos, xPos + xDimension, yPos - yDimension);
+          rectMode(CORNER);
+  
+          xPos += 5;
+  
+          // Total cases
+          String information = formatText("###,###",topFiveStateIncreases.get(topFiveStateNames.get(offset))) + " cases";
+          fittedText(information, xDimension, yDimension, MODULE_PADDING);
+          yPos -= yDimension;
+          outlineText(information, xPos, yPos + yDimension / 2, BLACK, GLOBAL_BACKGROUND);
+      }
     }
   }
   
