@@ -38,7 +38,7 @@ public class SearchBarModule extends Module {
     textAlign(LEFT, CENTER);
     setTextAsString(); // Converting to String 
     this.adjustLimits();
-    outlineText(textAsString + ((frameCount >> 5 & 1) == 0 && !error ? "_" : ""), leftLimit, tall / 2, 0, (error) ? RED : GLOBAL_BACKGROUND); // Drawing the text to the screen with a blinking underscore
+    outlineText(textAsString + ((frameCount >> 5 & 1) == 0 && !error ? "_" : ""), leftLimit, tall / 2, 0, (error) ? RED : MODULE_COLOR); // Drawing the text to the screen with a blinking underscore
     popMatrix();
 
     positionAndSizeUpdater();
