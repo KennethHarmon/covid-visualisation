@@ -239,6 +239,26 @@ public static final class FilterData {
     int newCases = newData.get(newData.size()-1).cases - newData.get(0).cases;
     return newCases;
   }
+  
+  public static int findTotalNewCases(final List<MyData> myDataList, int amount) {
+    Date currentDate = myDataList.get(myDataList.size() - 1).date;
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(currentDate);
+    int daysToDecrement = -amount;
+    cal.add(Calendar.DATE, daysToDecrement);
+    Date searchDate = cal.getTime();
+    List<MyData> currentData = filterByDate(currentDate, myDataList);
+    List<MyData> searchData = filterByDate(searchDate, myDataList);
+    int totalCurrent = 0;
+    int totalSearch = 0;
+    for(MyData current : currentData){
+      totalCurrent += current.cases;
+    }
+    for(MyData search : searchData){
+      totalSearch += search.cases;
+    }
+    return totalCurrent - totalSearch;
+  }
 
   public static Map[] findCurrentStateCases(List<MyData> myCompleteDataList) {
     Map<String, Integer> stateCaseTotals = new HashMap<String, Integer>();

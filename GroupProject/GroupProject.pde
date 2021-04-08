@@ -93,6 +93,7 @@ void mousePressed() {
     //  currentScreen = casesScreen;
     //  break;
       case 6:
+        newCases.cases = FilterData.findTotalNewCases(myCompleteDataList, radioButtons.day);
         break;
     }
   }
