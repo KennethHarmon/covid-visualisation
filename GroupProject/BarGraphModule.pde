@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 class HistogramModule extends Module { 
   int[] data;
+  String[] dates;
   int[] lineData = new int[0];
   private float barwide;
   private float maxDataValue;
@@ -17,8 +18,11 @@ class HistogramModule extends Module {
     barwide = wide/data.size();
     maxDataValue = FilterData.findHighestCaseCount(data) * 1.05;
     this.data = new int[data.size()];
+    this.dates = new String[data.size()];
+    SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     for (int i = 0; i < data.size(); i++) {
       this.data[i] = data.get(i).cases;
+      this.dates[i] = DATE_FORMAT.format(data.get(i).date).toString();
     }
     this.averageRange = averageRange;
     lineData = saveBestFitLineAlt(this.data);
@@ -95,7 +99,7 @@ class HistogramModule extends Module {
       textBox.draw();
       for (int i = 0; i < data.length; i++) {
         if (mouseX >= (map(i, 0, data.length, boarderSize, wide - boarderSize) + 2) + super.xOrigin && mouseX < (map(i + 1, 0, data.length, boarderSize, wide - boarderSize) + 2) + super.xOrigin) {
-          textBox.setText("Cases: " + formatText("##,###,###", data[i]));
+          textBox.setText("Cases on " + dates[i] + ": " + formatText("##,###,###", data[i]));
           strokeWeight(barwide/1.10);
           line((map(i, 0, data.length, boarderSize, wide - boarderSize) + 3), 0, (map(i, 0, data.length, boarderSize, wide - boarderSize) + 3), tall);
           break;

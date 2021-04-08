@@ -28,8 +28,9 @@ class BiggestIncreasesModule extends Module {
     textAlign(LEFT, CENTER);
     final String text = "Biggest Increases:";
     fittedText(text, wide / 4 , tall / 7, MODULE_PADDING);
+    outlineText(text, MODULE_PADDING, tall / 14, 0, MODULE_COLOR);
     fill(0);
-    text(text, MODULE_PADDING, tall / 14);
+  //text(text, MODULE_PADDING, tall / 14);
     drawChart();
   }
   
