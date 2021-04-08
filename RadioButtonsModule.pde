@@ -7,7 +7,7 @@ String area;
 int initial, screen;
 int[] days;
   
-  RadioButtonsModule(float x, float y, float wide, float tall, final List<MyData> myDataList, int screen, String area, int initial, int ...days) {
+  RadioButtonsModule(float x, float y, float wide, float tall, final List<MyData> myDataList, int screen, String area, int initialIndex, int ...days) {
     super(x, y, wide, tall);
     radio = new ArrayList<Widget>();
     for(int i = 0; i < days.length; i++){
@@ -15,14 +15,14 @@ int[] days;
     }
     this.screen = screen;
     this.days = days;
-    this.initial = initial;
+    this.initial = initialIndex;
     current = initial;
     radio.get(current).clicked = true;
-    event = initial; day = initial;
+    event = days[initial]; day = days[initial];
     this.area = area; this.dataList = myDataList;
   }
   
-  RadioButtonsModule(float x, float y, float wide, float tall, final List<MyData> myDataList, int screen, int initial, int ...days){
+  RadioButtonsModule(float x, float y, float wide, float tall, final List<MyData> myDataList, int screen, int initialIndex, int ...days){
     super(x, y, wide, tall);
     radio = new ArrayList<Widget>();
     for(int i = 0; i < days.length; i++){
@@ -30,10 +30,10 @@ int[] days;
     }
     this.screen = screen;
     this.days = days;
-    this.initial = initial;
+    this.initial = initialIndex;
     current = initial;
     radio.get(current).clicked = true;
-    event = initial; day = initial;
+    event = days[initial]; day = days[initial];
     this.dataList = myDataList;
   }
 
