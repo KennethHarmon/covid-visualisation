@@ -18,7 +18,7 @@ int[] days;
     this.initial = initial;
     current = initial;
     radio.get(current).clicked = true;
-    event = 1; day = 1;
+    event = 7; day = 7;
     this.area = area; this.dataList = myDataList;
   }
   
@@ -53,6 +53,7 @@ int[] days;
     for(int i = 0; i < radio.size(); i++){
       if(mousePressed){
         event = radio.get(i).getEvent(mouseX - super.xOrigin, mouseY - super.yOrigin);
+        println(day);
         if(event != EVENT_NULL){
           if(current != EVENT_NULL){
             radio.get(current).clicked = false;
