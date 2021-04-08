@@ -12,9 +12,11 @@ class BiggestIncreasesModule extends Module {
   private float chartTextX;
   private float chartHeight;
   private float chartXStart;
+  private int day;
   
-  BiggestIncreasesModule(int x, int y, int wide, int tall, Map<String, List> stateData) {
+  BiggestIncreasesModule(int x, int y, int wide, int tall, Map<String, List> stateData, int day) {
     super(x,y,wide,tall);
+    this.day = day;
     stateCaseNumbers = stateData;
     topFiveStateIncreases = calculateChart();
     print("tall: " + tall);
@@ -35,7 +37,7 @@ class BiggestIncreasesModule extends Module {
     //Get new cases over the last month
     HashMap<String, Integer> newCasesPerState = new HashMap<String, Integer>();
     for (String state: STATES) {
-      int stateCasesAMonthAgo = FilterData.findNewCasesForCounty(stateCaseNumbers.get(state), state, 30);
+      int stateCasesAMonthAgo = FilterData.findNewCasesForCounty(stateCaseNumbers.get(state), state, day);
       newCasesPerState.put(state, stateCasesAMonthAgo);
     }
     

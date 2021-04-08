@@ -53,7 +53,6 @@ int[] days;
     for(int i = 0; i < radio.size(); i++){
       if(mousePressed){
         event = radio.get(i).getEvent(mouseX - super.xOrigin, mouseY - super.yOrigin);
-        println("radio: " + day);
         if(event != EVENT_NULL){
           if(current != EVENT_NULL){
             radio.get(current).clicked = false;
@@ -61,7 +60,11 @@ int[] days;
           current = i;
           day = event;
           radio.get(i).clicked = true;
-          newCases.cases = FilterData.findTotalNewCases(myCompleteDataList, radioButtons.day);
+          if(screen == 1){
+            newCases.cases = FilterData.findTotalNewCases(myCompleteDataList, radioButtons.day);
+            biggestIncreasesModule.day = day;
+            biggestIncreasesModule.topFiveStateIncreases = biggestIncreasesModule.calculateChart();
+          }
         }
       }
       switch(screen){
