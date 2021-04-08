@@ -33,6 +33,7 @@ RadioButtonsModule radioButtons;
       mod.draw();
     }
     if(mousePressed){
+      println(radioButtons.day);
       if(radioButtons.day != EVENT_NULL){
         newCases2.cases = FilterData.findNewCasesForCounty(allStateEntriees, stateName, radioButtons.day);
       }
