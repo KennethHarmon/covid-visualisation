@@ -58,8 +58,8 @@ public class PieChartModule extends Module {
         fill(BLACK, 63); // 25% opacity
         int xPos = relativeMouseX + 5;
         int yPos = relativeMouseY - 5;
-        float xDimension = wide / 3;
-        float yDimension = tall / 3;
+        float xDimension = wide / 2;
+        float yDimension = tall / 2;
 
         rectMode(CORNERS);
         rect(xPos, yPos, xPos + xDimension, yPos - yDimension);

@@ -66,7 +66,7 @@ int[] days;
       switch(screen){
         case 1:
           fill(0);
-          radio.get(i).resize(wide/2 + MODULE_PADDING, (tall-(days.length+1)*MODULE_PADDING)/(days.length+2)*(i+1) + MODULE_PADDING*(i+1), wide/2 - 2*MODULE_PADDING, (tall-(days.length+1)*MODULE_PADDING)/(days.length+2));
+          radio.get(i).resize(wide/2 + 2*MODULE_PADDING, (tall-(days.length+3)*MODULE_PADDING)/days.length*i + MODULE_PADDING*(i+2), wide/2 - 4*MODULE_PADDING, (tall-(days.length+3)*MODULE_PADDING)/days.length);
           radio.get(i).draw();
           break;
         case 2:
