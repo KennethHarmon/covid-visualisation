@@ -1,7 +1,7 @@
 // Miguel Arrieta, Added FilterData class that includes methods for filtering data, 5pm, 22/3/2021
 // Kenneth Harmon, added sampling classes to extract a specified number of entries for each query, sorted by most recent. 22/03/2021
 // William Walsh-Dowd, added filters for min/max cases along with functions to get the min/max cases of a data set and the data point with the min/max cases. 23/3/2021
-// Yi Ren, added a function to get the number of new cases in a certain area over a period of time. 24/3/2021
+// Yi Ren, added a function to get the number of new cases in a certain region over a period of time. 24/3/2021
 // William Walsh-Dowd, 30th of march added findNewCasesForCounty() method
 import java.util.Date;
 import java.util.Calendar;
@@ -234,7 +234,7 @@ public static final class FilterData {
     return newArray;
   }
 
-  public static int findNewCases(final List<MyData> myDataList, String area, int amount) {
+  public static int findNewCasesInArea(final List<MyData> myDataList, String area, int amount) {
     List<MyData> newData = sampleByAdminArea(area, myDataList, amount);
     int newCases = newData.get(newData.size()-1).cases - newData.get(0).cases;
     return newCases;

@@ -4,15 +4,16 @@ ArrayList<Widget> radio;
 int current, event, day;
 List<MyData> dataList;
 String area;
-int initial;
+int initial, screen;
 int[] days;
   
-  RadioButtonsModule(float x, float y, float wide, float tall, final List<MyData> myDataList, String area, int initial, int ...days) {
+  RadioButtonsModule(float x, float y, float wide, float tall, final List<MyData> myDataList, int screen, String area, int initial, int ...days) {
     super(x, y, wide, tall);
     radio = new ArrayList<Widget>();
     for(int i = 0; i < days.length; i++){
       radio.add(new Widget(days[i], GREY, NAVY));
     }
+    this.screen = screen;
     this.days = days;
     this.initial = initial;
     current = initial;
@@ -20,12 +21,35 @@ int[] days;
     event = 1; day = 1;
     this.area = area; this.dataList = myDataList;
   }
+  
+  RadioButtonsModule(float x, float y, float wide, float tall, final List<MyData> myDataList, int screen, int initial, int ...days){
+    super(x, y, wide, tall);
+    radio = new ArrayList<Widget>();
+    for(int i = 0; i < days.length; i++){
+      radio.add(new Widget(days[i], GREY, NAVY));
+    }
+    this.screen = screen;
+    this.days = days;
+    this.initial = initial;
+    current = initial;
+    radio.get(current).clicked = true;
+    event = 1; day = 1;
+    this.dataList = myDataList;
+  }
 
   @Override
   void subClassDraw() {
-    final String text1 = "Show new cases in the past ";
-    fittedText(text1, wide/3, tall, MODULE_PADDING);
-    outlineText(text1, wide/6, tall / 2, 0, MODULE_COLOR);
+    if(screen == 1){
+      String text1 = "Show new cases\nin the past ";
+      textAlign(CENTER);
+      fittedText(text1, wide/2, tall, MODULE_PADDING);
+      outlineText(text1, wide/4, tall/2, 0, MODULE_COLOR);
+    }
+    else{
+      String text2 = "Show new cases in the past ";
+      fittedText(text2, wide/3, tall, MODULE_PADDING);
+      outlineText(text2, wide/6, tall / 2, 0, MODULE_COLOR);
+    }
     for(int i = 0; i < radio.size(); i++){
       if(mousePressed){
         event = radio.get(i).getEvent(mouseX - super.xOrigin, mouseY - super.yOrigin);
@@ -38,8 +62,18 @@ int[] days;
           radio.get(i).clicked = true;
         }
       }
-      radio.get(i).resize(wide/3 + wide*2/3/days.length*i, MODULE_PADDING, (wide*2/3 - 2*MODULE_PADDING)/days.length, tall-2*MODULE_PADDING);
-      radio.get(i).draw();
+      switch(screen){
+        case 1:
+          fill(0);
+          radio.get(i).resize(wide/2 + MODULE_PADDING, (tall-(days.length+1)*MODULE_PADDING)/(days.length+2)*(i+1) + MODULE_PADDING*(i+1), wide/2 - 2*MODULE_PADDING, (tall-(days.length+1)*MODULE_PADDING)/(days.length+2));
+          radio.get(i).draw();
+          break;
+        case 2:
+          fill(0);
+          radio.get(i).resize(wide/3 + wide*2/3/days.length*i, MODULE_PADDING, (wide*2/3 - 2*MODULE_PADDING)/days.length, tall-2*MODULE_PADDING);
+          radio.get(i).draw();
+          break;
+      }
     }
   }
 }
