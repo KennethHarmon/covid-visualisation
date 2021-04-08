@@ -53,6 +53,8 @@ void setup() {
   for (int caseTotals : stateCaseTotals.values()) {
     totalCases += caseTotals;
   }
+  
+  
 
   //Initialisation
   font = createFont("Monospaced.bold", 22);
@@ -63,6 +65,7 @@ void setup() {
   mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, stateCaseTotals); //ID:4
   biggestIncreasesModule = new  BiggestIncreasesModule(MODULE_PADDING, 3 * MODULE_PADDING + ( 5 * (height - 4 * MODULE_PADDING) / 8), ((width - 3 * MODULE_PADDING) / 3 ) * 2, (height - 4 * MODULE_PADDING) * 3/8, stateCaseNumbers);
   searchBar = new  SearchBarModule(width/2-(width - 4 * MODULE_PADDING) / 6 + (width - 4 * MODULE_PADDING) / 3 + MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8); // Didn't know where to put it
+  radioButtons = new RadioButtonsModule(2 * MODULE_PADDING + ((width - 3 * MODULE_PADDING) / 3 ) * 2, 3 * MODULE_PADDING + ( 5 * (height - 4 * MODULE_PADDING) / 8), (width - 3 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) * 3/8, myCompleteDataList, 1, 1, 1, 7, 30);
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;
@@ -72,7 +75,7 @@ void setup() {
   //lobbyMusic = new SoundFile(this, "Lounge-Music.mp3");
   //lobbyMusic.loop(1, 0.01);
 
-  mainScreen.addModules(newCases, casesModule, histogram, mapModule, biggestIncreasesModule, searchBar);
+  mainScreen.addModules(newCases, casesModule, histogram, mapModule, biggestIncreasesModule, searchBar, radioButtons);
 }
 
 void draw() {
@@ -89,6 +92,8 @@ void mousePressed() {
     //case 2:
     //  currentScreen = casesScreen;
     //  break;
+      case 6:
+        break;
     }
   }
 }
