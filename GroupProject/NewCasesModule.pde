@@ -10,7 +10,7 @@ class NewCasesModule extends Module {
   @Override
   void subClassDraw() {
     textAlign(CENTER, CENTER);
-    final String text = "New cases:" + cases;
+    final String text = "New cases:" + formatText("##,###,###", cases);
     fittedText(text, wide, tall, MODULE_PADDING);
     outlineText(text, wide / 2, tall / 2, 0, MODULE_COLOR);
   }
