@@ -239,7 +239,7 @@ public static final class FilterData {
     int newCases = newData.get(newData.size()-1).cases - newData.get(0).cases;
     return newCases;
   }
-  
+
   public static int findTotalNewCases(final List<MyData> myDataList, int amount) {
     Date currentDate = myDataList.get(myDataList.size() - 1).date;
     Calendar cal = Calendar.getInstance();
@@ -251,21 +251,34 @@ public static final class FilterData {
     List<MyData> searchData = filterByDate(searchDate, myDataList);
     int totalCurrent = 0;
     int totalSearch = 0;
-    for(MyData current : currentData){
+    for (MyData current : currentData) {
       totalCurrent += current.cases;
     }
-    for(MyData search : searchData){
+    for (MyData search : searchData) {
       totalSearch += search.cases;
     }
     return totalCurrent - totalSearch;
   }
 
-  public static Map[] findCurrentStateCases(List<MyData> myCompleteDataList) {
-    Map<String, Integer> stateCaseTotals = new HashMap<String, Integer>();
-    Map<String, List> stateCaseNumbers = new HashMap<String, List>(); 
-    for (String state : STATES) {
-      List<MyData> stateCasesData = FilterData.filterByCounty(state, myCompleteDataList);
-      stateCaseNumbers.put(state, stateCasesData);
+  public static Map[] findCurrentStateCases(final List<MyData> completeDataList) {
+    Map<String, Integer> stateCaseTotals = new HashMap();
+    Map<String, List> stateCaseNumbers = new HashMap();
+
+    for (final MyData data : completeDataList) {
+      String state = data.county;
+
+      List<MyData> adminAreaList = stateCaseNumbers.get(state);
+      if (adminAreaList == null) {
+        adminAreaList = new ArrayList();
+      }
+      adminAreaList.add(data);
+      stateCaseNumbers.put(state, adminAreaList);
+    }
+    for (final String state : STATES) {
+      if (stateCaseNumbers.get(state) == null) {
+        stateCaseNumbers.put(state, new ArrayList(0));
+      }
+      List<MyData> stateCasesData = stateCaseNumbers.get(state);
       int stateCases = 0;
       HashSet<String> AdminAreas = new HashSet<String>();
       for (MyData data : stateCasesData) {
@@ -280,7 +293,6 @@ public static final class FilterData {
           stateCaseTotals.put(state, stateCases);
         }
       }
-      //println(state + " : " + stateCases);
     }
     Map[] mapArray = {stateCaseTotals, stateCaseNumbers};
     return mapArray;
