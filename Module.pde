@@ -1,6 +1,6 @@
 import java.text.DecimalFormat;
 
-class Module {
+public class Module {
   float xOrigin, yOrigin, wide, tall;
   color moduleBackground;
   float originalWidthRatio, originalHeightRatio, originalXPosRatio, originalYPosRatio;
@@ -39,18 +39,18 @@ class Module {
 
   void OnSizeUpdateEvent() {
   }
-  
+
   String formatText(String pattern, int value) {
     DecimalFormat formatter = new DecimalFormat(pattern);
     String output = formatter.format(value);
     return output;
   }
-  
-  boolean isClicked(){
-     if (mouseX > xOrigin && mouseX < xOrigin + wide && mouseY > yOrigin && mouseY < yOrigin+tall) {
-       return true;
-     }
-     return false;
+
+  boolean isClicked() {
+    if (mouseX > xOrigin && mouseX < xOrigin + wide && mouseY > yOrigin && mouseY < yOrigin+tall) {
+      return true;
+    }
+    return false;
   }
 
   void positionAndSizeUpdater() {

@@ -6,6 +6,9 @@ public class PieChartModule extends Module {
   private final int totalCasesOfList;
   private List<AdminArea> topAdminAreasList;
 
+  /*  Draws a pie chart of the top ten admin areas in a given state
+   If the given state has less than 2 admin areas an error screen will appear instead of a pie chart
+   */
   PieChartModule(float x, float y, float wide, float tall, String state) { 
     super(x, y, wide, tall);
     this.state = state;
@@ -116,6 +119,9 @@ public class PieChartModule extends Module {
     }
   }
 
+  /* Initialises a top ten list of type AdminArea in a given state.
+   /  If there are less than ten states it will initialise it to the amount that there are
+   */
   private List<AdminArea> initialiseTopTenList(Map<String, Integer> casesByAdminArea, String state) {
     List<AdminArea> fullList = new ArrayList(casesByAdminArea.size());
     for (Map.Entry<String, Integer> entry : casesByAdminArea.entrySet()) {

@@ -72,6 +72,6 @@ public class Text {
     }
     fill(NAVY, alphaValue);
     text(string, x, y);
-     //textSize(11); // The text size for "Monospaced.bold", 22 (more or less)
+    //textSize(11); // The text size for "Monospaced.bold", 22 (more or less)
   }
 }

@@ -53,7 +53,7 @@ void setup() {
   for (int caseTotals : stateCaseTotals.values()) {
     totalCases += caseTotals;
   }
-  
+
   //Initial new cases
   int initialNewCases = FilterData.findTotalNewCases(myCompleteDataList, 7);
 
@@ -70,7 +70,7 @@ void setup() {
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;
-  
+
   // M.A added some lobby music, 02/04/2021
   // Credit to https://youtu.be/L6d7dH6tNAs
   //lobbyMusic = new SoundFile(this, "Lounge-Music.mp3");
@@ -87,7 +87,7 @@ void draw() {
 void mousePressed() {
   if (mouseButton == RIGHT) {
     currentScreen = mainScreen;
-  } 
+  }
 }
 
 void keyPressed() {

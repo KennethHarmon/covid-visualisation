@@ -4,7 +4,7 @@
 // M.A fixed top text scaling for map and overall scaling 30/03/2021
 import org.gicentre.geomap.*;
 
-class MapModule extends Module {
+public class MapModule extends Module {
 
   GeoMap geoMap;
   Map<String, Integer> stateCaseNumbers;
@@ -28,7 +28,7 @@ class MapModule extends Module {
   }
 
   @Override
-  void subClassDraw() {
+    void subClassDraw() {
     stroke(0);
     strokeWeight(0.5);
     //Initial calculation
@@ -67,7 +67,7 @@ class MapModule extends Module {
         textAlign(LEFT);
       }
       outlineText(name, relativeMouseX + 5, relativeMouseY - 5, 0, GLOBAL_BACKGROUND);
-      if(mousePressed && mouseButton == LEFT) {
+      if (mousePressed && mouseButton == LEFT) {
         currentScreen = new StateDataScreen(name);
       }
     }
@@ -96,17 +96,17 @@ class MapModule extends Module {
     int textYPos = lineYEndPos - 1;
     drawVerticalLine(x1 - 1, y1, lineYEndPos);
     text("0", x1, lineYEndPos - 1);
-    
+
     // Second line
     int lineXPos = x1 + (int) (x2  + 2) / 2;
     drawVerticalLine(lineXPos - 1, y1, lineYEndPos);
     text(formatText("#,###,###", mapMax / 2), lineXPos, textYPos);
-    
+
     // Third line
     lineXPos = x1 + (int) x2 + 2;
     drawVerticalLine(lineXPos - 1, y1, lineYEndPos);
     text(formatText("#,###,###", mapMax), lineXPos, textYPos);
-    
+
     strokeWeight(1);
     rect(x1 - 1, y1 - 1, x2 + 2, (tall / 18) + 2);
     setGradient(x1, y1, x2, tall / 18, minMapColour, maxMapColour, X_AXIS);
@@ -116,9 +116,9 @@ class MapModule extends Module {
   void OnSizeUpdateEvent() {
     scaleGeoMap();
   }
-  
+
   private void drawVerticalLine(int x1, int y1, int y2) {
-   line(x1, y1, x1, y2);
+    line(x1, y1, x1, y2);
   }
 
   //Taken from Processing docs

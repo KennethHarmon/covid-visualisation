@@ -3,7 +3,7 @@
 // it also has another constructor alowing you to create a histogram with a best fit line and a variable of how many data points that line will average then draw itself between.
 import java.util.Arrays;
 
-class HistogramModule extends Module { 
+public class HistogramModule extends Module { 
   int[] data;
   String[] dates;
   int[] lineData = new int[0];

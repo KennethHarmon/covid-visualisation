@@ -21,7 +21,7 @@ public static class MyData {
     this.cases = cases;
     this.country = country;
   }
-  
+
   @Override
     public String toString() {
     return String.format("Date: \"%s\" Administrative Area: \"%s\" County: \"%s\"" +
