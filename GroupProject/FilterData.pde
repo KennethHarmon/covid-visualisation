@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 public static final class FilterData {
+  
+  public static final HashMap<String, HashSet<String>> adminAreasCache = new HashMap<String, HashSet<String>>();
 
   public static List<MyData> filterByDate(final Date searchDates, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
@@ -175,12 +177,11 @@ public static final class FilterData {
     List<MyData> newData = filterByCounty(county, myDataList);
     int newCases = 0;
     List<MyData> stateCasesData = FilterData.filterByCounty(county, newData);
-    HashSet<String> AdminAreas = new HashSet<String>();
-    for (MyData data : stateCasesData) {
-      if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
-        AdminAreas.add(data.administrativeArea);
+    if (!adminAreasCache.containsKey(county)) {
+        getAdminAreas(county,stateCasesData);
       }
-    }
+    HashSet<String> AdminAreas = adminAreasCache.get(county);
+    AdminAreas = adminAreasCache.get(county);
     for (String adminArea : AdminAreas) {
       List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
       if (stateAdminAreaCasesData != null && stateAdminAreaCasesData.size() >= amount+1) {
@@ -280,12 +281,10 @@ public static final class FilterData {
       }
       List<MyData> stateCasesData = stateCaseNumbers.get(state);
       int stateCases = 0;
-      HashSet<String> AdminAreas = new HashSet<String>();
-      for (MyData data : stateCasesData) {
-        if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
-          AdminAreas.add(data.administrativeArea);
-        }
+      if (!adminAreasCache.containsKey(state)) {
+        getAdminAreas(state,stateCasesData);
       }
+      HashSet<String> AdminAreas = adminAreasCache.get(state);
       for (String adminArea : AdminAreas) {
         List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
         if (stateAdminAreaCasesData != null) {
@@ -300,5 +299,15 @@ public static final class FilterData {
 
   public static boolean isNameAlreadySaved(HashSet<String> data, String string) {
     return data.contains(string);
+  }
+  
+  public static void getAdminAreas(String state, List<MyData> stateData) {
+    HashSet<String >AdminAreas = new HashSet<String>();
+        for (MyData data : stateData) {
+          if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
+            AdminAreas.add(data.administrativeArea);
+          }
+        }
+        adminAreasCache.put(state,AdminAreas);
   }
 }
