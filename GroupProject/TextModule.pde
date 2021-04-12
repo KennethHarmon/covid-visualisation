@@ -1,6 +1,6 @@
 // William Walsh-dowd created on the 30th of march, a module that prints text.
 // M.A fixed text fitting for this module, 06/04/2021
-class TextModule extends Module { 
+public class TextModule extends Module { 
   private String text;
   private color textColor;
 

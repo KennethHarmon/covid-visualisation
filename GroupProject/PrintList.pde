@@ -6,7 +6,7 @@ import java.util.Iterator;
 // Miguel Arrieta, fixed potential NullPointer, IndexOutOfBounds exceptions
 // and error where it wouldn't delete the first Text in the list if the size was 1, 6pm, 24/03/2021
 // Yi Ren, put the list into a module. 24/3/2021
-class PrintList extends Module {
+public class PrintList extends Module {
   private int spacing = 15;
   private int yUpperLimit = spacing;
   private List<MyData> fullList;
@@ -55,7 +55,7 @@ class PrintList extends Module {
       }
     }
   }
-  
+
   void subClassDraw() {
     if (listToBePrinted.size() != 0) {
       for (Text t : listToBePrinted) {
