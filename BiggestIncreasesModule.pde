@@ -6,6 +6,8 @@ class BiggestIncreasesModule extends Module {
   Map<String, List> stateCaseNumbers;
   Map<String, Integer> topFiveStateIncreases;
   List<String> topFiveStateNames;
+  Map<Integer, HashMap> topFiveStatesCache;
+  Map<Integer, Integer> maxValueCache;
   private float maxIncrease;
   private float padding;
   private float chartYStart;
@@ -18,6 +20,8 @@ class BiggestIncreasesModule extends Module {
     super(x,y,wide,tall);
     this.day = day;
     stateCaseNumbers = stateData;
+    topFiveStatesCache = new HashMap<Integer, HashMap>();
+    maxValueCache = new HashMap<Integer, Integer>();
     topFiveStateIncreases = calculateChart();
     print("tall: " + tall);
   }
@@ -35,30 +39,38 @@ class BiggestIncreasesModule extends Module {
   }
   
   HashMap<String, Integer> calculateChart() {
-    //Get new cases over the last month
-    HashMap<String, Integer> newCasesPerState = new HashMap<String, Integer>();
-    for (String state: STATES) {
-      int stateCasesAMonthAgo = FilterData.findNewCasesForCounty(stateCaseNumbers.get(state), state, day);
-      newCasesPerState.put(state, stateCasesAMonthAgo);
-    }
+    HashMap<String, Integer> topFiveStates;
     
-    //Get top 5
-     List<Map.Entry<String, Integer>>sortedList = sortByValue(newCasesPerState);
-     HashMap<String, Integer> topFiveStates = new LinkedHashMap<String, Integer>();
-     int entry = sortedList.size()-1;
-     int maxValue = 0;
-     boolean hasGottenMax = false;
-     while (topFiveStates.size() < 5) {
-       Map.Entry<String, Integer> stateDataPoint = sortedList.get(entry);
-       if (!hasGottenMax) {
-         maxValue = stateDataPoint.getValue();
-         hasGottenMax = true;
+    if (!topFiveStatesCache.containsKey(day)) { 
+      //Get new cases over the last "day" days
+      HashMap<String, Integer> newCasesPerState = new HashMap<String, Integer>();
+      for (String state: STATES) {
+        int stateCasesAMonthAgo = FilterData.findNewCasesForCounty(stateCaseNumbers.get(state), state, day);
+        newCasesPerState.put(state, stateCasesAMonthAgo);
+      }
+      
+      //Get top 5
+       List<Map.Entry<String, Integer>>sortedList = sortByValue(newCasesPerState);
+       topFiveStates = new LinkedHashMap<String, Integer>();
+       int entry = sortedList.size()-1;
+       int maxValue = 0;
+       boolean hasGottenMax = false;
+       while (topFiveStates.size() < 5) {
+         Map.Entry<String, Integer> stateDataPoint = sortedList.get(entry);
+         if (!hasGottenMax) {
+           maxValue = stateDataPoint.getValue();
+           hasGottenMax = true;
+         }
+         topFiveStates.put(stateDataPoint.getKey(), stateDataPoint.getValue());
+         entry--;
        }
-       topFiveStates.put(stateDataPoint.getKey(), stateDataPoint.getValue());
-       entry--;
-     }
+       topFiveStatesCache.put(day,topFiveStates);
+       maxValueCache.put(day, maxValue);
+    }
+     
+     topFiveStates = topFiveStatesCache.get(day);
+     maxIncrease = maxValueCache.get(day);
      println(topFiveStates);
-     maxIncrease = maxValue;
      topFiveStateNames = new ArrayList<String>(topFiveStates.keySet());
      return topFiveStates;
   }
