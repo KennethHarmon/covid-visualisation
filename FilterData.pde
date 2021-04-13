@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Collections;
 
 public static final class FilterData {
-  
+
   public static final HashMap<String, HashSet<String>> adminAreasCache = new HashMap<String, HashSet<String>>();
 
   /*  Filters by date. Returns a List of type MyData.
@@ -161,8 +161,8 @@ public static final class FilterData {
     }
     return highestCases;
   }
-  
-    public static int findHighestCaseCountFromGraphDataList(final List<MyGraphData> myDataList) {
+
+  public static int findHighestCaseCountFromGraphDataList(final List<MyGraphData> myDataList) {
     int highestCases = 0;
     for (final MyGraphData currentData : myDataList) {
       if (currentData.cases > highestCases) {
@@ -181,7 +181,7 @@ public static final class FilterData {
     }
     return highestCase;
   }
-  
+
   public static MyGraphData findHighestCaseFromGr(List<MyGraphData> myDataList) {
     MyGraphData highestCase = myDataList.get(0);
     for (final MyGraphData currentData : myDataList) {
@@ -217,8 +217,8 @@ public static final class FilterData {
     int newCases = 0;
     List<MyData> stateCasesData = FilterData.filterByCounty(county, newData);
     if (!adminAreasCache.containsKey(county)) {
-        getAdminAreas(county,stateCasesData);
-      }
+      getAdminAreas(county, stateCasesData);
+    }
     HashSet<String> AdminAreas = adminAreasCache.get(county);
     AdminAreas = adminAreasCache.get(county);
     for (String adminArea : AdminAreas) {
@@ -232,7 +232,7 @@ public static final class FilterData {
 
   public static List<MyGraphData> createStateCasesPerTime(String state, Map<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {    
     List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
-    
+
     List<MyData> allStateEntriees = stateCaseNumbers.get(state);
     int casesForThisDay = 0;
     Date date = myCompleteDataList.get(myCompleteDataList.size() - 1).date;
@@ -254,7 +254,7 @@ public static final class FilterData {
     Collections.reverse(newGraphDataArray);
     return newGraphDataArray;
   }
-  
+
   public static List<MyGraphData> MyDataToMyGraphData(List<MyData> inputData) {
     List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
     for (MyData currentInputData : inputData) {
@@ -281,6 +281,16 @@ public static final class FilterData {
       }
     }
     return newGraphDataArray;
+  }
+
+  public static List<MyData> filterMyDataListByDate(List<MyData> stateCasesPerTime, Date afterThisDate) {
+    List<MyData> newDataArray = new ArrayList<MyData>();
+    for (MyData data : stateCasesPerTime) {
+      if (data.date.after(afterThisDate)) {
+        newDataArray.add(new MyData(data.date, data.administrativeArea, data.county, data.geoIdentifier, data.cases, data.country));
+      }
+    }
+    return newDataArray;
   }
 
   public static int findNewCasesInArea(final List<MyData> myDataList, String area, int amount) {
@@ -331,7 +341,7 @@ public static final class FilterData {
       List<MyData> stateCasesData = stateCaseNumbers.get(state);
       int stateCases = 0;
       if (!adminAreasCache.containsKey(state)) {
-        getAdminAreas(state,stateCasesData);
+        getAdminAreas(state, stateCasesData);
       }
       HashSet<String> AdminAreas = adminAreasCache.get(state);
       for (String adminArea : AdminAreas) {
@@ -349,14 +359,14 @@ public static final class FilterData {
   public static boolean isNameAlreadySaved(HashSet<String> data, String string) {
     return data.contains(string);
   }
-  
+
   public static void getAdminAreas(String state, List<MyData> stateData) {
     HashSet<String >AdminAreas = new HashSet<String>();
-        for (MyData data : stateData) {
-          if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
-            AdminAreas.add(data.administrativeArea);
-          }
-        }
-        adminAreasCache.put(state,AdminAreas);
+    for (MyData data : stateData) {
+      if (!isNameAlreadySaved(AdminAreas, data.administrativeArea)) {
+        AdminAreas.add(data.administrativeArea);
+      }
+    }
+    adminAreasCache.put(state, AdminAreas);
   }
 }
