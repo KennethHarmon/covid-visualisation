@@ -13,7 +13,7 @@ public class HistogramModule extends Module {
   private float boarderSize = 2;
   TextModule textBox = new TextModule(0, 0, wide/5, tall/10, "", MODULE_COLOR);
 
-  HistogramModule(int x, int y, int wide, int tall, List<MyData> data, int averageRange) { 
+  HistogramModule(int x, int y, int wide, int tall, List<MyData> data, int averageRange) {
     super(x, y, wide, tall);
     barwide = wide/data.size();
     maxDataValue = FilterData.findHighestCaseCount(data) * 1.05;
@@ -76,7 +76,7 @@ public class HistogramModule extends Module {
       fill(NAVY);
       strokeWeight(1);
       stroke(NAVY);
-      rect(map(i, 0, data.length, wide/10+boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
+      rect(map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
     }
   }
 
@@ -99,13 +99,13 @@ public class HistogramModule extends Module {
   }
 
   private void selectBar() {
-    if (mouseX > 0 + super.xOrigin && mouseX < wide + super.xOrigin && mouseY > 0 + super.yOrigin && mouseY < tall + super.yOrigin) {
+    if (mouseX > wide/10 + boarderSize + super.xOrigin && mouseX < wide + super.xOrigin && mouseY > 0 + super.yOrigin && mouseY < tall + super.yOrigin) {
       textBox.draw();
       for (int i = 0; i < data.length; i++) {
-        if (mouseX >= (map(i, 0, data.length, boarderSize, wide - boarderSize) + 2) + super.xOrigin && mouseX < (map(i + 1, 0, data.length, boarderSize, wide - boarderSize) + 2) + super.xOrigin) {
+        if (mouseX >= (map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2) + super.xOrigin && mouseX < (map(i + 1, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2) + super.xOrigin) {
           textBox.setText((this.dates == null ? "" : "Cases on " + this.dates[i] + ": ") + formatText("##,###,###", data[i]));
           strokeWeight(barwide/1.10);
-          line((map(i, 0, data.length, boarderSize, wide - boarderSize) + 3), 0, (map(i, 0, data.length, boarderSize, wide - boarderSize) + 3), tall);
+          line((map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 3), 0, (map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 3), tall);
           break;
         }
       }
