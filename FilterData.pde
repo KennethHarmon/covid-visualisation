@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Collections;
 
 public static final class FilterData {
   
@@ -160,10 +161,30 @@ public static final class FilterData {
     }
     return highestCases;
   }
+  
+    public static int findHighestCaseCountFromGraphDataList(final List<MyGraphData> myDataList) {
+    int highestCases = 0;
+    for (final MyGraphData currentData : myDataList) {
+      if (currentData.cases > highestCases) {
+        highestCases = currentData.cases;
+      }
+    }
+    return highestCases;
+  }
 
   public static MyData findHighestCase(final List<MyData> myDataList) {
     MyData highestCase = myDataList.get(0);
     for (final MyData currentData : myDataList) {
+      if (currentData.cases > highestCase.cases) {
+        highestCase = currentData;
+      }
+    }
+    return highestCase;
+  }
+  
+  public static MyGraphData findHighestCaseFromGr(List<MyGraphData> myDataList) {
+    MyGraphData highestCase = myDataList.get(0);
+    for (final MyGraphData currentData : myDataList) {
       if (currentData.cases > highestCase.cases) {
         highestCase = currentData;
       }
@@ -209,8 +230,9 @@ public static final class FilterData {
     return newCases;
   }
 
-  public static LinkedHashMap<Date, Integer> createStateCasesPerTime(String state, Map<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {
-    LinkedHashMap<Date, Integer> casesPerTime = new LinkedHashMap<Date, Integer>();
+  public static List<MyGraphData> createStateCasesPerTime(String state, Map<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {    
+    List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
+    
     List<MyData> allStateEntriees = stateCaseNumbers.get(state);
     int casesForThisDay = 0;
     Date date = myCompleteDataList.get(myCompleteDataList.size() - 1).date;
@@ -224,19 +246,28 @@ public static final class FilterData {
         for (MyData data : filterByDate(date, allStateEntriees)) {
           casesForThisDay += data.cases;
         }
-        casesPerTime.put(date, casesForThisDay);
+        newGraphDataArray.add(new MyGraphData(date, casesForThisDay));
       }
       cal.add(Calendar.DATE, daysToDecrement);
       date = cal.getTime();
     }
-    return casesPerTime;
+    Collections.reverse(newGraphDataArray);
+    return newGraphDataArray;
+  }
+  
+  public static List<MyGraphData> MyDataToMyGraphData(List<MyData> inputData) {
+    List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
+    for (MyData currentInputData : inputData) {
+      newGraphDataArray.add(new MyGraphData(currentInputData.date, currentInputData.cases));
+    }
+    return newGraphDataArray;
   }
 
-  public static int[] linkedHashMapToIntArray(LinkedHashMap<Date, Integer> stateCasesPerTime) {
+  public static int[] MyGraphDataListToIntArray(List<MyGraphData> stateCasesPerTime) {
     int[] newIntArray = new int[stateCasesPerTime.size()];
     int i = 0;
-    for (Date date : stateCasesPerTime.keySet()) {
-      newIntArray[newIntArray.length - i -1] = stateCasesPerTime.get(date);
+    for (MyGraphData date : stateCasesPerTime) {
+      newIntArray[newIntArray.length - i -1] = date.cases;
       i++;
     }
     return newIntArray;
