@@ -6,8 +6,8 @@ public class PieChartModule extends Module {
   private final int totalCasesOfList;
   private List<AdminArea> topAdminAreasList;
 
-  /*  Draws a pie chart of the top ten admin areas in a given state
-   If the given state has less than 2 admin areas an error screen will appear instead of a pie chart
+  /*  Draws a pie chart of the top ten admin areas in a given state.
+   If the given state has less than 2 admin areas an error screen will appear instead of a pie chart.
    */
   PieChartModule(float x, float y, float wide, float tall, String state) { 
     super(x, y, wide, tall);

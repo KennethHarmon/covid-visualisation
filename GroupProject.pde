@@ -97,6 +97,9 @@ void keyPressed() {
 }
 
 // M.A made a method to fit the text to a boundary 30/03/2021
+/*  This method takes a String, two dimensions that make up a box (rectangle); these are the boundaries for the text, and a padding value.
+Taking all of these values into account it will make the text size the largest possible while fitting into the given 'box' (with padding).
+*/
 public void fittedText(String str, float xDimension, float yDimension, int padding) {
   textSize(12);
   textSize(min(12 * (xDimension - padding)/ textWidth(str), 12 / (textDescent() + textAscent()) * (yDimension - padding)));
