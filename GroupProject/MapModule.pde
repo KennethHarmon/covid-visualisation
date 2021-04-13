@@ -69,6 +69,7 @@ public class MapModule extends Module {
       outlineText(name, relativeMouseX + 5, relativeMouseY - 5, 0, GLOBAL_BACKGROUND);
       if (mousePressed && mouseButton == LEFT) {
         currentScreen = new StateDataScreen(name);
+        casesScreen = currentScreen;
       }
     }
 
