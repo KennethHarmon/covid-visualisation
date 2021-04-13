@@ -4,14 +4,15 @@ public class RadioButtonsModule extends Module {
   int current, event, day;
   List<MyData> dataList;
   String area;
-  int initial, screen;
+  int initial, screen, duration;
   int[] days;
 
   RadioButtonsModule(float x, float y, float wide, float tall, final List<MyData> myDataList, int screen, String area, int initialIndex, int ...days) {
     super(x, y, wide, tall);
+    this.duration = days[days.length-1];
     radio = new ArrayList<Widget>();
     for (int i = 0; i < days.length; i++) {
-      radio.add(new Widget(days[i], GREY, NAVY));
+      radio.add(new Widget(days[i], GREY, NAVY, duration));
     }
     this.screen = screen;
     this.days = days;

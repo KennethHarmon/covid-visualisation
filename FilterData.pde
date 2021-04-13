@@ -223,8 +223,13 @@ public static final class FilterData {
     AdminAreas = adminAreasCache.get(county);
     for (String adminArea : AdminAreas) {
       List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
-      if (stateAdminAreaCasesData != null && stateAdminAreaCasesData.size() >= amount+1) {
-        newCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases - stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1-amount).cases;
+      if (stateAdminAreaCasesData != null) {
+        if(stateAdminAreaCasesData.size() >= amount+1){
+          newCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases - stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1-amount).cases;
+        }
+        else{
+          newCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases - 0;
+        }
       }
     }
     return newCases;
@@ -313,12 +318,6 @@ public static final class FilterData {
     }
   }
 
-  public static int findNewCasesInArea(final List<MyData> myDataList, String area, int amount) {
-    List<MyData> newData = sampleByAdminArea(area, myDataList, amount);
-    int newCases = newData.get(newData.size()-1).cases - newData.get(0).cases;
-    return newCases;
-  }
-
   public static int findTotalNewCases(final List<MyData> myDataList, int amount) {
     Date currentDate = myDataList.get(myDataList.size() - 1).date;
     Calendar cal = Calendar.getInstance();
@@ -388,5 +387,13 @@ public static final class FilterData {
       }
     }
     adminAreasCache.put(state, AdminAreas);
+  }
+  
+  public static int calculateDuration(String state, Map<String, List> stateCaseNumbers, List<MyData> myDataList){
+    List<MyData> stateData = stateCaseNumbers.get(state);
+    Date firstDay = stateData.get(0).date;
+    Date lastDay = stateData.get(stateData.size()-1).date;
+    long days = (lastDay.getTime() - firstDay.getTime()) / (1000 * 60 * 60 * 24);
+    return int(days) + 1;
   }
 }

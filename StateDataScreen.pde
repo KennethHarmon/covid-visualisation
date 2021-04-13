@@ -3,7 +3,7 @@
 // M.A fixed error screen. 06/04/2021
 // M.A made it so that the pieChartModule can interact with the radio buttons, 13/04/2021
 public class StateDataScreen extends Screen {
-  List<MyData> allStateEntriees;
+  List<MyData> allStateEntries;
   String stateName;
   NewCasesModule newCases2;
   RadioButtonsModule radioButtons;
@@ -11,9 +11,11 @@ public class StateDataScreen extends Screen {
 
   StateDataScreen(String stateName) {
     this.stateName = stateName;
-    this.allStateEntriees = stateCaseNumbers.get(stateName);
-    radioButtons = new RadioButtonsModule(MODULE_PADDING, 2*MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, width - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) / 8, myCompleteDataList, 2, stateName, 1, 1, 7, 30);
-    newCases2 = new NewCasesModule(width - MODULE_PADDING - (width - 4 * MODULE_PADDING) / 3, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, FilterData.findNewCasesForCounty(allStateEntriees, stateName, 7));
+    this.allStateEntries = stateCaseNumbers.get(stateName);
+    int duration = FilterData.calculateDuration(stateName, stateCaseNumbers, myCompleteDataList);
+    println(duration);
+    radioButtons = new RadioButtonsModule(MODULE_PADDING, 2*MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, width - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) / 8, myCompleteDataList, 2, stateName, 3, 1, 7, 30, duration);
+    newCases2 = new NewCasesModule(width - MODULE_PADDING - (width - 4 * MODULE_PADDING) / 3, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, FilterData.findNewCasesForCounty(allStateEntries, stateName, duration));
     pieChart = new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateCaseNumbers.get(stateName));
     try {
       super.addModules(
@@ -38,7 +40,7 @@ public class StateDataScreen extends Screen {
     }
     if (mousePressed) {
       if (radioButtons.day != EVENT_NULL) {
-        newCases2.cases = FilterData.findNewCasesForCounty(allStateEntriees, stateName, radioButtons.day);
+        newCases2.cases = FilterData.findNewCasesForCounty(allStateEntries, stateName, radioButtons.day);
 
         // M.A made it so that this data is cached in case it needs to be accessed again, 13/04/2021
         List<MyData> stateAdminAreas;
