@@ -8,7 +8,8 @@ public class SearchBarModule extends Module {
   private float rightLimit;
   private boolean error;
 
-  /*  Allows a user to search for a state using their keyboard.
+  /*  
+   Allows a user to search for a state using their keyboard.
    If the user types in an invalid input they are told so.
    If they hit enter after getting an error the error message goes away.
    Alternatively if they start typing when the error message appears 

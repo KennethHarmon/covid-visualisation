@@ -4,9 +4,10 @@ import java.util.Date;
 
 public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
-/*  A class to store data.
-It has attributes for the: Date, Administrative Area, County, Geo Identifier, cases and Country.
-*/
+/*  
+ A class to store data.
+ It has attributes for the: Date, Administrative Area, County, Geo Identifier, cases and Country.
+ */
 public static class MyData {
   public final Date date;
   public final String administrativeArea;

@@ -12,9 +12,10 @@ public final color minMapColour = color(222, 235, 247);   // Light blue
 public final color maxMapColour = color(0, 41, 149);    // Dark blue.
 
 // M.A Made a method to outline text 30/03/2021
-/*  Outputs a String as an outlined text in the given position. The inner text color and outline color can be chosen.
-The textAlign() method can be called before calling this method for aligning the text.
-*/
+/*  
+ Outputs a String as an outlined text in the given position. The inner text color and outline color can be chosen.
+ The textAlign() method can be called before calling this method for aligning the text.
+ */
 public void outlineText(String name, float textXPos, float textYPos, color outlineColor, color innerTextColor) {
   fill(outlineColor);
   for (int x = -1; x < 2; x++) {        // This creates an outline for the text

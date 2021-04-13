@@ -3,17 +3,23 @@
 public class PieChartModule extends Module {
   private final String state;
   private final String stateCasesLabel;
+  private final int totalStateCases;
   private final int totalCasesOfList;
   private List<AdminArea> topAdminAreasList;
 
-  /*  Draws a pie chart of the top ten admin areas in a given state.
+  /*  
+   Draws a pie chart of the top ten admin areas in a given state.
    If the given state has less than 2 admin areas an error screen will appear instead of a pie chart.
+   If the given state has less than 10 admin areas it will show the amount of admin areas there are (instead of 10).
    */
-  PieChartModule(float x, float y, float wide, float tall, String state) { 
+  PieChartModule(float x, float y, float wide, float tall, String state, List<MyData> adminAreaList) { 
     super(x, y, wide, tall);
     this.state = state;
-    this.topAdminAreasList = initialiseTopTenList(initialiseCasesByAdminArea(stateCaseNumbers.get(state)), state);
-    this.totalCasesOfList = getTotalCases();
+    println("Admin area list size: " + adminAreaList.size());
+    Map<String, Integer> adminAreaMap = initialiseCasesByAdminArea(adminAreaList); // Used for calculating the total and initialising the top ten list
+    this.totalStateCases = adminAreaList.equals(stateCaseNumbers) ? stateCaseTotals.get(state) : this.getTotalCasesForMap(adminAreaMap);
+    this.topAdminAreasList = initialiseTopTenList(adminAreaMap);
+    this.totalCasesOfList = this.getTotalCasesForList();
     initialiseAngles();
     this.stateCasesLabel = (topAdminAreasList.size() > 1 ? "Most affected areas in " : "Not enough data for ") + state;
   }
@@ -92,6 +98,10 @@ public class PieChartModule extends Module {
     }
   }
 
+  /*
+   Returns the AdminArea for which the pie chart slice represents.
+   If it doesn't find the AdminArea it returns null.
+   */
   private AdminArea containsAngle(final float angle) {
     float startAngle = 0; 
     for (AdminArea a : topAdminAreasList) {
@@ -104,7 +114,7 @@ public class PieChartModule extends Module {
     return null;
   }
 
-  private int getTotalCases() {
+  private int getTotalCasesForList() {
     int result = 0;
     for (AdminArea a : topAdminAreasList) {
       result += a.totalCases;
@@ -114,29 +124,39 @@ public class PieChartModule extends Module {
 
   private void initialiseAngles() {
     for (AdminArea a : topAdminAreasList) {
-      a.relativePercentageOfCasesAsDecimal = (double) a.totalCases / totalCasesOfList;
+      a.relativePercentageOfCasesAsDecimal = (double) a.totalCases / this.totalCasesOfList;
       a.angle = radians((float) a.relativePercentageOfCasesAsDecimal * 360);
     }
   }
 
-  /* Initialises a top ten list of type AdminArea in a given state.
-   /  If there are less than ten states it will initialise it to the amount that there are
-   */
-  private List<AdminArea> initialiseTopTenList(Map<String, Integer> casesByAdminArea, String state) {
-    List<AdminArea> fullList = new ArrayList(casesByAdminArea.size());
-    for (Map.Entry<String, Integer> entry : casesByAdminArea.entrySet()) {
-      fullList.add(new AdminArea(entry.getKey(), entry.getValue(), (float) entry.getValue() / stateCaseTotals.get(state) * 100));
+  private int getTotalCasesForMap(Map<String, Integer> adminAreaCases) {
+    int result = 0;
+    for (Map.Entry<String, Integer> entry : adminAreaCases.entrySet()) {
+      result += entry.getValue();
     }
-    Collections.sort(fullList);
-    return fullList.subList(0, Math.min(10, fullList.size()));
+    return result;
   }
-
+  
   private Map<String, Integer> initialiseCasesByAdminArea(final List<MyData> myDataList) { 
     Map<String, Integer> result = new HashMap();
     for (MyData myData : myDataList) {
       result.put(myData.administrativeArea, myData.cases);
     }
     return result;
+  }
+
+  
+  /* 
+   Initialises a top ten list of type AdminArea in a given state.
+   If there are less than ten states it will initialise it to the amount that there are
+   */
+  private List<AdminArea> initialiseTopTenList(Map<String, Integer> casesByAdminArea) {
+    List<AdminArea> fullList = new ArrayList(casesByAdminArea.size());
+    for (Map.Entry<String, Integer> entry : casesByAdminArea.entrySet()) {
+      fullList.add(new AdminArea(entry.getKey(), entry.getValue(), (float) entry.getValue() / this.totalStateCases * 100));
+    }
+    Collections.sort(fullList);
+    return fullList.subList(0, Math.min(10, fullList.size()));
   }
 
   private class AdminArea implements Comparable<AdminArea> {

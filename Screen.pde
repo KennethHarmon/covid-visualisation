@@ -1,8 +1,8 @@
 public class Screen {
-  List<Module> moduleList;
+  public final List<Module> moduleList;
 
   Screen() {
-    moduleList = new ArrayList<Module>();
+    moduleList = new ArrayList();
   }
 
   int getEvent() {

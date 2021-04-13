@@ -255,7 +255,7 @@ public static final class FilterData {
     return newGraphDataArray;
   }
 
-  public static List<MyGraphData> MyDataToMyGraphData(List<MyData> inputData) {
+  public static List<MyGraphData> myDataToMyGraphData(List<MyData> inputData) {
     List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
     for (MyData currentInputData : inputData) {
       newGraphDataArray.add(new MyGraphData(currentInputData.date, currentInputData.cases));
@@ -283,18 +283,34 @@ public static final class FilterData {
     return newGraphDataArray;
   }
 
-  public static List<MyData> filterMyDataListByDate(List<MyData> stateCasesPerTime, int daysBackwards) {
-    Date currentDate = new Date(121,2,15);
-    Calendar cal = Calendar.getInstance();
-    cal.add(Calendar.DATE, daysBackwards);
+  public static List<MyData> findCasesInListAfterDate(List<MyData> dataList, String state, int daysBackwards) {
+    Calendar cal = new GregorianCalendar(2021,2,15);
+    cal.add(Calendar.DAY_OF_MONTH, -daysBackwards);
+    Date currentDate = cal.getTime();
     
-    List<MyData> newDataArray = new ArrayList<MyData>();
-    for (MyData data : stateCasesPerTime) {
-      if (data.date.after(currentDate)) {
-        newDataArray.add(new MyData(data.date, data.administrativeArea, data.county, data.geoIdentifier, data.cases, data.country));
+    final Map<String, Integer> previousValue = new HashMap();
+    final ArrayList<MyData> result = new ArrayList();
+    for (MyData data : dataList) {
+      if (data.date.before(currentDate) && state.equals(data.county)) {
+        previousValue.put(data.administrativeArea, data.cases);
+      }
+      if (data.date.after(currentDate) && state.equals(data.county)) {
+        result.add(data);
       }
     }
-    return newDataArray;
+    for (Map.Entry<String, Integer> entry : previousValue.entrySet()) {
+       changeLastDate(result, entry.getKey(), entry.getValue());
+    }
+    return result;
+  }
+  
+  private static void changeLastDate(ArrayList<MyData> dataList, String adminArea, Integer amountToBeSubtracted) {
+    for (int i = dataList.size() - 1; i >= 0; i--) {
+      MyData data = dataList.get(i);
+      if (data.administrativeArea.equals(adminArea)) {
+        dataList.set(i, new MyData(data.date, data.administrativeArea, data.county, data.geoIdentifier, data.cases - amountToBeSubtracted, data.country));
+      }
+    }
   }
 
   public static int findNewCasesInArea(final List<MyData> myDataList, String area, int amount) {

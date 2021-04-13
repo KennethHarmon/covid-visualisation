@@ -63,7 +63,7 @@ public class RadioButtonsModule extends Module {
           day = event;
           radio.get(i).clicked = true;
           if (screen == 1) {
-            newCases.cases = FilterData.findTotalNewCases(myCompleteDataList, radioButtons.day);
+            newCases.cases = FilterData.findTotalNewCases(myCompleteDataList, radioButtons.day);  
             biggestIncreasesModule.day = day;
             biggestIncreasesModule.topFiveStateIncreases = biggestIncreasesModule.calculateChart();
           }
