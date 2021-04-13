@@ -11,12 +11,12 @@ public class HistogramModule extends Module {
   private float maxDataValue;
   private int averageRange = 1;
   private float boarderSize = 2;
-  TextModule textBox = new TextModule(0, 0, wide/5, tall/10, "", MODULE_COLOR);
+  TextModule textBox = new TextModule(wide/2-(wide/6), 0, wide/3, tall/10, "", MODULE_COLOR);
 
-  HistogramModule(int x, int y, int wide, int tall, List<MyData> data, int averageRange) {
+  HistogramModule(int x, int y, int wide, int tall, List<MyGraphData> data, int averageRange) {
     super(x, y, wide, tall);
     barwide = wide/data.size();
-    maxDataValue = FilterData.findHighestCaseCount(data) * 1.05;
+    maxDataValue = FilterData.findHighestCaseCountFromGraphDataList(data) * 1.05;
     this.data = new int[data.size()];
     this.dates = new String[data.size()];
     SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
@@ -50,10 +50,10 @@ public class HistogramModule extends Module {
     lineData = saveBestFitLineAlt(this.data);
   }
 
-  HistogramModule(int x, int y, int wide, int tall, List<MyData> data) { 
+  HistogramModule(int x, int y, int wide, int tall, List<MyGraphData> data) {
     super(x, y, wide, tall);
     barwide = wide/data.size();
-    maxDataValue = FilterData.findHighestCaseCount(data) * 1.05;
+    maxDataValue = FilterData.findHighestCaseCountFromGraphDataList(data) * 1.05;
     this.data = new int[data.size()];
     this.dates = new String[data.size()];
     for (int i = 0; i < data.size(); i++) {
