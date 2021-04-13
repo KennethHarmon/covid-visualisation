@@ -14,6 +14,9 @@ public static final class FilterData {
   
   public static final HashMap<String, HashSet<String>> adminAreasCache = new HashMap<String, HashSet<String>>();
 
+  /*  Filters by date. Returns a List of type MyData.
+   If the List didn't contain any entries with the given date or the the List passed in was empty it will return an empty List.
+   */
   public static List<MyData> filterByDate(final Date searchDates, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
@@ -34,6 +37,9 @@ public static final class FilterData {
     return searchedData;
   }
 
+  /*  Filters by admin area. Returns a List of type MyData.
+   If the List didn't contain any entries with the given admin area or the the List passed in was empty it will return an empty List.
+   */
   public static List<MyData> filterByAdminArea(final String searchAdminArea, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
@@ -49,6 +55,9 @@ public static final class FilterData {
     return searchedData;
   }
 
+  /*  Filters by county. Returns a List of type MyData.
+   If the List didn't contain any entries with the given county or the the List passed in was empty it will return an empty List.
+   */
   public static List<MyData> filterByCounty(final String searchCounties, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
@@ -64,6 +73,9 @@ public static final class FilterData {
     return searchedData;
   }
 
+  /*  Filters by geo-ID. Returns a List of type MyData.
+   If the List didn't contain any entries with the given goe-ID or the the List passed in was empty it will return an empty List.
+   */
   public static List<MyData> filterByGeoIdentifier(final String searchGeoIDS, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
@@ -79,6 +91,9 @@ public static final class FilterData {
     return searchedData;
   }
 
+  /*  Filters by cases. Returns a List of type MyData.
+   If the List didn't contain any entries with the given amount of cases or the the List passed in was empty it will return an empty List.
+   */
   public static List<MyData> filterByCases(final int searchCases, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
@@ -94,6 +109,9 @@ public static final class FilterData {
     return searchedData;
   }
 
+  /*  Filters by country. Returns a List of type MyData.
+   If the List didn't contain any entries with the given country or the the List passed in was empty it will return an empty List.
+   */
   public static List<MyData> filterByCountry(final String searchCountries, final List<MyData> myDataList) {
     final List<MyData> searchedData = new ArrayList();
     for (final MyData matchCheck : myDataList) {
@@ -275,6 +293,7 @@ public static final class FilterData {
       adminAreaList.add(data);
       stateCaseNumbers.put(state, adminAreaList);
     }
+
     for (final String state : STATES) {
       if (stateCaseNumbers.get(state) == null) {
         stateCaseNumbers.put(state, new ArrayList(0));
@@ -288,7 +307,7 @@ public static final class FilterData {
       for (String adminArea : AdminAreas) {
         List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
         if (stateAdminAreaCasesData != null) {
-          stateCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases;
+          stateCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size() - 1).cases;
           stateCaseTotals.put(state, stateCases);
         }
       }
