@@ -283,10 +283,14 @@ public static final class FilterData {
     return newGraphDataArray;
   }
 
-  public static List<MyData> filterMyDataListByDate(List<MyData> stateCasesPerTime, Date afterThisDate) {
+  public static List<MyData> filterMyDataListByDate(List<MyData> stateCasesPerTime, int daysBackwards) {
+    Date currentDate = new Date(121,2,15);
+    Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.DATE, daysBackwards);
+    
     List<MyData> newDataArray = new ArrayList<MyData>();
     for (MyData data : stateCasesPerTime) {
-      if (data.date.after(afterThisDate)) {
+      if (data.date.after(currentDate)) {
         newDataArray.add(new MyData(data.date, data.administrativeArea, data.county, data.geoIdentifier, data.cases, data.country));
       }
     }
