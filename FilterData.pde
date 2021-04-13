@@ -273,15 +273,14 @@ public static final class FilterData {
     return newIntArray;
   }
 
-  public static LinkedHashMap<Date, Integer> filterLinkedHashMapByDate(LinkedHashMap<Date, Integer> stateCasesPerTime, Date afterThisDate) {
-    LinkedHashMap<Date, Integer> newArray = new LinkedHashMap<Date, Integer>();
-    for (Date date : stateCasesPerTime.keySet()) {
-      if (date.after(afterThisDate)) {
-        newArray.put(date, stateCasesPerTime.get(date));
-        println(date + " : " + stateCasesPerTime.get(date));
+  public static List<MyGraphData> filterLinkedHashMapByDate(List<MyGraphData> stateCasesPerTime, Date afterThisDate) {
+    List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
+    for (MyGraphData data : stateCasesPerTime) {
+      if (data.date.after(afterThisDate)) {
+        newGraphDataArray.add(new MyGraphData(data.date, data.cases));
       }
     }
-    return newArray;
+    return newGraphDataArray;
   }
 
   public static int findNewCasesInArea(final List<MyData> myDataList, String area, int amount) {
