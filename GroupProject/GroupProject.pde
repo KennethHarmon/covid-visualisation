@@ -4,6 +4,7 @@ import java.io.IOException;
 import processing.sound.*;
 import org.gicentre.geomap.*;
 
+// M.A These three Maps are used by PieChartModule and are used for caching, 13/04/2021
 Map<String, List> stateAdminAreaCases30;
 Map<String, List> stateAdminAreaCases7;
 Map<String, List> stateAdminAreaCasesDay;
