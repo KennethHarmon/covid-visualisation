@@ -1,6 +1,7 @@
 // William Walsh-Dowd created on 30th march, creates a screen with data from a spacific state.
 // M.A implemented the pieChartModule within this Screen, 04/04/2021
 // M.A fixed error screen. 06/04/2021
+// M.A made it so that the pieChartModule can interact with the radio buttons, 13/04/2021
 public class StateDataScreen extends Screen {
   List<MyData> allStateEntriees;
   String stateName;
@@ -39,31 +40,32 @@ public class StateDataScreen extends Screen {
       if (radioButtons.day != EVENT_NULL) {
         newCases2.cases = FilterData.findNewCasesForCounty(allStateEntriees, stateName, radioButtons.day);
 
+        // M.A made it so that this data is cached in case it needs to be accessed again, 13/04/2021
         List<MyData> stateAdminAreas;
         // Need to add in all time days
         switch (radioButtons.day) {
         case 1:
-        //  stateAdminAreas = stateAdminAreaCasesDay.get(this.stateName);
-        //  if (stateAdminAreas == null) {
+          stateAdminAreas = stateAdminAreaCasesDay.get(this.stateName);
+          if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
-          //  stateAdminAreaCasesDay.put(this.stateName, stateAdminAreas);
-          //}
+            stateAdminAreaCasesDay.put(this.stateName, stateAdminAreas);
+          }
           break;
 
         case 7:
-          //stateAdminAreas = stateAdminAreaCases7.get(this.stateName);
-          //if (stateAdminAreas == null) {
+          stateAdminAreas = stateAdminAreaCases7.get(this.stateName);
+          if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
-          //  stateAdminAreaCases7.put(this.stateName, stateAdminAreas);
-          //}
+            stateAdminAreaCases7.put(this.stateName, stateAdminAreas);
+          }
           break;
 
         default:
-          //stateAdminAreas = stateAdminAreaCases30.get(this.stateName);
-          //if (stateAdminAreas == null) {
+          stateAdminAreas = stateAdminAreaCases30.get(this.stateName);
+          if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
-          //  stateAdminAreaCases30.put(this.stateName, stateAdminAreas);
-          //}
+            stateAdminAreaCases30.put(this.stateName, stateAdminAreas);
+          }
         }
         //this.pieChart = new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateAdminAreas);
         super.moduleList.set(super.moduleList.size() - 1, new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateAdminAreas));
