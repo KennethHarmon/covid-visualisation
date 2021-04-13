@@ -273,7 +273,7 @@ public static final class FilterData {
     return newIntArray;
   }
 
-  public static List<MyGraphData> filterLinkedHashMapByDate(List<MyGraphData> stateCasesPerTime, Date afterThisDate) {
+  public static List<MyGraphData> filterMyGraphDataListByDate(List<MyGraphData> stateCasesPerTime, Date afterThisDate) {
     List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
     for (MyGraphData data : stateCasesPerTime) {
       if (data.date.after(afterThisDate)) {
