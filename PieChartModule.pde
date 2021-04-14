@@ -1,5 +1,6 @@
 // M.A made a pie chart module to get top 10 areas affected by covid in a state, 03/04/2021
 // M.A improved upon pie chart with error handling, mousing over to give more information and more, 04/04/2021
+// M.A changed some formatting and added some interactivity with RadioButtonsModule in StateDataScreen, 14/04/2021
 public class PieChartModule extends Module {
   private final String state;
   private final String stateCasesLabel;
@@ -87,7 +88,7 @@ public class PieChartModule extends Module {
         outlineText(information, xPos, yPos + yToBeDrawnIn / 2, BLACK, GLOBAL_BACKGROUND);
 
         // Total cases
-        information = "Total cases: " + sector.totalCases;
+        information = "Total cases: " + formatText("##,###,###", sector.totalCases);
         fittedText(information, xDimension, yToBeDrawnIn, (int) (MODULE_PADDING * 1.5));
         yPos -= yToBeDrawnIn;
         outlineText(information, xPos, yPos + yToBeDrawnIn / 2, BLACK, GLOBAL_BACKGROUND);
