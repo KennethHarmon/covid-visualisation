@@ -224,10 +224,9 @@ public static final class FilterData {
     for (String adminArea : AdminAreas) {
       List<MyData> stateAdminAreaCasesData = FilterData.filterByAdminArea(adminArea, stateCasesData);
       if (stateAdminAreaCasesData != null) {
-        if(stateAdminAreaCasesData.size() >= amount+1){
+        if (stateAdminAreaCasesData.size() >= amount+1) {
           newCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases - stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1-amount).cases;
-        }
-        else{
+        } else {
           newCases += stateAdminAreaCasesData.get(stateAdminAreaCasesData.size()-1).cases - 0;
         }
       }
@@ -288,7 +287,11 @@ public static final class FilterData {
     return newGraphDataArray;
   }
 
-  public static List<MyData> findCasesInListAfterDate(List<MyData> dataList, String state, int daysBackwards) {
+  // M.A fixed error where it wouldn't get the previous date value correctly, 14/04/2021
+  /*
+  This is used for the PieChartModule to get cases after a certain date.
+  */
+  public static List<MyData> findCasesInListAfterDate(final List<MyData> dataList, final String state, final int daysBackwards) {
     Calendar cal = new GregorianCalendar(2021, 2, 15);
     cal.add(Calendar.DAY_OF_MONTH, -daysBackwards);
     Date currentDate = cal.getTime();
@@ -296,11 +299,12 @@ public static final class FilterData {
     final Map<String, Integer> previousValue = new HashMap();
     final ArrayList<MyData> result = new ArrayList();
     for (MyData data : dataList) {
-      if (data.date.before(currentDate) && state.equals(data.county)) {
-        previousValue.put(data.administrativeArea, data.cases);
-      }
-      if (data.date.after(currentDate) && state.equals(data.county)) {
-        result.add(data);
+      if (state.equals(data.county)) {
+        if (data.date.after(currentDate)) {
+          result.add(data);
+        } else {
+          previousValue.put(data.administrativeArea, data.cases);
+        }
       }
     }
     for (Map.Entry<String, Integer> entry : previousValue.entrySet()) {
@@ -309,7 +313,10 @@ public static final class FilterData {
     return result;
   }
 
-  private static void changeLastDate(ArrayList<MyData> dataList, String adminArea, Integer amountToBeSubtracted) {
+  /*
+  Subtracts the previous cases from the last date to get the amount of new cases (since cases are measured as the runnning total).
+  */
+  private static void changeLastDate(final ArrayList<MyData> dataList, final String adminArea, final Integer amountToBeSubtracted) {
     for (int i = dataList.size() - 1; i >= 0; i--) {
       MyData data = dataList.get(i);
       if (data.administrativeArea.equals(adminArea)) {
@@ -389,8 +396,8 @@ public static final class FilterData {
     }
     adminAreasCache.put(state, AdminAreas);
   }
-  
-  public static int calculateDuration(String state, Map<String, List> stateCaseNumbers){
+
+  public static int calculateDuration(String state, Map<String, List> stateCaseNumbers) {
     List<MyData> stateData = stateCaseNumbers.get(state);
     Date firstDay = stateData.get(0).date;
     Date lastDay = stateData.get(stateData.size()-1).date;
