@@ -289,10 +289,10 @@ public static final class FilterData {
   }
 
   public static List<MyData> findCasesInListAfterDate(List<MyData> dataList, String state, int daysBackwards) {
-    Calendar cal = new GregorianCalendar(2021,2,15);
+    Calendar cal = new GregorianCalendar(2021, 2, 15);
     cal.add(Calendar.DAY_OF_MONTH, -daysBackwards);
     Date currentDate = cal.getTime();
-    
+
     final Map<String, Integer> previousValue = new HashMap();
     final ArrayList<MyData> result = new ArrayList();
     for (MyData data : dataList) {
@@ -304,16 +304,17 @@ public static final class FilterData {
       }
     }
     for (Map.Entry<String, Integer> entry : previousValue.entrySet()) {
-       changeLastDate(result, entry.getKey(), entry.getValue());
+      changeLastDate(result, entry.getKey(), entry.getValue());
     }
     return result;
   }
-  
+
   private static void changeLastDate(ArrayList<MyData> dataList, String adminArea, Integer amountToBeSubtracted) {
     for (int i = dataList.size() - 1; i >= 0; i--) {
       MyData data = dataList.get(i);
       if (data.administrativeArea.equals(adminArea)) {
         dataList.set(i, new MyData(data.date, data.administrativeArea, data.county, data.geoIdentifier, data.cases - amountToBeSubtracted, data.country));
+        return;
       }
     }
   }
