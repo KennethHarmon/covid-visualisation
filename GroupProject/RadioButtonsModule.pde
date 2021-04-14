@@ -39,6 +39,7 @@ public class RadioButtonsModule extends Module {
     event = days[initial]; 
     day = days[initial];
     this.dataList = myDataList;
+    newCasesCache = new HashMap<Integer, Integer>();
   }
 
   @Override
@@ -64,7 +65,11 @@ public class RadioButtonsModule extends Module {
           day = event;
           radio.get(i).clicked = true;
           if (screen == 1) {
-            newCases.cases = FilterData.findTotalNewCases(myCompleteDataList, radioButtons.day);  
+            if (!newCasesCache.containsKey(radioButtons.day)) {
+              int foundNewCases = FilterData.findTotalNewCases(myCompleteDataList, radioButtons.day);
+              newCasesCache.put(radioButtons.day, foundNewCases);   
+            }
+            newCases.cases = newCasesCache.get(radioButtons.day);
             biggestIncreasesModule.day = day;
             biggestIncreasesModule.topFiveStateIncreases = biggestIncreasesModule.calculateChart();
           }

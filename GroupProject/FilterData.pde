@@ -13,7 +13,7 @@ import java.util.Collections;
 
 public static final class FilterData {
 
-  public static final HashMap<String, HashSet<String>> adminAreasCache = new HashMap<String, HashSet<String>>();
+  public static HashMap<String, HashSet<String>> adminAreasCache = new HashMap<String, HashSet<String>>();
 
   /*  Filters by date. Returns a List of type MyData.
    If the List didn't contain any entries with the given date or the the List passed in was empty it will return an empty List.
