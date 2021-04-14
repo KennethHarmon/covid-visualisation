@@ -328,14 +328,13 @@ public static final class FilterData {
   }
 
   /*
-  Subtracts the previous cases from the last date to get the amount of new cases (since cases are measured as the runnning total).
+  Subtracts the previous cases from every date in each admin area to get the amount of new cases (since cases are measured as the runnning total).
    */
   private static void changeLastDate(final ArrayList<MyData> dataList, final String adminArea, final Integer amountToBeSubtracted) {
-    for (int i = dataList.size() - 1; i >= 0; i--) {
+    for (int i = 0; i < dataList.size(); i++) {
       MyData data = dataList.get(i);
       if (data.administrativeArea.equals(adminArea)) {
         dataList.set(i, new MyData(data.date, data.administrativeArea, data.county, data.geoIdentifier, data.cases - amountToBeSubtracted, data.country));
-        return;
       }
     }
   }
