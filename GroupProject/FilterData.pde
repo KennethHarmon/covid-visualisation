@@ -390,11 +390,10 @@ public static final class FilterData {
     adminAreasCache.put(state, AdminAreas);
   }
   
-  public static int calculateDuration(String state, Map<String, List> stateCaseNumbers, List<MyData> myDataList){
+  public static int calculateDuration(String state, Map<String, List> stateCaseNumbers){
     List<MyData> stateData = stateCaseNumbers.get(state);
     Date firstDay = stateData.get(0).date;
     Date lastDay = stateData.get(stateData.size()-1).date;
-    long days = (lastDay.getTime() - firstDay.getTime()) / (1000 * 60 * 60 * 24);
-    return int(days) + 1;
+    return int((lastDay.getTime() - firstDay.getTime()) / (1000 * 60 * 60 * 24)) + 1;
   }
 }
