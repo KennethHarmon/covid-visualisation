@@ -7,16 +7,14 @@ public class StateDataScreen extends Screen {
   String stateName;
   NewCasesModule newCases2;
   RadioButtonsModule radioButtons;
-  private PieChartModule pieChart;
 
   StateDataScreen(String stateName) {
     this.stateName = stateName;
     this.allStateEntries = stateCaseNumbers.get(stateName);
-    int duration = FilterData.calculateDuration(stateName, stateCaseNumbers, myCompleteDataList);
+    int duration = FilterData.calculateDuration(stateName, stateCaseNumbers);
     println(duration);
     radioButtons = new RadioButtonsModule(MODULE_PADDING, 2*MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, width - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) / 8, myCompleteDataList, 2, stateName, 3, 1, 7, 30, duration);
     newCases2 = new NewCasesModule(width - MODULE_PADDING - (width - 4 * MODULE_PADDING) / 3, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, FilterData.findNewCasesForCounty(allStateEntries, stateName, duration));
-    pieChart = new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateCaseNumbers.get(stateName));
     try {
       super.addModules(
         new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, stateCaseTotals.get(stateName)), 
@@ -24,7 +22,7 @@ public class StateDataScreen extends Screen {
         new HistogramModule(MODULE_PADDING * 2 + width / 3 - 2 * MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 * 2 - MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList), 5), 
         newCases2, 
         radioButtons, 
-        pieChart
+        new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateCaseNumbers.get(stateName))
         );
     } 
     catch (Exception e) {
@@ -40,8 +38,6 @@ public class StateDataScreen extends Screen {
     }
     if (mousePressed) {
       if (radioButtons.day != EVENT_NULL) {
-        newCases2.cases = FilterData.findNewCasesForCounty(allStateEntries, stateName, radioButtons.day);
-
         // M.A made it so that this data is cached in case it needs to be accessed again, 13/04/2021
         List<MyData> stateAdminAreas;
         // Need to add in all time days
@@ -62,15 +58,22 @@ public class StateDataScreen extends Screen {
           }
           break;
 
-        default:
+        case 30:
           stateAdminAreas = stateAdminAreaCases30.get(this.stateName);
           if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
             stateAdminAreaCases30.put(this.stateName, stateAdminAreas);
           }
+          break;
+
+        default:
+          stateAdminAreas = stateCaseNumbers.get(stateName);
         }
-        //this.pieChart = new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateAdminAreas);
-        super.moduleList.set(super.moduleList.size() - 1, new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateAdminAreas));
+        PieChartModule pieChart = new  PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateAdminAreas);
+        super.moduleList.set(super.moduleList.size() - 1, pieChart);
+        
+        // As to not calculate it twice
+        newCases2.cases = pieChart.getTotalStateCases();
       }
     }
   }

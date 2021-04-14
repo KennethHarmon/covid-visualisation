@@ -15,13 +15,16 @@ public class PieChartModule extends Module {
   PieChartModule(float x, float y, float wide, float tall, String state, List<MyData> adminAreaList) { 
     super(x, y, wide, tall);
     this.state = state;
-    println("Admin area list size: " + adminAreaList.size());
     Map<String, Integer> adminAreaMap = initialiseCasesByAdminArea(adminAreaList); // Used for calculating the total and initialising the top ten list
     this.totalStateCases = adminAreaList.equals(stateCaseNumbers) ? stateCaseTotals.get(state) : this.getTotalCasesForMap(adminAreaMap);
     this.topAdminAreasList = initialiseTopTenList(adminAreaMap);
     this.totalCasesOfList = this.getTotalCasesForList();
     initialiseAngles();
     this.stateCasesLabel = (topAdminAreasList.size() > 1 ? "Most affected areas in " : "Not enough data for ") + state;
+  }
+  
+  public int getTotalStateCases() {
+    return this.totalStateCases;
   }
 
   @Override
