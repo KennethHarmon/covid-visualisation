@@ -41,9 +41,11 @@ public class StateDataScreen extends Screen {
         // M.A made it so that this data is cached in case it needs to be accessed again, 13/04/2021
         List<MyData> stateAdminAreas;
         // Need to add in all time days
+        List<MyGraphData> GraphDataList;
         switch (radioButtons.day) {
         case 1:
           stateAdminAreas = stateAdminAreaCasesDay.get(this.stateName);
+          GraphDataList = FilterData.filterMyGraphDataListByDate(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList), radioButtons.day);
           if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
             stateAdminAreaCasesDay.put(this.stateName, stateAdminAreas);
@@ -52,6 +54,7 @@ public class StateDataScreen extends Screen {
 
         case 7:
           stateAdminAreas = stateAdminAreaCases7.get(this.stateName);
+          GraphDataList = FilterData.filterMyGraphDataListByDate(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList), radioButtons.day);
           if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
             stateAdminAreaCases7.put(this.stateName, stateAdminAreas);
@@ -60,6 +63,7 @@ public class StateDataScreen extends Screen {
 
         case 30:
           stateAdminAreas = stateAdminAreaCases30.get(this.stateName);
+          GraphDataList = FilterData.filterMyGraphDataListByDate(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList), radioButtons.day);
           if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
             stateAdminAreaCases30.put(this.stateName, stateAdminAreas);
@@ -68,10 +72,12 @@ public class StateDataScreen extends Screen {
 
         default:
           stateAdminAreas = stateCaseNumbers.get(stateName);
+          GraphDataList = FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList);
         }
-        PieChartModule pieChart = new  PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateAdminAreas);
-        super.moduleList.set(super.moduleList.size() - 1, pieChart);
-        
+        PieChartModule pieChart = new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateAdminAreas);
+        HistogramModule graph = new HistogramModule(MODULE_PADDING * 2 + width / 3 - 2 * MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 * 2 - MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, GraphDataList, 5);
+        super.moduleList.set(super.moduleList.size()-1, pieChart);
+        super.moduleList.set(super.moduleList.size()-4, graph);
         // As to not calculate it twice
         newCases2.cases = pieChart.getTotalStateCases();
       }
