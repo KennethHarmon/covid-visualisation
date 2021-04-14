@@ -12,9 +12,9 @@ public class LoadingScreen {
     background(GLOBAL_BACKGROUND);
     fill(GREY);
     rect((width/8) * 3, height/2, barWidth, barHeight);
-    fill(GOLD);
+    fill(NAVY);
     rect(((width/8) * 3) + 1, (height/2) + 1,  loadingPercent * barWidth, barHeight);
     textSize(32);
-    text("Loading...", (((width/8) * 3)), (height/2) + 80);
+    outlineText("Loading...", width / 8 * 3, height / 2 + 80, NAVY, NAVY); // Makes it look bold
   }
 }
