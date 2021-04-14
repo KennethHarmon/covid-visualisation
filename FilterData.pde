@@ -410,10 +410,15 @@ public static final class FilterData {
     adminAreasCache.put(state, AdminAreas);
   }
 
+  // M.A. fixed error for American Samoa (empty lists) where this method would give an indexOutOfBoundsException
   public static int calculateDuration(String state, Map<String, List> stateCaseNumbers) {
     List<MyData> stateData = stateCaseNumbers.get(state);
-    Date firstDay = stateData.get(0).date;
-    Date lastDay = stateData.get(stateData.size()-1).date;
-    return int((lastDay.getTime() - firstDay.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    int result = -1;
+    if (stateData.size() > 0) {
+      Date firstDay = stateData.get(0).date;
+      Date lastDay = stateData.get(stateData.size()-1).date;
+      result = int((lastDay.getTime() - firstDay.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    }
+    return result;
   }
 }

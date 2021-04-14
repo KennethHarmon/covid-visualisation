@@ -12,7 +12,6 @@ public class StateDataScreen extends Screen {
     this.stateName = stateName;
     this.allStateEntries = stateCaseNumbers.get(stateName);
     int duration = FilterData.calculateDuration(stateName, stateCaseNumbers);
-    println(duration);
     radioButtons = new RadioButtonsModule(MODULE_PADDING, 2*MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, width - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) / 8, myCompleteDataList, 2, stateName, 3, 1, 7, 30, duration);
     newCases2 = new NewCasesModule(width - MODULE_PADDING - (width - 4 * MODULE_PADDING) / 3, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, FilterData.findNewCasesForCounty(allStateEntries, stateName, duration));
     try {
@@ -25,8 +24,7 @@ public class StateDataScreen extends Screen {
         new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateCaseNumbers.get(stateName))
         );
     } 
-    catch (Exception e) {
-      println("Not enough data for " + stateName);
+    catch (Exception ignored) {
       super.addModules(new TextModule(MODULE_PADDING + width / 5, MODULE_PADDING + height / 5, width / 5 * 3 - 2 * MODULE_PADDING, height / 5 * 3 - 2 * MODULE_PADDING, "Not enough data for " + stateName, RED));
     }
   }
