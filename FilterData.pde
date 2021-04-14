@@ -171,6 +171,16 @@ public static final class FilterData {
     }
     return highestCases;
   }
+  
+    public static int findLowestCaseCountFromGraphDataList(final List<MyGraphData> myDataList) {
+    int highestCases = 1000000000;
+    for (final MyGraphData currentData : myDataList) {
+      if (currentData.cases < highestCases) {
+        highestCases = currentData.cases;
+      }
+    }
+    return highestCases;
+  }
 
   public static MyData findHighestCase(final List<MyData> myDataList) {
     MyData highestCase = myDataList.get(0);
@@ -277,20 +287,24 @@ public static final class FilterData {
     return newIntArray;
   }
 
-  public static List<MyGraphData> filterMyGraphDataListByDate(List<MyGraphData> stateCasesPerTime, Date afterThisDate) {
-    List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
+  public static List<MyGraphData> filterMyGraphDataListByDate(List<MyGraphData> stateCasesPerTime, int daysBackwards) {
+    Calendar cal = new GregorianCalendar(2021, 2, 15);
+    cal.add(Calendar.DAY_OF_MONTH, -daysBackwards);
+    Date currentDate = cal.getTime();
+
+    final ArrayList<MyGraphData> result = new ArrayList();
     for (MyGraphData data : stateCasesPerTime) {
-      if (data.date.after(afterThisDate)) {
-        newGraphDataArray.add(new MyGraphData(data.date, data.cases));
+        if (data.date.after(currentDate)) {
+          result.add(data);
+        }
       }
-    }
-    return newGraphDataArray;
+    return result;
   }
 
   // M.A fixed error where it wouldn't get the previous date value correctly, 14/04/2021
   /*
   This is used for the PieChartModule to get cases after a certain date.
-  */
+   */
   public static List<MyData> findCasesInListAfterDate(final List<MyData> dataList, final String state, final int daysBackwards) {
     Calendar cal = new GregorianCalendar(2021, 2, 15);
     cal.add(Calendar.DAY_OF_MONTH, -daysBackwards);
@@ -315,7 +329,7 @@ public static final class FilterData {
 
   /*
   Subtracts the previous cases from the last date to get the amount of new cases (since cases are measured as the runnning total).
-  */
+   */
   private static void changeLastDate(final ArrayList<MyData> dataList, final String adminArea, final Integer amountToBeSubtracted) {
     for (int i = dataList.size() - 1; i >= 0; i--) {
       MyData data = dataList.get(i);

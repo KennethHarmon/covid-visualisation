@@ -9,6 +9,7 @@ public class HistogramModule extends Module {
   int[] lineData = new int[0];
   private float barwide;
   private float maxDataValue;
+  private float minDataValue;
   private int averageRange = 1;
   private float boarderSize = 2;
   TextModule textBox = new TextModule(wide/2-(wide/6), 0, wide/3, tall/10, "", MODULE_COLOR);
@@ -17,6 +18,7 @@ public class HistogramModule extends Module {
     super(x, y, wide, tall);
     barwide = wide/data.size();
     maxDataValue = FilterData.findHighestCaseCountFromGraphDataList(data) * 1.05;
+    minDataValue = FilterData.findLowestCaseCountFromGraphDataList(data) * 0.95;
     this.data = new int[data.size()];
     this.dates = new String[data.size()];
     SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
@@ -26,6 +28,7 @@ public class HistogramModule extends Module {
     }
     this.averageRange = averageRange;
     lineData = saveBestFitLineAlt(this.data);
+    println("maxDataValue : " + maxDataValue);
   }
 
   HistogramModule(int x, int y, int wide, int tall, int[] data, int averageRange) {
@@ -66,34 +69,36 @@ public class HistogramModule extends Module {
     void subClassDraw() {
     drawBars();
     bestFitLine(lineData);
-    scaleLines(data);
+    scaleLines();
     selectBar();
   }
 
   public void drawBars() {
     fill(0);
+    rectMode(CORNER);
     for (int i = 0; i < data.length; i++) {
       fill(NAVY);
       strokeWeight(1);
       stroke(NAVY);
-      rect(map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], 0, maxDataValue, boarderSize, -tall + boarderSize));
+      rect(map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], minDataValue, maxDataValue, boarderSize, -tall + boarderSize));
     }
   }
 
   private void bestFitLine(int[] dataToMap) {
     for (int i = 0; i < dataToMap.length-1; i++) {
       stroke(255, 0, 0);
-      line(map(i + .5, 0, dataToMap.length, wide/10, wide), tall - map(dataToMap[i], 0, maxDataValue, 0, tall), map(i+1 + .5, 0, dataToMap.length, wide/10, wide), tall - map(dataToMap[i+1], 0, maxDataValue, 0, tall));
+      line(map(i + .5, 0, dataToMap.length, wide/10, wide), tall - map(dataToMap[i], minDataValue, maxDataValue, 0, tall), map(i+1 + .5, 0, dataToMap.length, wide/10, wide), tall - map(dataToMap[i+1], minDataValue, maxDataValue, 0, tall));
       stroke(0);
     }
   }
 
-  private void scaleLines(int[] data) {
-    for (int i = 1; i < data.length/10; i++) {
+  private void scaleLines() {
+    int scale = int(maxDataValue - minDataValue)/10;
+    for (int i = 1; i < 10; i++) {
       textSize(tall/25);
       fill(NAVY);
       textAlign(LEFT);
-      text(formatText("##,###,###", int((10-i) * (maxDataValue/10))), 5, (i-1) * (tall/10) + tall/13);
+      text(formatText("##,###,###", int((10-i) * (scale))), 5, (i-1) * (tall/10) + tall/13);
       line(0, i * (tall/10), wide, i * (tall/10));
     }
   }
@@ -104,8 +109,10 @@ public class HistogramModule extends Module {
       for (int i = 0; i < data.length; i++) {
         if (mouseX >= (map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2) + super.xOrigin && mouseX < (map(i + 1, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2) + super.xOrigin) {
           textBox.setText((this.dates == null ? "" : "Cases on " + this.dates[i] + ": ") + formatText("##,###,###", data[i]));
-          strokeWeight(barwide/1.10);
-          line((map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 3), 0, (map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 3), tall);
+          rectMode(CORNER);
+          noStroke();
+          fill(GREY);
+          rect((map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2), 0, barwide-2, tall);
           break;
         }
       }
