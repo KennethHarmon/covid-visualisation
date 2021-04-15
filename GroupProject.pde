@@ -88,7 +88,6 @@ void setupProgram() {
   loadingPercent += 0.1;
 
   //Map interface
-  println(1);
   Map[] stateCaseInformation = FilterData.findCurrentStateCases(myCompleteDataList);
   stateCaseTotals = stateCaseInformation[0];
   stateCaseNumbers = stateCaseInformation[1];
@@ -106,7 +105,6 @@ void setupProgram() {
   int initialNewCases = FilterData.findTotalNewCases(myCompleteDataList, 7);
   
   loadingPercent += 0.1;
-  println(2);
 
   //Initialisation
   newCasesCache = new HashMap();
