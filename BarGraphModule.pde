@@ -16,7 +16,7 @@ public class HistogramModule extends Module {
 
   HistogramModule(int x, int y, int wide, int tall, List<MyGraphData> data, int averageRange) {
     super(x, y, wide, tall);
-    barwide = wide/data.size();
+    barwide = (wide *9/10)/data.size();
     maxDataValue = FilterData.findHighestCaseCountFromGraphDataList(data) * 1.05;
     minDataValue = FilterData.findLowestCaseCountFromGraphDataList(data);
     this.data = new int[data.size()];
@@ -33,7 +33,7 @@ public class HistogramModule extends Module {
 
   HistogramModule(int x, int y, int wide, int tall, int[] data, int averageRange) {
     super(x, y, wide, tall);
-    barwide = wide/data.length;
+    barwide = (wide*9/10 - boarderSize)/data.length;
     this.dates = null;  // For now
 
 
@@ -55,7 +55,7 @@ public class HistogramModule extends Module {
 
   HistogramModule(int x, int y, int wide, int tall, List<MyGraphData> data) {
     super(x, y, wide, tall);
-    barwide = wide/data.size();
+    barwide = (wide*9/10 - boarderSize)/data.size();
     maxDataValue = FilterData.findHighestCaseCountFromGraphDataList(data) * 1.05;
     this.data = new int[data.size()];
     this.dates = new String[data.size()];
