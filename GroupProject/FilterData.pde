@@ -339,6 +339,11 @@ public static final class FilterData {
     }
   }
 
+  /*
+  Finds the amount of new total cases starting from a given date.
+  This date is determined by the 'amount' parameter.
+  E.G. if the last date in the List was 20/04/2020 and the 'amount' was 7 it would calculate new total cases starting from 13/04/2020
+  */
   public static int findTotalNewCases(final List<MyData> myDataList, int amount) {
     Date currentDate = myDataList.get(myDataList.size() - 1).date;
     Calendar cal = Calendar.getInstance();
