@@ -39,33 +39,35 @@ public class StateDataScreen extends Screen {
         // M.A made it so that this data is cached in case it needs to be accessed again, 13/04/2021
         List<MyData> stateAdminAreas;
         // Need to add in all time days
-        List<MyGraphData> GraphDataList;
+        List<MyGraphData> GraphDataList = new ArrayList<MyGraphData>();
         switch (radioButtons.day) {
         case 1:
           stateAdminAreas = stateAdminAreaCasesDay.get(this.stateName);
-          GraphDataList = FilterData.filterMyGraphDataListByDate(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList), radioButtons.day);
           if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
             stateAdminAreaCasesDay.put(this.stateName, stateAdminAreas);
           }
+          GraphDataList = FilterData.createStateCasesPerTime(this.stateName, stateAdminAreaCasesDay, stateAdminAreas);
           break;
 
         case 7:
           stateAdminAreas = stateAdminAreaCases7.get(this.stateName);
-          GraphDataList = FilterData.filterMyGraphDataListByDate(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList), radioButtons.day);
+         // GraphDataList = FilterData.filterMyGraphDataListByDate(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList), radioButtons.day);
           if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
             stateAdminAreaCases7.put(this.stateName, stateAdminAreas);
           }
+          GraphDataList = FilterData.createStateCasesPerTime(this.stateName, stateAdminAreaCases7, stateAdminAreas);
           break;
 
         case 30:
           stateAdminAreas = stateAdminAreaCases30.get(this.stateName);
-          GraphDataList = FilterData.filterMyGraphDataListByDate(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList), radioButtons.day);
+         // GraphDataList = FilterData.filterMyGraphDataListByDate(FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList), radioButtons.day);
           if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
             stateAdminAreaCases30.put(this.stateName, stateAdminAreas);
           }
+          GraphDataList = FilterData.createStateCasesPerTime(this.stateName, stateAdminAreaCases30, stateAdminAreas);
           break;
 
         default:
