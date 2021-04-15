@@ -399,6 +399,9 @@ public static final class FilterData {
     return mapArray;
   }
 
+  /*
+  Returns if the String was already saved in the HashSet.
+  */
   public static boolean isNameAlreadySaved(HashSet<String> data, String string) {
     return data.contains(string);
   }
@@ -414,6 +417,10 @@ public static final class FilterData {
   }
 
   // M.A. fixed error for American Samoa (empty lists) where this method would give an indexOutOfBoundsException
+  /*
+  Calculates the duration between the first case for a state and the last state for a state.
+   Returns the number of days as in int.
+   */
   public static int calculateDuration(String state, Map<String, List> stateCaseNumbers) {
     List<MyData> stateData = stateCaseNumbers.get(state);
     int result = -1;

@@ -38,8 +38,7 @@ public class MapModule extends Module {
       try {
         stateCases = stateCaseNumbers.get(state);
       }
-      catch (NullPointerException e) {
-        //print(e.getMessage());
+      catch (NullPointerException ignored) {
         stateCases = -1;
       }
 
