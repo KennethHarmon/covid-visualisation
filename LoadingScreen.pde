@@ -13,7 +13,7 @@ public class LoadingScreen {
     fill(GREY);
     rect((width/8) * 3, height/2, barWidth, barHeight);
     fill(NAVY);
-    rect(((width/8) * 3) + 1, (height/2) + 1,  loadingPercent * barWidth, barHeight);
+    rect(((width/8) * 3) + 1, (height/2) + 1,  (float)(loadingPercent * barWidth), barHeight);
     textSize(32);
     outlineText("Loading...", width / 8 * 3, height / 2 + 80, NAVY, NAVY); // Makes it look bold
   }
