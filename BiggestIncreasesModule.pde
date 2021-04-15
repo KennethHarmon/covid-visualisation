@@ -8,12 +8,14 @@ public class BiggestIncreasesModule extends Module {
   List<String> topFiveStateNames;
   Map<Integer, HashMap> topFiveStatesCache;
   Map<Integer, Integer> maxValueCache;
+  Map<String, Float> barWidthPerState;
   private float maxIncrease;
   private float padding;
   private float chartYStart;
   private float chartTextX;
   private float chartHeight;
   private float chartXStart;
+  private float chartWidth;
   private int day;
 
   BiggestIncreasesModule(int x, int y, int wide, int tall, Map<String, List> stateData, int day) {
@@ -22,6 +24,7 @@ public class BiggestIncreasesModule extends Module {
     stateCaseNumbers = stateData;
     topFiveStatesCache = new HashMap<Integer, HashMap>();
     maxValueCache = new HashMap<Integer, Integer>();
+    barWidthPerState = new HashMap<String, Float>();
     topFiveStateIncreases = calculateChart();
     print("tall: " + tall);
   }
@@ -72,6 +75,9 @@ public class BiggestIncreasesModule extends Module {
     maxIncrease = maxValueCache.get(day);
     println(topFiveStates);
     topFiveStateNames = new ArrayList<String>(topFiveStates.keySet());
+    for (String state : topFiveStates.keySet()) {
+      barWidthPerState.put(state, float(0));
+    }
     return topFiveStates;
   }
 
@@ -84,10 +90,10 @@ public class BiggestIncreasesModule extends Module {
     chartXStart = wide / 4;
 
 
-    ArrayList<Float> chartWidths = new ArrayList<Float>();
     for (String state : topFiveStateIncreases.keySet()) {
       //Chart size variables
-      float chartWidth = (float)(wide - ((MODULE_PADDING) + wide / 4)) * ((float)topFiveStateIncreases.get(state) / (float)maxIncrease);
+      moveBars(state);
+      chartWidth = barWidthPerState.get(state);
 
       //Text
       fill(0);
@@ -102,19 +108,26 @@ public class BiggestIncreasesModule extends Module {
       rect(chartXStart, chartYStart + (padding*offset), chartWidth, chartHeight);
       offset++;
 
-      chartWidths.add(chartWidth);
     }
 
-    checkMouseHover(chartWidths);
+    checkMouseHover(barWidthPerState);
   }
 
-  void checkMouseHover(ArrayList<Float> chartWidths) {
-    for (int offset = 0; offset < chartWidths.size(); offset++) {
+  void moveBars(String state){
+    float chartWidthMax = (float)(wide - ((MODULE_PADDING) + wide / 4)) * ((float)topFiveStateIncreases.get(state) / (float)maxIncrease);
+    float barWidth = barWidthPerState.get(state);
+    if(barWidth < chartWidthMax - 5){
+      barWidthPerState.put(state, barWidth + 5);
+    }
+  }
+
+  void checkMouseHover(Map<String, Float> barWidthPerState) {
+    for (int offset = 0; offset < 5; offset++) {
       // Mousing over the bar chart K.H Adapted from Miguel's hovering for pie chart.
       final int relativeMouseX = mouseX - (int) super.xOrigin;
       final int relativeMouseY = mouseY - (int) super.yOrigin;
-
-      if ((relativeMouseX >= chartXStart) && (relativeMouseX <= chartXStart + chartWidths.get(offset)) && (relativeMouseY >= chartYStart + (padding*offset)) && (relativeMouseY <= (chartYStart + (padding*offset)) + chartHeight)) {
+      String state = topFiveStateNames.get(offset);
+      if ((relativeMouseX >= chartXStart) && (relativeMouseX <= chartXStart + barWidthPerState.get(state)) && (relativeMouseY >= chartYStart + (padding*offset)) && (relativeMouseY <= (chartYStart + (padding*offset)) + chartHeight)) {
         textAlign(LEFT, CENTER);
         fill(BLACK, 63); // 25% opacity
         int xPos = relativeMouseX + 5;
