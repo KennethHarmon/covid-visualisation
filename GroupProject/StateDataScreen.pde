@@ -38,7 +38,6 @@ public class StateDataScreen extends Screen {
       if (radioButtons.day != EVENT_NULL) {
         // M.A made it so that this data is cached in case it needs to be accessed again, 13/04/2021
         List<MyData> stateAdminAreas;
-        // Need to add in all time days
         List<MyGraphData> GraphDataList = new ArrayList<MyGraphData>();
         switch (radioButtons.day) {
         case 1:
