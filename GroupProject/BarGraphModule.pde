@@ -107,11 +107,11 @@ public class HistogramModule extends Module {
     if (mouseX > wide/10 + boarderSize + super.xOrigin && mouseX < wide + super.xOrigin && mouseY > 0 + super.yOrigin && mouseY < tall + super.yOrigin) {
       for (int i = 0; i < data.length; i++) {
         if (mouseX >= (map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2) + super.xOrigin && mouseX < (map(i + 1, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2) + super.xOrigin) {
-          textBox.setText((this.dates == null ? "" : "Cases on " + this.dates[i] + ": ") + formatText("##,###,###", data[i]));
           rectMode(CORNER);
           noStroke();
           fill(GREY);
-          rect((map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2), 0, barwide-2, tall);
+          rect((map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2), 0, 2, tall);
+          textBox.setText((this.dates == null ? "" : "Cases on " + this.dates[i] + ": ") + formatText("##,###,###", data[i]));
           break;
         }
       }
