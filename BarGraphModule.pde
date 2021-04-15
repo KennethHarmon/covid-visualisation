@@ -18,7 +18,7 @@ public class HistogramModule extends Module {
     super(x, y, wide, tall);
     barwide = wide/data.size();
     maxDataValue = FilterData.findHighestCaseCountFromGraphDataList(data) * 1.05;
-    minDataValue = FilterData.findLowestCaseCountFromGraphDataList(data) * 0.95;
+    minDataValue = FilterData.findLowestCaseCountFromGraphDataList(data);
     this.data = new int[data.size()];
     this.dates = new String[data.size()];
     SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
@@ -93,19 +93,18 @@ public class HistogramModule extends Module {
   }
 
   private void scaleLines() {
-    int scale = int(maxDataValue - minDataValue)/10;
-    for (int i = 1; i < 10; i++) {
+    int scale = int((maxDataValue - minDataValue)/10);
+    for (int i = 1; i < 11; i++) {
       textSize(tall/25);
       fill(NAVY);
       textAlign(LEFT);
-      text(formatText("##,###,###", int((10-i) * (scale))), 5, (i-1) * (tall/10) + tall/13);
+      text(formatText("##,###,###", int(((10-i) * (scale)) + minDataValue)), 5, (i-1) * (tall/10) + tall/13);
       line(0, i * (tall/10), wide, i * (tall/10));
     }
   }
 
   private void selectBar() {
     if (mouseX > wide/10 + boarderSize + super.xOrigin && mouseX < wide + super.xOrigin && mouseY > 0 + super.yOrigin && mouseY < tall + super.yOrigin) {
-      textBox.draw();
       for (int i = 0; i < data.length; i++) {
         if (mouseX >= (map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2) + super.xOrigin && mouseX < (map(i + 1, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2) + super.xOrigin) {
           textBox.setText((this.dates == null ? "" : "Cases on " + this.dates[i] + ": ") + formatText("##,###,###", data[i]));
@@ -116,6 +115,7 @@ public class HistogramModule extends Module {
           break;
         }
       }
+      textBox.draw();
     }
   }
 
