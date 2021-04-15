@@ -359,6 +359,11 @@ public static final class FilterData {
     return totalCurrent - totalSearch;
   }
 
+  /*
+  Initialises an array of Maps (so that two things can be initialised at once).
+   The stateCaseTotals Map<> is initialised and contains the total cases for each state, E.G. Map<"The state", "The number of cases">
+   The stateCaseNumbers Map<> is initialised and contains the List of running total cases as a MyData data type, E.G. Map<"The state", List<MyData>
+   */
   public static Map[] findCurrentStateCases(final List<MyData> completeDataList) {
     Map<String, Integer> stateCaseTotals = new HashMap();
     Map<String, List> stateCaseNumbers = new HashMap();
@@ -401,7 +406,7 @@ public static final class FilterData {
 
   /*
   Returns if the String was already saved in the HashSet.
-  */
+   */
   public static boolean isNameAlreadySaved(HashSet<String> data, String string) {
     return data.contains(string);
   }
