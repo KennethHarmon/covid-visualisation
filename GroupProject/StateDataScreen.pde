@@ -71,7 +71,7 @@ public class StateDataScreen extends Screen {
 
         default:
           stateAdminAreas = stateCaseNumbers.get(stateName);
-          GraphDataList = FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList);
+          GraphDataList = FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, stateAdminAreas);
         }
         PieChartModule pieChart = new PieChartModule(MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, stateName, stateAdminAreas);
         HistogramModule graph = new HistogramModule(MODULE_PADDING * 2 + width / 3 - 2 * MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 * 2 - MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, GraphDataList, 5);
