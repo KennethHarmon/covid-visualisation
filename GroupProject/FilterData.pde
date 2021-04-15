@@ -269,6 +269,34 @@ public static final class FilterData {
     return newGraphDataArray;
   }
 
+  public static List<MyGraphData> createTotalCasesPerTime(Map<String, List> stateCaseNumbers, List<MyData> myCompleteDataList) {    
+    List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
+
+    List<MyData> allEntriees = new ArrayList<MyData>();
+      for (String state : STATES) {
+      allEntriees.addAll(stateCaseNumbers.get(state));
+    }
+    int casesForThisDay = 0;
+    Date date = myCompleteDataList.get(myCompleteDataList.size() - 1).date;
+    Date lastestDate = new Date(120, 0, 0);
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(date);
+    int daysToDecrement = -1;
+    while (!date.equals(lastestDate)) {
+      casesForThisDay = 0;
+      if (allEntriees != null && filterByDate(date, allEntriees).size() > 0) {
+        for (MyData data : filterByDate(date, allEntriees)) {
+          casesForThisDay += data.cases;
+        }
+        newGraphDataArray.add(new MyGraphData(date, casesForThisDay));
+      }
+      cal.add(Calendar.DATE, daysToDecrement);
+      date = cal.getTime();
+    }
+    Collections.reverse(newGraphDataArray);
+    return newGraphDataArray;
+  }
+
   public static List<MyGraphData> myDataToMyGraphData(List<MyData> inputData) {
     List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
     for (MyData currentInputData : inputData) {
@@ -339,11 +367,6 @@ public static final class FilterData {
     }
   }
 
-  /*
-  Finds the amount of new total cases starting from a given date.
-  This date is determined by the 'amount' parameter.
-  E.G. if the last date in the List was 20/04/2020 and the 'amount' was 7 it would calculate new total cases starting from 13/04/2020
-  */
   public static int findTotalNewCases(final List<MyData> myDataList, int amount) {
     Date currentDate = myDataList.get(myDataList.size() - 1).date;
     Calendar cal = Calendar.getInstance();
@@ -364,11 +387,6 @@ public static final class FilterData {
     return totalCurrent - totalSearch;
   }
 
-  /*
-  Initialises an array of Maps (so that two things can be initialised at once).
-   The stateCaseTotals Map<> is initialised and contains the total cases for each state, E.G. Map<"The state", "The number of cases">
-   The stateCaseNumbers Map<> is initialised and contains the List of running total cases as a MyData data type, E.G. Map<"The state", List<MyData>
-   */
   public static Map[] findCurrentStateCases(final List<MyData> completeDataList) {
     Map<String, Integer> stateCaseTotals = new HashMap();
     Map<String, List> stateCaseNumbers = new HashMap();
@@ -409,9 +427,6 @@ public static final class FilterData {
     return mapArray;
   }
 
-  /*
-  Returns if the String was already saved in the HashSet.
-   */
   public static boolean isNameAlreadySaved(HashSet<String> data, String string) {
     return data.contains(string);
   }
@@ -427,10 +442,6 @@ public static final class FilterData {
   }
 
   // M.A. fixed error for American Samoa (empty lists) where this method would give an indexOutOfBoundsException
-  /*
-  Calculates the duration between the first case for a state and the last state for a state.
-   Returns the number of days as in int.
-   */
   public static int calculateDuration(String state, Map<String, List> stateCaseNumbers) {
     List<MyData> stateData = stateCaseNumbers.get(state);
     int result = -1;
