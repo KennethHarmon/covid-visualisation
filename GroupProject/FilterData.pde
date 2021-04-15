@@ -171,8 +171,8 @@ public static final class FilterData {
     }
     return highestCases;
   }
-  
-    public static int findLowestCaseCountFromGraphDataList(final List<MyGraphData> myDataList) {
+
+  public static int findLowestCaseCountFromGraphDataList(final List<MyGraphData> myDataList) {
     int highestCases = 1000000000;
     for (final MyGraphData currentData : myDataList) {
       if (currentData.cases < highestCases) {
@@ -294,10 +294,10 @@ public static final class FilterData {
 
     final ArrayList<MyGraphData> result = new ArrayList();
     for (MyGraphData data : stateCasesPerTime) {
-        if (data.date.after(currentDate)) {
-          result.add(data);
-        }
+      if (data.date.after(currentDate)) {
+        result.add(data);
       }
+    }
     return result;
   }
 
@@ -372,6 +372,9 @@ public static final class FilterData {
       }
       adminAreaList.add(data);
       stateCaseNumbers.put(state, adminAreaList);
+      if (!isSetup) {
+        loadingPercent += 0.0000003;
+      }
     }
 
     for (final String state : STATES) {

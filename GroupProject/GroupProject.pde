@@ -30,8 +30,10 @@ Screen currentScreen;
 Screen mainScreen;
 Screen casesScreen;
 Map<Integer, Integer> newCasesCache;
-boolean isSetup;
-float loadingPercent;
+
+// M.A Made loading bar smoother
+static boolean isSetup;
+static double loadingPercent;
 
 void settings() {
   size(960, 540);
@@ -68,7 +70,7 @@ void keyPressed() {
 
 void setupProgram() {
   surface.setResizable(true); // enables the window to resize when its edges are dragged.
-  loadingPercent = 0.1;
+  loadingPercent += 0.1;
 
   //Data retrieval
   try {
@@ -86,6 +88,7 @@ void setupProgram() {
   loadingPercent += 0.1;
 
   //Map interface
+  println(1);
   Map[] stateCaseInformation = FilterData.findCurrentStateCases(myCompleteDataList);
   stateCaseTotals = stateCaseInformation[0];
   stateCaseNumbers = stateCaseInformation[1];
@@ -93,8 +96,6 @@ void setupProgram() {
   stateAdminAreaCases30 = new HashMap();
   stateAdminAreaCases7 = new HashMap();
   stateAdminAreaCasesDay = new HashMap();
-  
-  loadingPercent += 0.3;
 
   //Total Cases
   for (int caseTotals : stateCaseTotals.values()) {
@@ -104,23 +105,33 @@ void setupProgram() {
   //Initial new cases
   int initialNewCases = FilterData.findTotalNewCases(myCompleteDataList, 7);
   
-  loadingPercent += 0.3;
+  loadingPercent += 0.1;
+  println(2);
 
   //Initialisation
   newCasesCache = new HashMap();
+  
+  loadingPercent += 0.05;
+  
   font = createFont("Monospaced.bold", 22);
   textSize(14);
   newCases = new NewCasesModule(width/2-(width - 4 * MODULE_PADDING) / 6, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, initialNewCases); 
   casesModule = new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, totalCases);
+
+  loadingPercent += 0.05;
+  
   histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, FilterData.myDataToMyGraphData(searchData), 5); 
   mapModule = new MapModule(MODULE_PADDING, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, stateCaseTotals); 
   radioButtons = new RadioButtonsModule(2 * MODULE_PADDING + ((width - 3 * MODULE_PADDING) / 3 ) * 2, 3 * MODULE_PADDING + ( 5 * (height - 4 * MODULE_PADDING) / 8), (width - 3 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) * 3/8, myCompleteDataList, 1, 1, 1, 7, 30);
+  
+  loadingPercent += 0.05;
+  
   biggestIncreasesModule = new  BiggestIncreasesModule(MODULE_PADDING, 3 * MODULE_PADDING + ( 5 * (height - 4 * MODULE_PADDING) / 8), ((width - 3 * MODULE_PADDING) / 3 ) * 2, (height - 4 * MODULE_PADDING) * 3/8, stateCaseNumbers, 7);
   searchBar = new  SearchBarModule(width/2-(width - 4 * MODULE_PADDING) / 6 + (width - 4 * MODULE_PADDING) / 3 + MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8);
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;
-
+  
   // M.A added some lobby music, 02/04/2021
   // Credit to https://youtu.be/L6d7dH6tNAs
   //lobbyMusic = new SoundFile(this, "Lounge-Music.mp3");
