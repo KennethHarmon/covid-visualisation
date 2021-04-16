@@ -152,7 +152,7 @@ public class PieChartModule extends Module {
   
   /* 
    Initialises a top ten list of type AdminArea in a given state.
-   If there are less than ten states it will initialise it to the amount that there are
+   If there are less than ten states it will initialise it to the amount that there are (that have more than 0 cases)
    */
   private List<AdminArea> initialiseTopTenList(Map<String, Integer> casesByAdminArea) {
     List<AdminArea> fullList = new ArrayList(casesByAdminArea.size());
@@ -160,7 +160,15 @@ public class PieChartModule extends Module {
       fullList.add(new AdminArea(entry.getKey(), entry.getValue(), (float) entry.getValue() / this.totalStateCases * 100));
     }
     Collections.sort(fullList);
-    return fullList.subList(0, Math.min(10, fullList.size()));
+    List<AdminArea> sortedList = fullList.subList(0, Math.min(10, fullList.size()));
+    for (int i = 0; i < sortedList.size(); i++) {
+      AdminArea adminArea = sortedList.get(i);
+      if (adminArea.totalCases <= 0) {
+        sortedList.remove(adminArea);
+        i--;
+      }
+    }
+    return sortedList;
   }
 
   private class AdminArea implements Comparable<AdminArea> {
