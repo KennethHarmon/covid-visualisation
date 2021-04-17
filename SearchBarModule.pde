@@ -21,7 +21,7 @@ public class SearchBarModule extends Module {
     this.error = false;
   }
 
-  public String sendText() {
+  private String sendText() {
     text.setLength(0);
     return textAsString.trim();
   }
@@ -57,7 +57,7 @@ public class SearchBarModule extends Module {
     fittedText(STATES[8], rightLimit - leftLimit, tall, 0); // Sets text size
   }
 
-  public void isKeyPressed() { // Boolean method so that I can use this with sendText()
+  public void isKeyPressed() {
     if (keyCode == (int) BACKSPACE) {
       this.backspace();
     } else if (keyCode == 32 && text.length() > 0) { // Space character
