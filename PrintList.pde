@@ -1,6 +1,3 @@
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Iterator;
 
 // Miguel Arrieta, Added a PrintList class to print a list, 4pm, 24/03/2021
 // Miguel Arrieta, fixed potential NullPointer, IndexOutOfBounds exceptions
