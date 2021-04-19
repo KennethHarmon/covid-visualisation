@@ -3,13 +3,6 @@
 // William Walsh-Dowd, added filters for min/max cases along with functions to get the min/max cases of a data set and the data point with the min/max cases. 23/3/2021
 // Yi Ren, added a function to get the number of new cases in a certain region over a period of time. 24/3/2021
 // William Walsh-Dowd, 30th of march added findNewCasesForCounty() method
-import java.util.Date;
-import java.util.Calendar;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Collections;
 
 public static final class FilterData {
 
@@ -273,7 +266,7 @@ public static final class FilterData {
     List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
 
     List<MyData> allEntriees = new ArrayList<MyData>();
-      for (String state : STATES) {
+    for (String state : STATES) {
       allEntriees.addAll(stateCaseNumbers.get(state));
     }
     int casesForThisDay = 0;
@@ -284,7 +277,7 @@ public static final class FilterData {
     int daysToDecrement = -1;
     while (!date.equals(lastestDate)) {
       casesForThisDay = 0;
-      if (allEntriees != null && filterByDate(date, allEntriees).size() > 0) {
+      if (filterByDate(date, allEntriees).size() > 0) {
         for (MyData data : filterByDate(date, allEntriees)) {
           casesForThisDay += data.cases;
         }
@@ -296,6 +289,7 @@ public static final class FilterData {
     Collections.reverse(newGraphDataArray);
     return newGraphDataArray;
   }
+
 
   public static List<MyGraphData> myDataToMyGraphData(List<MyData> inputData) {
     List<MyGraphData> newGraphDataArray = new ArrayList<MyGraphData>();
