@@ -71,7 +71,7 @@ public class RadioButtonsModule extends Module {
             }
             newCases.cases = newCasesCache.get(radioButtons.day);
             biggestIncreasesModule.day = day;
-            biggestIncreasesModule.topFiveStateIncreases = biggestIncreasesModule.calculateChart();
+            biggestIncreasesModule.topFiveStateIncreases = biggestIncreasesModule.calculateChart();        
           }
         }
       }
