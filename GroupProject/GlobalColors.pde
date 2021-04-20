@@ -1,4 +1,5 @@
 //Kenneth Harmon: Created GlobalColors Class to more easily keep track of colors
+//Yi Ren: Made changes to the global colors and added new colors for text, bar chart and radio buttons.
 public final color GLOBAL_BACKGROUND = color(241,243,245);
 public final color MODULE_COLOR = color(248,249,250);
 public final color RED = color(255, 0, 0);

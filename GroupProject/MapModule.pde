@@ -65,21 +65,23 @@ public class MapModule extends Module {
       float yDimension = tall / 6;
       String name = geoMap.getAttributeTable().findRow(str(id), 0).getString("Name");
       textSize(wide * tall / 8000); // 8000 seems to be the right ratio
+      textAlign(CENTER,CENTER);
+      fittedText(name, xDimension, yDimension, int(yDimension/4));
       if (relativeMouseX > textWidth(name)) {
         fill(BLACK, 63); // 25% opacity
         rectMode(CORNERS);
         rect(xPos, yPos, xPos - xDimension, yPos - yDimension);
         rectMode(CORNER);
+        fill(WHITE);
+        text(name, xPos-xDimension/2, yPos-yDimension/2);
       } else {
         fill(BLACK, 63); // 25% opacity
         rectMode(CORNERS);
         rect(xPos, yPos, xPos + xDimension, yPos - yDimension);
         rectMode(CORNER);
+        fill(WHITE);
+        text(name, xPos+xDimension/2, yPos-yDimension/2);
       }
-      fill(WHITE);
-      textAlign(CENTER,CENTER);
-      fittedText(name, xDimension, yDimension, int(yDimension/4));
-      text(name, xPos-xDimension/2, yPos-yDimension/2);
       if (mousePressed && mouseButton == LEFT) {
         currentScreen = new StateDataScreen(name);
         casesScreen = currentScreen;
