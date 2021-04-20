@@ -10,9 +10,10 @@ public class CaseModule extends Module {
   //K.H changed to subclass draw
   @Override
     void subClassDraw() {
+    fill(TEXT_COLOR);
     textAlign(CENTER, CENTER);
     final String text = "Total Cases: " + formatText("##,###,###", cases);
-    fittedText(text, wide, tall, MODULE_PADDING);
-    outlineText(text, wide / 2, tall / 2, 0, MODULE_COLOR);
+    fittedText(text, wide, tall, int(tall/3));
+    text(text, wide / 2, tall / 2);
   }
 }

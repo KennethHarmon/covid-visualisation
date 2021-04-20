@@ -78,15 +78,15 @@ public class HistogramModule extends Module {
     rectMode(CORNER);
     for (int i = 0; i < data.length; i++) {
       fill(NAVY);
-      strokeWeight(1);
       stroke(NAVY);
+      strokeWeight(0.5);
       rect(map(i, 0, data.length, wide/10 + boarderSize, wide - boarderSize) + 2, tall - boarderSize, barwide-2, map(data[i], minDataValue, maxDataValue, boarderSize, -tall + boarderSize));
     }
   }
 
   private void bestFitLine(int[] dataToMap) {
     for (int i = 0; i < dataToMap.length-1; i++) {
-      stroke(255, 0, 0);
+      stroke(LIGHT_BLUE);
       line(map(i + .5, 0, dataToMap.length, wide/10, wide), tall - map(dataToMap[i], minDataValue, maxDataValue, 0, tall), map(i+1 + .5, 0, dataToMap.length, wide/10, wide), tall - map(dataToMap[i+1], minDataValue, maxDataValue, 0, tall));
       stroke(0);
     }
@@ -96,9 +96,10 @@ public class HistogramModule extends Module {
     int scale = int((maxDataValue - minDataValue)/10);
     for (int i = 1; i < 11; i++) {
       textSize(tall/25);
-      fill(NAVY);
+      fill(TEXT_COLOR);
       textAlign(LEFT);
       text(formatText("##,###,###", int(((10-i) * (scale)) + minDataValue)), 5, (i-1) * (tall/10) + tall/13);
+      stroke(TEXT_COLOR);
       line(0, i * (tall/10), wide, i * (tall/10));
     }
   }

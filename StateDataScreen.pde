@@ -1,4 +1,5 @@
 // William Walsh-Dowd created on 30th march, creates a screen with data from a spacific state.
+// Yi Ren implemented the radioButtonModule in this screen.
 // M.A implemented the pieChartModule within this Screen, 04/04/2021
 // M.A fixed error screen. 06/04/2021
 // M.A made it so that the pieChartModule can interact with the radio buttons, 13/04/2021
@@ -12,12 +13,12 @@ public class StateDataScreen extends Screen {
     this.stateName = stateName;
     this.allStateEntries = stateCaseNumbers.get(stateName);
     int duration = FilterData.calculateDuration(stateName, stateCaseNumbers);
-    radioButtons = new RadioButtonsModule(MODULE_PADDING, 2*MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, width - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) / 8, myCompleteDataList, 2, stateName, 3, 1, 7, 30, duration);
+    radioButtons = new RadioButtonsModule(MODULE_PADDING, 2*MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, width - 2 * MODULE_PADDING, (height - 4 * MODULE_PADDING) / 8, myCompleteDataList, 2, stateName, 3, 1, 7, 30, duration); //The buttons are first set to "All Time".
     newCases2 = new NewCasesModule(width - MODULE_PADDING - (width - 4 * MODULE_PADDING) / 3, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, FilterData.findNewCasesForCounty(allStateEntries, stateName, duration));
     try {
       super.addModules(
         new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, stateCaseTotals.get(stateName)), 
-        new TextModule((width - 4 * MODULE_PADDING) / 3 + 2 * MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, stateName, MODULE_COLOR), 
+        new TextModule((width - 4 * MODULE_PADDING) / 3 + 2 * MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, stateName, TEXT_COLOR), 
         new HistogramModule(MODULE_PADDING * 2 + width / 3 - 2 * MODULE_PADDING, 3 * MODULE_PADDING + 2 * (height - 4 * MODULE_PADDING) / 8, width / 3 * 2 - MODULE_PADDING, (height - 4 * MODULE_PADDING) * 6 / 8, FilterData.createStateCasesPerTime(stateName, stateCaseNumbers, myCompleteDataList), 5), 
         newCases2, 
         radioButtons, 

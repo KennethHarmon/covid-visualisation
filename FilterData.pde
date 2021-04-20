@@ -3,6 +3,7 @@
 // William Walsh-Dowd, added filters for min/max cases along with functions to get the min/max cases of a data set and the data point with the min/max cases. 23/3/2021
 // Yi Ren, added a function to get the number of new cases in a certain region over a period of time. 24/3/2021
 // William Walsh-Dowd, 30th of march added findNewCasesForCounty() method
+// Yi Ren, added findTotalNewCases method.
 
 public static final class FilterData {
 

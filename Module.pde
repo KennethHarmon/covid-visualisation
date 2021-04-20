@@ -23,7 +23,7 @@ public class Module {
 
   void draw() {
     fill(MODULE_COLOR);
-    strokeWeight(3);
+    strokeWeight(1);
     stroke(GLOBAL_MODULE_STROKE);
 
     pushMatrix();

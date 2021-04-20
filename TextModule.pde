@@ -11,9 +11,10 @@ public class TextModule extends Module {
   }
 
   void subClassDraw() {
+    fill(textColor);
     textAlign(CENTER, CENTER);
-    fittedText(text, wide, tall, MODULE_PADDING);
-    outlineText(text, wide / 2, tall / 2, 0, textColor);
+    fittedText(text, wide, tall, int(tall/3));
+    text(text, wide / 2, tall / 2);
   }
 
   void setText(String text) {

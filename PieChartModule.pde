@@ -32,12 +32,14 @@ public class PieChartModule extends Module {
     void subClassDraw() {
     textAlign(CENTER, CENTER);
     if (topAdminAreasList.size() > 1) {
+      fill(TEXT_COLOR);
       fittedText(stateCasesLabel, wide / 1.2, tall / 3, MODULE_PADDING); // Change to take wide if it's going to be a square module
-      outlineText(stateCasesLabel, wide / 2, tall / 12, 0, MODULE_COLOR);
+      text(stateCasesLabel, wide / 2, tall / 12);
       this.pieChart();
     } else {
+      fill(TEXT_COLOR);
       fittedText(stateCasesLabel, wide, tall, MODULE_PADDING * 2);
-      outlineText(stateCasesLabel, wide / 2, tall / 2, 0, RED);
+      text(stateCasesLabel, wide / 2, tall / 2);
     }
   }
 
@@ -82,22 +84,25 @@ public class PieChartModule extends Module {
         xPos += 5;
 
         // Percentage
+        fill(WHITE);
         String information = twoDecimalPlacesFormat.format(sector.actualPercentageOfCases) + "% of cases in " + this.state;
         fittedText(information, xDimension, yToBeDrawnIn, (int) (MODULE_PADDING * 1.5));
         yPos -= yToBeDrawnIn;
-        outlineText(information, xPos, yPos + yToBeDrawnIn / 2, BLACK, GLOBAL_BACKGROUND);
+        text(information, xPos, yPos + yToBeDrawnIn / 2);
 
         // Total cases
+        fill(WHITE);
         information = "Total cases: " + formatText("##,###,###", sector.totalCases);
         fittedText(information, xDimension, yToBeDrawnIn, (int) (MODULE_PADDING * 1.5));
         yPos -= yToBeDrawnIn;
-        outlineText(information, xPos, yPos + yToBeDrawnIn / 2, BLACK, GLOBAL_BACKGROUND);
+        text(information, xPos, yPos + yToBeDrawnIn / 2);
 
         // Admin area name
+        fill(WHITE);
         information = "Region: " + sector.adminArea;
         fittedText(information, xDimension, yToBeDrawnIn, (int) (MODULE_PADDING * 1.5));
         yPos -= yToBeDrawnIn;
-        outlineText(information, xPos, yPos + yToBeDrawnIn / 2, BLACK, GLOBAL_BACKGROUND);
+        text(information, xPos, yPos + yToBeDrawnIn / 2);
       }
     }
   }
