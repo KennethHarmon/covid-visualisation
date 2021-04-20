@@ -38,6 +38,7 @@ public class StateDataScreen extends Screen {
       if (radioButtons.day != EVENT_NULL) {
         // M.A made it so that this data is cached in case it needs to be accessed again, 13/04/2021
         List<MyData> stateAdminAreas;
+        List<MyData> stateAdminAreasForGraph;
         List<MyGraphData> GraphDataList = new ArrayList<MyGraphData>();
         switch (radioButtons.day) {
         case 1:
@@ -45,8 +46,12 @@ public class StateDataScreen extends Screen {
           if (stateAdminAreas == null) {
             stateAdminAreas = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day);
             stateAdminAreaCasesDay.put(this.stateName, stateAdminAreas);
+            
+            stateAdminAreasForGraph = FilterData.findCasesInListAfterDate(myCompleteDataList, this.stateName, radioButtons.day + 1);
+            stateAdminAreaCasesDay.put(this.stateName, stateAdminAreasForGraph);
           }
           GraphDataList = FilterData.createStateCasesPerTime(this.stateName, stateAdminAreaCasesDay, stateAdminAreas);
+          stateAdminAreaCasesDay.put(this.stateName, stateAdminAreas);
           break;
 
         case 7:
