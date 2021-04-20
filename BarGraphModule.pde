@@ -28,7 +28,6 @@ public class HistogramModule extends Module {
     }
     this.averageRange = averageRange;
     lineData = saveBestFitLineAlt(this.data);
-    println("maxDataValue : " + maxDataValue);
   }
 
   HistogramModule(int x, int y, int wide, int tall, int[] data, int averageRange) {

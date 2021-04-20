@@ -12,7 +12,7 @@ public class RadioButtonsModule extends Module {
     this.duration = days[days.length-1];
     radio = new ArrayList<Widget>();
     for (int i = 0; i < days.length; i++) {
-      radio.add(new Widget(days[i], GLOBAL_BACKGROUND, NAVY, duration));
+      radio.add(new Widget(days[i], GLOBAL_BACKGROUND, BUTTON_COLOR, duration));
     }
     this.screen = screen;
     this.days = days;
@@ -29,7 +29,7 @@ public class RadioButtonsModule extends Module {
     super(x, y, wide, tall);
     radio = new ArrayList<Widget>();
     for (int i = 0; i < days.length; i++) {
-      radio.add(new Widget(days[i], WHITE, NAVY));
+      radio.add(new Widget(days[i], GLOBAL_BACKGROUND, BUTTON_COLOR));
     }
     this.screen = screen;
     this.days = days;

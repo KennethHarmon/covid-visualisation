@@ -4,13 +4,14 @@ public final color MODULE_COLOR = color(248,249,250);
 public final color RED = color(255, 0, 0);
 public final color GLOBAL_MODULE_STROKE = color(222,226,230);
 public final color NAVY = color(24,100,171);
-public final color LIGHT_BLUE = color(208,235,255);
+public final color LIGHT_BLUE = color(231,245,255);
 public final color BLACK = color(0);
 public final color GREY = color(206,212,218);
 public final color WHITE = color(255);
 public final color TEXT_COLOR = color(90,90,90); 
-public final color BAR_COLOR = color(75,136,192);
-public final color minMapColour = color(231,245,255);   // Light blue
+public final color BAR_COLOR = color(123, 168, 209);
+public final color BUTTON_COLOR = color(75, 136, 192);
+public final color minMapColour = LIGHT_BLUE;   // Light blue
 public final color maxMapColour = NAVY;    // Dark blue.
 
 // M.A Made a method to outline text 30/03/2021
