@@ -11,7 +11,7 @@ public class NewCasesModule extends Module {
     void subClassDraw() {
     fill(TEXT_COLOR);
     textAlign(CENTER, CENTER);
-    final String text = "New Cases:" + formatText("##,###,###", cases);
+    final String text = "New Cases: " + formatText("##,###,###", cases);
     fittedText(text, wide, tall, int(tall/3));
     text(text, wide / 2, tall / 2);
   }
