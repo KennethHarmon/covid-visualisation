@@ -9,9 +9,10 @@ public class NewCasesModule extends Module {
 
   @Override
     void subClassDraw() {
+    fill(TEXT_COLOR);
     textAlign(CENTER, CENTER);
-    final String text = "New cases:" + formatText("##,###,###", cases);
-    fittedText(text, wide, tall, MODULE_PADDING);
-    outlineText(text, wide / 2, tall / 2, 0, MODULE_COLOR);
+    final String text = "New Cases:" + formatText("##,###,###", cases);
+    fittedText(text, wide, tall, int(tall/3));
+    text(text, wide / 2, tall / 2);
   }
 }

@@ -1,4 +1,4 @@
-//// made by Yi Ren on 31st of March. a class that extends module and takes in the user input to show new cases over different time periods.
+// made by Yi Ren on 31st of March. a class that extends module and takes in the user input to show new cases over different time periods.
 public class RadioButtonsModule extends Module {
   ArrayList<Widget> radio;
   int current, event, day;
@@ -12,7 +12,7 @@ public class RadioButtonsModule extends Module {
     this.duration = days[days.length-1];
     radio = new ArrayList<Widget>();
     for (int i = 0; i < days.length; i++) {
-      radio.add(new Widget(days[i], GREY, NAVY, duration));
+      radio.add(new Widget(days[i], GLOBAL_BACKGROUND, NAVY, duration));
     }
     this.screen = screen;
     this.days = days;
@@ -29,7 +29,7 @@ public class RadioButtonsModule extends Module {
     super(x, y, wide, tall);
     radio = new ArrayList<Widget>();
     for (int i = 0; i < days.length; i++) {
-      radio.add(new Widget(days[i], GREY, NAVY));
+      radio.add(new Widget(days[i], WHITE, NAVY));
     }
     this.screen = screen;
     this.days = days;
@@ -44,15 +44,17 @@ public class RadioButtonsModule extends Module {
 
   @Override
     void subClassDraw() {
-    if (screen == 1) {
+    if (screen == 1) {  //In the main screen
+      fill(TEXT_COLOR);
       String text1 = "Show new cases\nin the past ";
       textAlign(CENTER);
       fittedText(text1, wide/2, tall, MODULE_PADDING);
-      outlineText(text1, wide/4, tall/2, 0, MODULE_COLOR);
-    } else {
+      text(text1, wide/4, tall/2);
+    } else {  //in the state screen
+      fill(TEXT_COLOR);
       String text2 = "Show new cases in the past ";
       fittedText(text2, wide/3, tall, MODULE_PADDING);
-      outlineText(text2, wide/6, tall / 2, 0, MODULE_COLOR);
+      text(text2, wide/6, tall / 2);
     }
     for (int i = 0; i < radio.size(); i++) {
       if (mousePressed) {
@@ -67,11 +69,11 @@ public class RadioButtonsModule extends Module {
           if (screen == 1) {
             if (!newCasesCache.containsKey(radioButtons.day)) {
               int foundNewCases = FilterData.findTotalNewCases(myCompleteDataList, radioButtons.day);
-              newCasesCache.put(radioButtons.day, foundNewCases);   
+              newCasesCache.put(radioButtons.day, foundNewCases);   //Interact with newCasesModule
             }
             newCases.cases = newCasesCache.get(radioButtons.day);
             biggestIncreasesModule.day = day;
-            biggestIncreasesModule.topFiveStateIncreases = biggestIncreasesModule.calculateChart();        
+            biggestIncreasesModule.topFiveStateIncreases = biggestIncreasesModule.calculateChart();   //Interact with biggestIncreasesModule
           }
         }
       }

@@ -31,12 +31,12 @@ public class Widget {
   void draw() {
     fill(clicked ? widgetColor2 : widgetColor1);
     stroke(GLOBAL_MODULE_STROKE);
-    strokeWeight(3);
     rect(x, y, wide, tall);
+    fill(clicked ? WHITE : TEXT_COLOR);
     textAlign(CENTER, CENTER);
     String text =(event == duration) ? "All Time" : (event + ((event<= 1) ? "day" : "days"));
-    fittedText(text, wide, tall, MODULE_PADDING);
-    outlineText(text, x+wide/2, y+tall/2, 0, MODULE_COLOR);
+    fittedText(text, wide, tall, int(tall/4));
+    text(text, x+wide/2, y+tall/2);
   }
 
   int getEvent(float mX, float mY) {

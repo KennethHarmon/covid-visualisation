@@ -34,18 +34,18 @@ public class SearchBarModule extends Module {
     void draw() {
 
     fill(MODULE_COLOR);
-    strokeWeight(3);
-    stroke(230);
+    stroke(GLOBAL_MODULE_STROKE);
 
     pushMatrix();
     translate(xOrigin, yOrigin);
     fill(MODULE_COLOR);
     rect(0, 0, wide, tall, wide / 2); // The radius gives it a curved look
 
+    fill((error) ? RED : BLACK);
     textAlign(LEFT, CENTER);
     setTextAsString(); // Converting to String 
     this.adjustLimits();
-    outlineText(textAsString + ((frameCount >> 5 & 1) == 0 && !error ? "_" : ""), leftLimit, tall / 2, 0, (error) ? RED : MODULE_COLOR); // Drawing the text to the screen with a blinking underscore
+    text(textAsString + ((frameCount >> 5 & 1) == 0 && !error ? "_" : ""), leftLimit, tall / 2); // Drawing the text to the screen with a blinking underscore
     popMatrix();
 
     positionAndSizeUpdater();

@@ -1,4 +1,5 @@
 //Kenneth Harmon: Created biggestIncreasesModule
+//Yi Ren: Added some interactivity with RadioButtonsModule in the main screen.
 import java.time.LocalDate;
 import java.time.ZoneId;
 
@@ -32,10 +33,11 @@ public class BiggestIncreasesModule extends Module {
   @Override
     void subClassDraw() {
     ///Title 
+    fill(TEXT_COLOR);
     textAlign(LEFT, CENTER);
     final String text = "Biggest Increases:";
     fittedText(text, wide / 4, tall / 7, MODULE_PADDING);
-    outlineText(text, MODULE_PADDING, tall / 14, 0, MODULE_COLOR);
+    text(text, MODULE_PADDING, tall / 14);
     fill(0);
     drawChart();
   }
@@ -81,7 +83,7 @@ public class BiggestIncreasesModule extends Module {
     return topFiveStates;
   }
 
-  /*Draws the chart to the sceen, calculateChart() must be called first.
+  /*Draws the chart to the screen, calculateChart() must be called first.
   */
   void drawChart() {
     int offset = 0;
@@ -98,15 +100,14 @@ public class BiggestIncreasesModule extends Module {
       chartWidth = barWidthPerState.get(state);
 
       //Text
-      fill(0);
+      fill(TEXT_COLOR);
       textAlign(LEFT, TOP);
       String text = state + ": ";
       fittedText("##########", wide / 5, tall / 6, 0);
-      outlineText(text, chartTextX, (chartYStart + (padding*offset)), 0, MODULE_COLOR);
       text(text, chartTextX, (chartYStart + (padding*offset)));
 
       //Bar
-      fill(TURQUIOSE);
+      fill(BAR_COLOR);
       rect(chartXStart, chartYStart + (padding*offset), chartWidth, chartHeight);
       offset++;
 
@@ -115,6 +116,7 @@ public class BiggestIncreasesModule extends Module {
     checkMouseHover(barWidthPerState);
   }
 
+  //Yi Ren: Adding animation for bars
   void moveBars(String state){
     float chartWidthMax = (float)(wide - ((MODULE_PADDING) + wide / 4)) * ((float)topFiveStateIncreases.get(state) / (float)maxIncrease);
     float barWidth = barWidthPerState.get(state);

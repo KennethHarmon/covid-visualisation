@@ -41,6 +41,8 @@ void setup() {
   loadingPercent = 0;
   loadingScreen = new LoadingScreen();
   thread("setupProgram");
+  font = createFont("Yu Gothic UI Regular", 22);
+  textFont(font);
 }
 
 void draw() {
@@ -108,7 +110,6 @@ void setupProgram() {
   
   loadingPercent += 0.05;
   
-  font = createFont("Monospaced.bold", 22);
   textSize(14);
   newCases = new NewCasesModule(width/2-(width - 4 * MODULE_PADDING) / 6, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, initialNewCases); 
   casesModule = new CaseModule(MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8, totalCases);
@@ -122,8 +123,7 @@ void setupProgram() {
   loadingPercent += 0.05;
   
   biggestIncreasesModule = new  BiggestIncreasesModule(MODULE_PADDING, 3 * MODULE_PADDING + ( 5 * (height - 4 * MODULE_PADDING) / 8), ((width - 3 * MODULE_PADDING) / 3 ) * 2, (height - 4 * MODULE_PADDING) * 3/8, stateCaseNumbers, 7);
-  histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, FilterData.createTotalCasesPerTime(stateCaseNumbers, myCompleteDataList), 5); 
-  searchBar = new  SearchBarModule(width/2-(width - 4 * MODULE_PADDING) / 6 + (width - 4 * MODULE_PADDING) / 3 + MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8);
+  histogram = new HistogramModule(width/2 + MODULE_PADDING/2, 2 * MODULE_PADDING + (height - 4 * MODULE_PADDING) / 8, (width - 3 * MODULE_PADDING) / 2, (height - 4 * MODULE_PADDING) * 4/8, FilterData.createTotalCasesPerTime(stateCaseNumbers, myCompleteDataList), 5); searchBar = new  SearchBarModule(width/2-(width - 4 * MODULE_PADDING) / 6 + (width - 4 * MODULE_PADDING) / 3 + MODULE_PADDING, MODULE_PADDING, (width - 4 * MODULE_PADDING) / 3, (height - 4 * MODULE_PADDING) / 8);
   mainScreen = new Screen();
   casesScreen = new Screen();
   currentScreen = mainScreen;

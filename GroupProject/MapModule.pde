@@ -2,6 +2,7 @@
 //K.H converted to subclass draw 26/03/2021
 // M.A made the map scalable and started to set up a system for queries and made an outline for the text 29/03/2021
 // M.A fixed top text scaling for map and overall scaling 30/03/2021
+// Yi Ren changed the 
 import org.gicentre.geomap.*;
 
 public class MapModule extends Module {
@@ -29,7 +30,7 @@ public class MapModule extends Module {
 
   @Override
     void subClassDraw() {
-    stroke(0);
+    stroke(GREY);
     strokeWeight(0.5);
     //Initial calculation
     for (int id : geoMap.getFeatures().keySet()) {
@@ -58,14 +59,27 @@ public class MapModule extends Module {
     if (id != -1) {
       fill(NAVY);
       geoMap.draw(id);
+      int xPos = relativeMouseX + 5;
+      int yPos = relativeMouseY - 5;
+      float xDimension = wide / 6;
+      float yDimension = tall / 6;
       String name = geoMap.getAttributeTable().findRow(str(id), 0).getString("Name");
       textSize(wide * tall / 8000); // 8000 seems to be the right ratio
       if (relativeMouseX > textWidth(name)) {
-        textAlign(RIGHT);
+        fill(BLACK, 63); // 25% opacity
+        rectMode(CORNERS);
+        rect(xPos, yPos, xPos - xDimension, yPos - yDimension);
+        rectMode(CORNER);
       } else {
-        textAlign(LEFT);
+        fill(BLACK, 63); // 25% opacity
+        rectMode(CORNERS);
+        rect(xPos, yPos, xPos + xDimension, yPos - yDimension);
+        rectMode(CORNER);
       }
-      outlineText(name, relativeMouseX + 5, relativeMouseY - 5, 0, GLOBAL_BACKGROUND);
+      fill(WHITE);
+      textAlign(CENTER,CENTER);
+      fittedText(name, xDimension, yDimension, int(yDimension/4));
+      text(name, xPos-xDimension/2, yPos-yDimension/2);
       if (mousePressed && mouseButton == LEFT) {
         currentScreen = new StateDataScreen(name);
         casesScreen = currentScreen;
@@ -73,9 +87,10 @@ public class MapModule extends Module {
     }
 
     // Top Text
+    fill(TEXT_COLOR);
     textAlign(CENTER, TOP);
-    fittedText("Total Covid Cases Per State", wide / 2, tall / 2, 5);
-    outlineText("Total Covid Cases Per State", wide / 2, 2, 0, MODULE_COLOR);
+    fittedText("Total Covid Cases Per State", wide / 2, tall / 2, 2*MODULE_PADDING);
+    text("Total Covid Cases Per State", wide / 2, 2);
 
     //Scale
     float topTextSize = wide * tall / 12000;
