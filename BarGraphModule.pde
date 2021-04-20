@@ -12,7 +12,7 @@ public class HistogramModule extends Module {
   private float minDataValue;
   private int averageRange = 1;
   private float boarderSize = 2;
-  TextModule textBox = new TextModule(wide/2-(wide/6), 0, wide/3, tall/10, "", MODULE_COLOR);
+  TextModule textBox = new TextModule(wide/2-(wide/6), 0, wide/3, tall/10, "", TEXT_COLOR);
 
   HistogramModule(int x, int y, int wide, int tall, List<MyGraphData> data, int averageRange) {
     super(x, y, wide, tall);
