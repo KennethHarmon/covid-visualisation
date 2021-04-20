@@ -135,7 +135,7 @@ public class BiggestIncreasesModule extends Module {
       final int relativeMouseY = mouseY - (int) super.yOrigin;
       String state = topFiveStateNames.get(offset);
       if ((relativeMouseX >= chartXStart) && (relativeMouseX <= chartXStart + barWidthPerState.get(state)) && (relativeMouseY >= chartYStart + (padding*offset)) && (relativeMouseY <= (chartYStart + (padding*offset)) + chartHeight)) {
-        textAlign(LEFT, CENTER);
+        textAlign(CENTER, CENTER);
         fill(BLACK, 63); // 25% opacity
         int xPos = relativeMouseX + 5;
         int yPos = relativeMouseY - 5;
@@ -149,10 +149,11 @@ public class BiggestIncreasesModule extends Module {
         xPos += 5;
 
         // Total cases
+        fill(WHITE);
         String information = formatText("###,###", topFiveStateIncreases.get(topFiveStateNames.get(offset))) + " cases";
         fittedText(information, xDimension, yDimension, MODULE_PADDING);
         yPos -= yDimension;
-        outlineText(information, xPos, yPos + yDimension / 2, BLACK, GLOBAL_BACKGROUND);
+        text(information, xPos + xDimension / 2, yPos + yDimension / 2);
       }
     }
   }
