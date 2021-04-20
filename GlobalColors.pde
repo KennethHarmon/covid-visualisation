@@ -1,3 +1,4 @@
+//Kenneth Harmon: Created GlobalColors Class to more easily keep track of colors
 public final color MODULE_COLOR = color(255);
 public final color GLOBAL_BACKGROUND = color(242, 248, 250);
 public final color RED = color(255, 0, 0);

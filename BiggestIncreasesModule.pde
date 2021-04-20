@@ -1,3 +1,4 @@
+//Kenneth Harmon: Created biggestIncreasesModule
 import java.time.LocalDate;
 import java.time.ZoneId;
 
@@ -26,7 +27,6 @@ public class BiggestIncreasesModule extends Module {
     maxValueCache = new HashMap<Integer, Integer>();
     barWidthPerState = new HashMap<String, Float>();
     topFiveStateIncreases = calculateChart();
-    print("tall: " + tall);
   }
 
   @Override
@@ -37,10 +37,10 @@ public class BiggestIncreasesModule extends Module {
     fittedText(text, wide / 4, tall / 7, MODULE_PADDING);
     outlineText(text, MODULE_PADDING, tall / 14, 0, MODULE_COLOR);
     fill(0);
-    //text(text, MODULE_PADDING, tall / 14);
     drawChart();
   }
 
+  //Setup the data for the chart
   HashMap<String, Integer> calculateChart() {
     HashMap<String, Integer> topFiveStates;
 
@@ -81,6 +81,8 @@ public class BiggestIncreasesModule extends Module {
     return topFiveStates;
   }
 
+  /*Draws the chart to the sceen, calculateChart() must be called first.
+  */
   void drawChart() {
     int offset = 0;
     padding = tall/6;
@@ -124,9 +126,9 @@ public class BiggestIncreasesModule extends Module {
     }
   }
 
+//Kenneth Harmon: Added mouse hovering on chart, based on Miguel's method for the pie chart
   void checkMouseHover(Map<String, Float> barWidthPerState) {
     for (int offset = 0; offset < 5; offset++) {
-      // Mousing over the bar chart K.H Adapted from Miguel's hovering for pie chart.
       final int relativeMouseX = mouseX - (int) super.xOrigin;
       final int relativeMouseY = mouseY - (int) super.yOrigin;
       String state = topFiveStateNames.get(offset);

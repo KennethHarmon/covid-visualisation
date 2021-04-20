@@ -121,7 +121,7 @@ public class MapModule extends Module {
     line(x1, y1, x1, y2);
   }
 
-  //Taken from Processing docs
+  //K.H Taken from Processing docs
   void setGradient(int x, int y, float w, float h, color c1, color c2, int axis) {
     noFill();
     if (axis == Y_AXIS) {  // Top to bottom gradient

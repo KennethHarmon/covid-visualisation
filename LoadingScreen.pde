@@ -1,3 +1,4 @@
+//Kenneth Harmon: Created loading screen class 14/04/21
 public class LoadingScreen {
   
   int barWidth;
