@@ -6,6 +6,7 @@
 
 public static final class FilterData {
 
+  //Kenneth Harmon, added a saved variable for the admin areas so we don't have to calcuate them multiple times
   public static HashMap<String, HashSet<String>> adminAreasCache = new HashMap<String, HashSet<String>>();
 
   /*  Filters by date. Returns a List of type MyData.

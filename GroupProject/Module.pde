@@ -1,3 +1,4 @@
+//Created by Kenneth Harmon, a standardised module class which holds each part of the UI to allow for easier scaling and reordering without relying on global coordinates
 import java.text.DecimalFormat;
 
 public class Module {

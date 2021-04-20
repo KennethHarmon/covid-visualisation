@@ -1,3 +1,4 @@
+//Created by Kenneth Harmon, a screen class based on our previous work in the module. Each screen is simply a collection of modules which are drawn.
 public class Screen {
   public final List<Module> moduleList;
 
