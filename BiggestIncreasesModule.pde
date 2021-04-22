@@ -120,8 +120,8 @@ public class BiggestIncreasesModule extends Module {
   void moveBars(String state){
     float chartWidthMax = (float)(wide - ((MODULE_PADDING) + wide / 4)) * ((float)topFiveStateIncreases.get(state) / (float)maxIncrease);
     float barWidth = barWidthPerState.get(state);
-    if(barWidth < chartWidthMax - 10){
-      barWidthPerState.put(state, barWidth + 10);
+    if(barWidth < chartWidthMax - wide/60){
+      barWidthPerState.put(state, barWidth + wide/60);
     }
     else{
       barWidthPerState.put(state, chartWidthMax);
